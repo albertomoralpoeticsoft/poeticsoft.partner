@@ -46300,7 +46300,6 @@ var _wp$components = wp.components,
   Button = _wp$components.Button,
   SelectControl = _wp$components.SelectControl;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
-  var postId = wp.data.select('core/editor').getCurrentPostId();
   var publish = function publish() {
     props.dispatch({
       publishing: true,
@@ -46309,10 +46308,8 @@ var _wp$components = wp.components,
     var what = props.state.publishnowwhat;
     var where = props.state.publishnowwhere.join(',');
     var url = '/wp-json/poeticsoft/telegram/publishwp?' + "what=".concat(what, "&") + "where=".concat(where, "&") + "postid=".concat(postId);
-    console.log(url);
     fetch(url).then(function (result) {
       return result.json().then(function (published) {
-        console.log(published);
         if (published.ok) {
           props.dispatch({
             publishing: false,

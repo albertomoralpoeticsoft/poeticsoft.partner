@@ -1,3 +1,12 @@
+/* **************************************
+  1.- Actualizar version en plugin header
+  2.- Generar release zip de la version
+  3.- Actualizar json de versiones
+  4.- Subir plugin, json y zip
+
+  Todo - automatizar en un script
+*/
+
 const fs = require('fs');
 const path = require('path');
 const archiver = require('archiver');

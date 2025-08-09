@@ -5,12 +5,7 @@ const {
 
 export default props => {	
 
-  const postId = wp.data
-  .select('core/editor')
-  .getCurrentPostId();
-
 	const publish = () => {
-
 		props.dispatch({
       publishing: true,
       message: 'publicando...'
@@ -23,16 +18,12 @@ export default props => {
       `where=${ where }&` +
       `postid=${ postId }`
 
-    console.log(url)
-
     fetch(url)
     .then(
       result => result
       .json()
       .then(
         published => {
-
-          console.log(published)
 
           if(published.ok) {
 
