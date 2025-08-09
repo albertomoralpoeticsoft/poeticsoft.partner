@@ -5,7 +5,7 @@ use LogicException;
 use stdClass;
 use WP_Error;
 
-if ( !class_exists(Metadata::class, false) ):
+if (!class_exists(Metadata::class, false)):
 
 	/**
 	 * A base container for holding information about updates and plugin metadata.
@@ -41,7 +41,7 @@ if ( !class_exists(Metadata::class, false) ):
 		protected static function createFromJson($json, $target) {
 			/** @var \StdClass $apiResponse */
 			$apiResponse = json_decode($json);
-			if ( empty($apiResponse) || !is_object($apiResponse) ){
+			if (empty($apiResponse) || !is_object($apiResponse)){
 				$errorMessage = "Failed to parse update metadata. Try validating your .json file with https://jsonlint.com/";
 				do_action('puc_api_error', new WP_Error('puc-invalid-json', $errorMessage));
 				//phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error -- For plugin developers.
@@ -50,7 +50,7 @@ if ( !class_exists(Metadata::class, false) ):
 			}
 
 			$valid = $target->validateMetadata($apiResponse);
-			if ( is_wp_error($valid) ){
+			if (is_wp_error($valid)){
 				do_action('puc_api_error', $valid);
 				//phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error -- For plugin developers.
 				trigger_error(esc_html($valid->get_error_message()), E_USER_NOTICE);
@@ -115,13 +115,13 @@ if ( !class_exists(Metadata::class, false) ):
 		protected function copyFields($from, $to) {
 			$fields = $this->getFieldNames();
 
-			if ( property_exists($from, 'slug') && !empty($from->slug) ) {
+			if (property_exists($from, 'slug') && !empty($from->slug)) {
 				//Let plugins add extra fields without having to create subclasses.
 				$fields = apply_filters($this->getPrefixedFilter('retain_fields') . '-' . $from->slug, $fields);
 			}
 
 			foreach ($fields as $field) {
-				if ( property_exists($from, $field) ) {
+				if (property_exists($from, $field)) {
 					$to->$field = $from->$field;
 				}
 			}

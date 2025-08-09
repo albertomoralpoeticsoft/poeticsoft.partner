@@ -6,7 +6,7 @@ use YahnisElsts\PluginUpdateChecker\v5p6\UpdateChecker as BaseUpdateChecker;
 use YahnisElsts\PluginUpdateChecker\v5p6\Scheduler;
 use YahnisElsts\PluginUpdateChecker\v5p6\DebugBar;
 
-if ( !class_exists(UpdateChecker::class, false) ):
+if (!class_exists(UpdateChecker::class, false)):
 
 	/**
 	 * A custom plugin update checker.
@@ -47,14 +47,14 @@ if ( !class_exists(UpdateChecker::class, false) ):
 
 			//If no slug is specified, use the name of the main plugin file as the slug.
 			//For example, 'my-cool-plugin/cool-plugin.php' becomes 'cool-plugin'.
-			if ( empty($slug) ){
+			if (empty($slug)){
 				$slug = basename($this->pluginFile, '.php');
 			}
 
 			//Plugin slugs must be unique.
 			$slugCheckFilter = 'puc_is_slug_in_use-' . $slug;
 			$slugUsedBy = apply_filters($slugCheckFilter, false);
-			if ( $slugUsedBy ) {
+			if ($slugUsedBy) {
 				$this->triggerError(sprintf(
 					'Plugin slug "%s" is already in use by %s. Slugs must be unique.',
 					$slug,
@@ -67,7 +67,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 
 			//Backwards compatibility: If the plugin is a mu-plugin but no $muPluginFile is specified, assume
 			//it's the same as $pluginFile given that it's not in a subdirectory (WP only looks in the base dir).
-			if ( (strpbrk($this->pluginFile, '/\\') === false) && $this->isUnknownMuPlugin() ) {
+			if ((strpbrk($this->pluginFile, '/\\') === false) && $this->isUnknownMuPlugin()) {
 				$this->muPluginFile = $this->pluginFile;
 			}
 
@@ -140,7 +140,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 				$queryArgs
 			);
 
-			if ( $pluginInfo !== null ) {
+			if ($pluginInfo !== null) {
 				/** @var PluginInfo $pluginInfo */
 				$pluginInfo->filename = $this->pluginFile;
 				$pluginInfo->slug = $this->slug;
@@ -161,7 +161,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 			//For the sake of simplicity, this function just calls requestInfo()
 			//and transforms the result accordingly.
 			$pluginInfo = $this->requestInfo(array('checking_for_updates' => '1'));
-			if ( $pluginInfo === null ){
+			if ($pluginInfo === null){
 				return null;
 			}
 			$update = Update::fromPluginInfo($pluginInfo);
@@ -186,7 +186,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 			$relevant = ($action == 'plugin_information') && isset($args->slug) && (
 					($args->slug == $this->slug) || ($args->slug == dirname($this->pluginFile))
 				);
-			if ( !$relevant ) {
+			if (!$relevant) {
 				return $result;
 			}
 
@@ -194,7 +194,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 			$this->fixSupportedWordpressVersion($pluginInfo);
 
 			$pluginInfo = apply_filters($this->getUniqueName('pre_inject_info'), $pluginInfo);
-			if ( $pluginInfo ) {
+			if ($pluginInfo) {
 				return $pluginInfo->toWpFormat();
 			}
 
@@ -213,7 +213,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 		 * @return \stdClass
 		 */
 		protected function addUpdateToList($updates, $updateToAdd) {
-			if ( $this->package->isMuPlugin() ) {
+			if ($this->package->isMuPlugin()) {
 				//WP does not support automatic update installation for mu-plugins, but we can
 				//still display a notice.
 				$updateToAdd->package = null;
@@ -227,7 +227,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 		 */
 		protected function removeUpdateFromList($updates) {
 			$updates = parent::removeUpdateFromList($updates);
-			if ( !empty($this->muPluginFile) && isset($updates, $updates->response) ) {
+			if (!empty($this->muPluginFile) && isset($updates, $updates->response)) {
 				unset($updates->response[$this->muPluginFile]);
 			}
 			return $updates;
@@ -240,7 +240,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 		 * @return string
 		 */
 		protected function getUpdateListKey() {
-			if ( $this->package->isMuPlugin() ) {
+			if ($this->package->isMuPlugin()) {
 				return $this->muPluginFile;
 			}
 			return $this->pluginFile;
@@ -296,7 +296,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 		 */
 		public function getUpdate() {
 			$update = parent::getUpdate();
-			if ( isset($update) ) {
+			if (isset($update)) {
 				/** @var Update $update */
 				$update->filename = $this->pluginFile;
 			}

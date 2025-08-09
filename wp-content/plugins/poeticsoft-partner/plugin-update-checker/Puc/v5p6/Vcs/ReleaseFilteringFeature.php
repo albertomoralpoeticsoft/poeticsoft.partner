@@ -2,7 +2,7 @@
 
 namespace YahnisElsts\PluginUpdateChecker\v5p6\Vcs;
 
-if ( !trait_exists(ReleaseFilteringFeature::class, false) ) :
+if (!trait_exists(ReleaseFilteringFeature::class, false)) :
 
 	trait ReleaseFilteringFeature {
 		/**
@@ -35,12 +35,12 @@ if ( !trait_exists(ReleaseFilteringFeature::class, false) ) :
 			$releaseTypes = Api::RELEASE_FILTER_SKIP_PRERELEASE,
 			$maxReleases = 20
 		) {
-			if ( $maxReleases > 100 ) {
+			if ($maxReleases > 100) {
 				throw new \InvalidArgumentException(sprintf(
 					'The max number of releases is too high (%d). It must be 100 or less.',
 					$maxReleases
 				));
-			} else if ( $maxReleases < 1 ) {
+			} else if ($maxReleases < 1) {
 				throw new \InvalidArgumentException(sprintf(
 					'The max number of releases is too low (%d). It must be at least 1.',
 					$maxReleases
@@ -82,7 +82,7 @@ if ( !trait_exists(ReleaseFilteringFeature::class, false) ) :
 		 * @return bool
 		 */
 		protected function matchesCustomReleaseFilter($versionNumber, $releaseObject) {
-			if ( !is_callable($this->releaseFilterCallback) ) {
+			if (!is_callable($this->releaseFilterCallback)) {
 				return true; //No custom filter.
 			}
 			return call_user_func($this->releaseFilterCallback, $versionNumber, $releaseObject);

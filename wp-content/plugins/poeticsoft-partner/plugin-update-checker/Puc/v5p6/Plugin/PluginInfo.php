@@ -3,7 +3,7 @@ namespace YahnisElsts\PluginUpdateChecker\v5p6\Plugin;
 
 use YahnisElsts\PluginUpdateChecker\v5p6\Metadata;
 
-if ( !class_exists(PluginInfo::class, false) ):
+if (!class_exists(PluginInfo::class, false)):
 
 	/**
 	 * A container class for holding and transforming various plugin metadata.
@@ -54,7 +54,7 @@ if ( !class_exists(PluginInfo::class, false) ):
 		public static function fromJson($json){
 			$instance = new self();
 
-			if ( !parent::createFromJson($json, $instance) ) {
+			if (!parent::createFromJson($json, $instance)) {
 				return null;
 			}
 
@@ -102,7 +102,7 @@ if ( !class_exists(PluginInfo::class, false) ):
 				'requires_php',
 			);
 			foreach($sameFormat as $field){
-				if ( isset($this->$field) ) {
+				if (isset($this->$field)) {
 					$info->$field = $this->$field;
 				} else {
 					$info->$field = null;
@@ -114,7 +114,7 @@ if ( !class_exists(PluginInfo::class, false) ):
 			$info->author = $this->getFormattedAuthor();
 			$info->sections = array_merge(array('description' => ''), $this->sections);
 
-			if ( !empty($this->banners) ) {
+			if (!empty($this->banners)) {
 				//WP expects an array with two keys: "high" and "low". Both are optional.
 				//Docs: https://wordpress.org/plugins/about/faq/#banners
 				$info->banners = is_object($this->banners) ? get_object_vars($this->banners) : $this->banners;
@@ -125,7 +125,7 @@ if ( !class_exists(PluginInfo::class, false) ):
 		}
 
 		protected function getFormattedAuthor() {
-			if ( !empty($this->author_homepage) ){
+			if (!empty($this->author_homepage)){
 				/** @noinspection HtmlUnknownTarget */
 				return sprintf('<a href="%s">%s</a>', $this->author_homepage, $this->author);
 			}

@@ -5,7 +5,7 @@ namespace YahnisElsts\PluginUpdateChecker\v5p6\Vcs;
 use YahnisElsts\PluginUpdateChecker\v5p6\OAuthSignature;
 use YahnisElsts\PluginUpdateChecker\v5p6\Utils;
 
-if ( !class_exists(BitBucketApi::class, false) ):
+if (!class_exists(BitBucketApi::class, false)):
 
 	class BitBucketApi extends Api {
 		/**
@@ -25,7 +25,7 @@ if ( !class_exists(BitBucketApi::class, false) ):
 
 		public function __construct($repositoryUrl, $credentials = array()) {
 			$path = wp_parse_url($repositoryUrl, PHP_URL_PATH);
-			if ( preg_match('@^/?(?P<username>[^/]+?)/(?P<repository>[^/#?&]+?)/?$@', $path, $matches) ) {
+			if (preg_match('@^/?(?P<username>[^/]+?)/(?P<repository>[^/#?&]+?)/?$@', $path, $matches)) {
 				$this->username = $matches['username'];
 				$this->repository = $matches['repository'];
 			} else {
@@ -42,7 +42,7 @@ if ( !class_exists(BitBucketApi::class, false) ):
 				},
 			);
 
-			if ( ($configBranch === 'master' || $configBranch === 'main') ) {
+			if (($configBranch === 'master' || $configBranch === 'main')) {
 				$strategies[self::STRATEGY_LATEST_TAG] = array($this, 'getLatestTag');
 			}
 
@@ -54,7 +54,7 @@ if ( !class_exists(BitBucketApi::class, false) ):
 
 		public function getBranch($branchName) {
 			$branch = $this->api('/refs/branches/' . $branchName);
-			if ( is_wp_error($branch) || empty($branch) ) {
+			if (is_wp_error($branch) || empty($branch)) {
 				return null;
 			}
 
@@ -81,7 +81,7 @@ if ( !class_exists(BitBucketApi::class, false) ):
 		 */
 		public function getTag($tagName) {
 			$tag = $this->api('/refs/tags/' . $tagName);
-			if ( is_wp_error($tag) || empty($tag) ) {
+			if (is_wp_error($tag) || empty($tag)) {
 				return null;
 			}
 
@@ -100,7 +100,7 @@ if ( !class_exists(BitBucketApi::class, false) ):
 		 */
 		public function getLatestTag() {
 			$tags = $this->api('/refs/tags?sort=-target.date');
-			if ( !isset($tags, $tags->values) || !is_array($tags->values) ) {
+			if (!isset($tags, $tags->values) || !is_array($tags->values)) {
 				return null;
 			}
 
@@ -108,7 +108,7 @@ if ( !class_exists(BitBucketApi::class, false) ):
 			$versionTags = $this->sortTagsByVersion($tags->values);
 
 			//Return the first result.
-			if ( !empty($versionTags) ) {
+			if (!empty($versionTags)) {
 				$tag = $versionTags[0];
 				return new Reference(array(
 					'name' => $tag->name,
@@ -128,12 +128,12 @@ if ( !class_exists(BitBucketApi::class, false) ):
 		 */
 		protected function getStableTag($branch) {
 			$remoteReadme = $this->getRemoteReadme($branch);
-			if ( !empty($remoteReadme['stable_tag']) ) {
+			if (!empty($remoteReadme['stable_tag'])) {
 				$tag = $remoteReadme['stable_tag'];
 
 				//You can explicitly opt out of using tags by setting "Stable tag" to
 				//"trunk" or the name of the current branch.
-				if ( ($tag === $branch) || ($tag === 'trunk') ) {
+				if (($tag === $branch) || ($tag === 'trunk')) {
 					return $this->getBranch($branch);
 				}
 
@@ -165,7 +165,7 @@ if ( !class_exists(BitBucketApi::class, false) ):
 		 */
 		public function getRemoteFile($path, $ref = 'master') {
 			$response = $this->api('src/' . $ref . '/' . ltrim($path));
-			if ( is_wp_error($response) || !is_string($response) ) {
+			if (is_wp_error($response) || !is_string($response)) {
 				return null;
 			}
 			return $response;
@@ -179,7 +179,7 @@ if ( !class_exists(BitBucketApi::class, false) ):
 		 */
 		public function getLatestCommitTime($ref) {
 			$response = $this->api('commits/' . $ref);
-			if ( isset($response->values, $response->values[0], $response->values[0]->date) ) {
+			if (isset($response->values, $response->values[0], $response->values[0]->date)) {
 				return $response->values[0]->date;
 			}
 			return null;
@@ -206,24 +206,24 @@ if ( !class_exists(BitBucketApi::class, false) ):
 			));
 			$baseUrl = $url;
 
-			if ( $this->oauth ) {
+			if ($this->oauth) {
 				$url = $this->oauth->sign($url,'GET');
 			}
 
 			$options = array('timeout' => wp_doing_cron() ? 10 : 3);
-			if ( !empty($this->httpFilterName) ) {
+			if (!empty($this->httpFilterName)) {
 				$options = apply_filters($this->httpFilterName, $options);
 			}
 			$response = wp_remote_get($url, $options);
-			if ( is_wp_error($response) ) {
+			if (is_wp_error($response)) {
 				do_action('puc_api_error', $response, null, $url, $this->slug);
 				return $response;
 			}
 
 			$code = wp_remote_retrieve_response_code($response);
 			$body = wp_remote_retrieve_body($response);
-			if ( $code === 200 ) {
-				if ( $isSrcResource ) {
+			if ($code === 200) {
+				if ($isSrcResource) {
 					//Most responses are JSON-encoded, but src resources just
 					//return raw file contents.
 					$document = $body;
@@ -248,7 +248,7 @@ if ( !class_exists(BitBucketApi::class, false) ):
 		public function setAuthentication($credentials) {
 			parent::setAuthentication($credentials);
 
-			if ( !empty($credentials) && !empty($credentials['consumer_key']) ) {
+			if (!empty($credentials) && !empty($credentials['consumer_key'])) {
 				$this->oauth = new OAuthSignature(
 					$credentials['consumer_key'],
 					$credentials['consumer_secret']
@@ -262,7 +262,7 @@ if ( !class_exists(BitBucketApi::class, false) ):
 			//Add authentication data to download URLs. Since OAuth signatures incorporate
 			//timestamps, we have to do this immediately before inserting the update. Otherwise,
 			//authentication could fail due to a stale timestamp.
-			if ( $this->oauth ) {
+			if ($this->oauth) {
 				$url = $this->oauth->sign($url);
 			}
 			return $url;

@@ -2,7 +2,7 @@
 
 namespace YahnisElsts\PluginUpdateChecker\v5p6\Vcs;
 
-if ( !trait_exists(ReleaseAssetSupport::class, false) ) :
+if (!trait_exists(ReleaseAssetSupport::class, false)) :
 
 	trait ReleaseAssetSupport {
 		/**
@@ -59,13 +59,13 @@ if ( !trait_exists(ReleaseAssetSupport::class, false) ) :
 		 * @return bool
 		 */
 		protected function matchesAssetFilter($releaseAsset) {
-			if ( $this->assetFilterRegex === null ) {
+			if ($this->assetFilterRegex === null) {
 				//The default is to accept all assets.
 				return true;
 			}
 
 			$name = $this->getFilterableAssetName($releaseAsset);
-			if ( !is_string($name) ) {
+			if (!is_string($name)) {
 				return false;
 			}
 			return (bool)preg_match($this->assetFilterRegex, $releaseAsset->name);

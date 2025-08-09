@@ -4,7 +4,7 @@ namespace YahnisElsts\PluginUpdateChecker\v5p6\DebugBar;
 use YahnisElsts\PluginUpdateChecker\v5p6\PucFactory;
 use YahnisElsts\PluginUpdateChecker\v5p6\UpdateChecker;
 
-if ( !class_exists(Extension::class, false) ):
+if (!class_exists(Extension::class, false)):
 
 	class Extension {
 		const RESPONSE_BODY_LENGTH_LIMIT = 4000;
@@ -15,11 +15,11 @@ if ( !class_exists(Extension::class, false) ):
 
 		public function __construct($updateChecker, $panelClass = null) {
 			$this->updateChecker = $updateChecker;
-			if ( isset($panelClass) ) {
+			if (isset($panelClass)) {
 				$this->panelClass = $panelClass;
 			}
 
-			if ( (strpos($this->panelClass, '\\') === false) ) {
+			if ((strpos($this->panelClass, '\\') === false)) {
 				$this->panelClass = __NAMESPACE__ . '\\' . $this->panelClass;
 			}
 
@@ -36,7 +36,7 @@ if ( !class_exists(Extension::class, false) ):
 		 * @return array
 		 */
 		public function addDebugBarPanel($panels) {
-			if ( $this->updateChecker->userCanInstallUpdates() ) {
+			if ($this->updateChecker->userCanInstallUpdates()) {
 				$panels[] = new $this->panelClass($this->updateChecker);
 			}
 			return $panels;
@@ -67,12 +67,12 @@ if ( !class_exists(Extension::class, false) ):
 		 */
 		public function ajaxCheckNow() {
 			//phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce is checked in preAjaxRequest().
-			if ( !isset($_POST['uid']) || ($_POST['uid'] !== $this->updateChecker->getUniqueName('uid')) ) {
+			if (!isset($_POST['uid']) || ($_POST['uid'] !== $this->updateChecker->getUniqueName('uid'))) {
 				return;
 			}
 			$this->preAjaxRequest();
 			$update = $this->updateChecker->checkForUpdates();
-			if ( $update !== null ) {
+			if ($update !== null) {
 				echo "An update is available:";
 				//phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r -- For debugging output.
 				echo '<pre>', esc_html(print_r($update, true)), '</pre>';
@@ -81,7 +81,7 @@ if ( !class_exists(Extension::class, false) ):
 			}
 
 			$errors = $this->updateChecker->getLastRequestApiErrors();
-			if ( !empty($errors) ) {
+			if (!empty($errors)) {
 				printf('<p>The update checker encountered %d API error%s.</p>', count($errors), (count($errors) > 1) ? 's' : '');
 
 				foreach (array_values($errors) as $num => $item) {
@@ -92,12 +92,12 @@ if ( !class_exists(Extension::class, false) ):
 					echo '<dl>';
 					printf('<dt>Error code:</dt><dd><code>%s</code></dd>', esc_html($wpError->get_error_code()));
 
-					if ( isset($item['url']) ) {
+					if (isset($item['url'])) {
 						printf('<dt>Requested URL:</dt><dd><code>%s</code></dd>', esc_html($item['url']));
 					}
 
-					if ( isset($item['httpResponse']) ) {
-						if ( is_wp_error($item['httpResponse']) ) {
+					if (isset($item['httpResponse'])) {
+						if (is_wp_error($item['httpResponse'])) {
 							$httpError = $item['httpResponse'];
 							/** @var \WP_Error $httpError */
 							printf(
@@ -122,9 +122,9 @@ if ( !class_exists(Extension::class, false) ):
 
 							//Body.
 							$body = wp_remote_retrieve_body($item['httpResponse']);
-							if ( $body === '' ) {
+							if ($body === '') {
 								$body = '(Empty response.)';
-							} else if ( strlen($body) > self::RESPONSE_BODY_LENGTH_LIMIT ) {
+							} else if (strlen($body) > self::RESPONSE_BODY_LENGTH_LIMIT) {
 								$length = strlen($body);
 								$body = substr($body, 0, self::RESPONSE_BODY_LENGTH_LIMIT)
 									. sprintf("\n(Long string truncated. Total length: %d bytes.)", $length);
@@ -144,7 +144,7 @@ if ( !class_exists(Extension::class, false) ):
 		 * Check access permissions and enable error display (for debugging).
 		 */
 		protected function preAjaxRequest() {
-			if ( !$this->updateChecker->userCanInstallUpdates() ) {
+			if (!$this->updateChecker->userCanInstallUpdates()) {
 				die('Access denied');
 			}
 			check_ajax_referer('puc-ajax');
@@ -178,16 +178,16 @@ if ( !class_exists(Extension::class, false) ):
 			$muPluginDir = PucFactory::normalizePath(WPMU_PLUGIN_DIR);
 			$themeDir = PucFactory::normalizePath(get_theme_root());
 
-			if ( (strpos($absolutePath, $pluginDir) === 0) || (strpos($absolutePath, $muPluginDir) === 0) ) {
+			if ((strpos($absolutePath, $pluginDir) === 0) || (strpos($absolutePath, $muPluginDir) === 0)) {
 				//It's part of a plugin.
 				return plugins_url(basename($absolutePath), $absolutePath);
-			} else if ( strpos($absolutePath, $themeDir) === 0 ) {
+			} else if (strpos($absolutePath, $themeDir) === 0) {
 				//It's part of a theme.
 				$relativePath = substr($absolutePath, strlen($themeDir) + 1);
 				$template = substr($relativePath, 0, strpos($relativePath, '/'));
 				$baseUrl = get_theme_root_uri($template);
 
-				if ( !empty($baseUrl) && $relativePath ) {
+				if (!empty($baseUrl) && $relativePath) {
 					return $baseUrl . '/' . $relativePath;
 				}
 			}

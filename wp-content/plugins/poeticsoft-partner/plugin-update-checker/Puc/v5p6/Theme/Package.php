@@ -3,7 +3,7 @@ namespace YahnisElsts\PluginUpdateChecker\v5p6\Theme;
 
 use YahnisElsts\PluginUpdateChecker\v5p6\InstalledPackage;
 
-if ( !class_exists(Package::class, false) ):
+if (!class_exists(Package::class, false)):
 
 	class Package extends InstalledPackage {
 		/**
@@ -28,7 +28,7 @@ if ( !class_exists(Package::class, false) ):
 		}
 
 		public function getAbsoluteDirectoryPath() {
-			if ( method_exists($this->theme, 'get_stylesheet_directory') ) {
+			if (method_exists($this->theme, 'get_stylesheet_directory')) {
 				return $this->theme->get_stylesheet_directory(); //Available since WP 3.4.
 			}
 			return get_theme_root($this->stylesheet) . '/' . $this->stylesheet;
@@ -43,7 +43,7 @@ if ( !class_exists(Package::class, false) ):
 		 */
 		public function getHeaderValue($headerName, $defaultValue = '') {
 			$value = $this->theme->get($headerName);
-			if ( ($headerName === false) || ($headerName === '') ) {
+			if (($headerName === false) || ($headerName === '')) {
 				return $defaultValue;
 			}
 			return $value;

@@ -2,7 +2,7 @@
 
 namespace YahnisElsts\PluginUpdateChecker\v5p6\Vcs;
 
-if ( !trait_exists(VcsCheckerMethods::class, false) ) :
+if (!trait_exists(VcsCheckerMethods::class, false)) :
 
 	trait VcsCheckerMethods {
 		/**
@@ -41,7 +41,7 @@ if ( !trait_exists(VcsCheckerMethods::class, false) ) :
 		public function getUpdate() {
 			$update = parent::getUpdate();
 
-			if ( isset($update) && !empty($update->download_url) ) {
+			if (isset($update) && !empty($update->download_url)) {
 				$update->download_url = $this->api->signDownloadUrl($update->download_url);
 			}
 

@@ -3,7 +3,7 @@ namespace YahnisElsts\PluginUpdateChecker\v5p6;
 
 use stdClass;
 
-if ( !class_exists(Update::class, false) ):
+if (!class_exists(Update::class, false)):
 
 	/**
 	 * A simple container class for holding information about an available update.

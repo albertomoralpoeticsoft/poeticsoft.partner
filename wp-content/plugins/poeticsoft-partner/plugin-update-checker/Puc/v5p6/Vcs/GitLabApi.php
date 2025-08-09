@@ -2,7 +2,7 @@
 
 namespace YahnisElsts\PluginUpdateChecker\v5p6\Vcs;
 
-if ( !class_exists(GitLabApi::class, false) ):
+if (!class_exists(GitLabApi::class, false)):
 
 	class GitLabApi extends Api {
 		use ReleaseAssetSupport;
@@ -42,24 +42,24 @@ if ( !class_exists(GitLabApi::class, false) ):
 		public function __construct($repositoryUrl, $accessToken = null, $subgroup = null) {
 			//Parse the repository host to support custom hosts.
 			$port = wp_parse_url($repositoryUrl, PHP_URL_PORT);
-			if ( !empty($port) ) {
+			if (!empty($port)) {
 				$port = ':' . $port;
 			}
 			$this->repositoryHost = wp_parse_url($repositoryUrl, PHP_URL_HOST) . $port;
 
-			if ( $this->repositoryHost !== 'gitlab.com' ) {
+			if ($this->repositoryHost !== 'gitlab.com') {
 				$this->repositoryProtocol = wp_parse_url($repositoryUrl, PHP_URL_SCHEME);
 			}
 
 			//Find the repository information
 			$path = wp_parse_url($repositoryUrl, PHP_URL_PATH);
-			if ( preg_match('@^/?(?P<username>[^/]+?)/(?P<repository>[^/#?&]+?)/?$@', $path, $matches) ) {
+			if (preg_match('@^/?(?P<username>[^/]+?)/(?P<repository>[^/#?&]+?)/?$@', $path, $matches)) {
 				$this->userName = $matches['username'];
 				$this->repositoryName = $matches['repository'];
-			} elseif ( ($this->repositoryHost === 'gitlab.com') ) {
+			} elseif (($this->repositoryHost === 'gitlab.com')) {
 				//This is probably a repository in a subgroup, e.g. "/organization/category/repo".
 				$parts = explode('/', trim($path, '/'));
-				if ( count($parts) < 3 ) {
+				if (count($parts) < 3) {
 					throw new \InvalidArgumentException('Invalid GitLab.com repository URL: "' . $repositoryUrl . '"');
 				}
 				$lastPart = array_pop($parts);
@@ -67,7 +67,7 @@ if ( !class_exists(GitLabApi::class, false) ):
 				$this->repositoryName = $lastPart;
 			} else {
 				//There could be subgroups in the URL:  gitlab.domain.com/group/subgroup/subgroup2/repository
-				if ( $subgroup !== null ) {
+				if ($subgroup !== null) {
 					$path = str_replace(trailingslashit($subgroup), '', $path);
 				}
 
@@ -76,7 +76,7 @@ if ( !class_exists(GitLabApi::class, false) ):
 				$segments = explode('/', untrailingslashit(ltrim($path, '/')));
 
 				//We need at least /user-name/repository-name/
-				if ( count($segments) < 2 ) {
+				if (count($segments) < 2) {
 					throw new \InvalidArgumentException('Invalid GitLab repository URL: "' . $repositoryUrl . '"');
 				}
 
@@ -86,12 +86,12 @@ if ( !class_exists(GitLabApi::class, false) ):
 				$this->repositoryName = $usernameRepo[1];
 
 				//Append the remaining segments to the host if there are segments left.
-				if ( count($segments) > 0 ) {
+				if (count($segments) > 0) {
 					$this->repositoryHost = trailingslashit($this->repositoryHost) . implode('/', $segments);
 				}
 
 				//Add subgroups to username.
-				if ( $subgroup !== null ) {
+				if ($subgroup !== null) {
 					$this->userName = $usernameRepo[0] . '/' . untrailingslashit($subgroup);
 				}
 			}
@@ -106,7 +106,7 @@ if ( !class_exists(GitLabApi::class, false) ):
 		 */
 		public function getLatestRelease() {
 			$releases = $this->api('/:id/releases', array('per_page' => $this->releaseFilterMaxReleases));
-			if ( is_wp_error($releases) || empty($releases) || !is_array($releases) ) {
+			if (is_wp_error($releases) || empty($releases) || !is_array($releases)) {
 				return null;
 			}
 
@@ -127,17 +127,17 @@ if ( !class_exists(GitLabApi::class, false) ):
 				$versionNumber = ltrim($release->tag_name, 'v'); //Remove the "v" prefix from "v1.2.3".
 
 				//Apply custom filters.
-				if ( !$this->matchesCustomReleaseFilter($versionNumber, $release) ) {
+				if (!$this->matchesCustomReleaseFilter($versionNumber, $release)) {
 					continue;
 				}
 
 				$downloadUrl = $this->findReleaseDownloadUrl($release);
-				if ( empty($downloadUrl) ) {
+				if (empty($downloadUrl)) {
 					//The latest release doesn't have valid download URL.
 					return null;
 				}
 
-				if ( !empty($this->accessToken) ) {
+				if (!empty($this->accessToken)) {
 					$downloadUrl = add_query_arg('private_token', $this->accessToken, $downloadUrl);
 				}
 
@@ -158,17 +158,17 @@ if ( !class_exists(GitLabApi::class, false) ):
 		 * @return string|null
 		 */
 		protected function findReleaseDownloadUrl($release) {
-			if ( $this->releaseAssetsEnabled ) {
-				if ( isset($release->assets, $release->assets->links) ) {
+			if ($this->releaseAssetsEnabled) {
+				if (isset($release->assets, $release->assets->links)) {
 					//Use the first asset link where the URL matches the filter.
 					foreach ($release->assets->links as $link) {
-						if ( $this->matchesAssetFilter($link) ) {
+						if ($this->matchesAssetFilter($link)) {
 							return $link->url;
 						}
 					}
 				}
 
-				if ( $this->releaseAssetPreference === Api::REQUIRE_RELEASE_ASSETS ) {
+				if ($this->releaseAssetPreference === Api::REQUIRE_RELEASE_ASSETS) {
 					//Falling back to source archives is not allowed, so give up.
 					return null;
 				}
@@ -176,7 +176,7 @@ if ( !class_exists(GitLabApi::class, false) ):
 
 			//Use the first source code archive that's in ZIP format.
 			foreach ($release->assets->sources as $source) {
-				if ( isset($source->format) && ($source->format === 'zip') ) {
+				if (isset($source->format) && ($source->format === 'zip')) {
 					return $source->url;
 				}
 			}
@@ -191,12 +191,12 @@ if ( !class_exists(GitLabApi::class, false) ):
 		 */
 		public function getLatestTag() {
 			$tags = $this->api('/:id/repository/tags');
-			if ( is_wp_error($tags) || empty($tags) || !is_array($tags) ) {
+			if (is_wp_error($tags) || empty($tags) || !is_array($tags)) {
 				return null;
 			}
 
 			$versionTags = $this->sortTagsByVersion($tags);
-			if ( empty($versionTags) ) {
+			if (empty($versionTags)) {
 				return null;
 			}
 
@@ -217,7 +217,7 @@ if ( !class_exists(GitLabApi::class, false) ):
 		 */
 		public function getBranch($branchName) {
 			$branch = $this->api('/:id/repository/branches/' . $branchName);
-			if ( is_wp_error($branch) || empty($branch) ) {
+			if (is_wp_error($branch) || empty($branch)) {
 				return null;
 			}
 
@@ -227,7 +227,7 @@ if ( !class_exists(GitLabApi::class, false) ):
 				'apiResponse' => $branch,
 			));
 
-			if ( isset($branch->commit, $branch->commit->committed_date) ) {
+			if (isset($branch->commit, $branch->commit->committed_date)) {
 				$reference->updated = $branch->commit->committed_date;
 			}
 
@@ -242,7 +242,7 @@ if ( !class_exists(GitLabApi::class, false) ):
 		 */
 		public function getLatestCommitTime($ref) {
 			$commits = $this->api('/:id/repository/commits/', array('ref_name' => $ref));
-			if ( is_wp_error($commits) || !is_array($commits) || !isset($commits[0]) ) {
+			if (is_wp_error($commits) || !is_array($commits) || !isset($commits[0])) {
 				return null;
 			}
 
@@ -261,19 +261,19 @@ if ( !class_exists(GitLabApi::class, false) ):
 			$url = $this->buildApiUrl($url, $queryParams);
 
 			$options = array('timeout' => wp_doing_cron() ? 10 : 3);
-			if ( !empty($this->httpFilterName) ) {
+			if (!empty($this->httpFilterName)) {
 				$options = apply_filters($this->httpFilterName, $options);
 			}
 
 			$response = wp_remote_get($url, $options);
-			if ( is_wp_error($response) ) {
+			if (is_wp_error($response)) {
 				do_action('puc_api_error', $response, null, $url, $this->slug);
 				return $response;
 			}
 
 			$code = wp_remote_retrieve_response_code($response);
 			$body = wp_remote_retrieve_body($response);
-			if ( $code === 200 ) {
+			if ($code === 200) {
 				return json_decode($body);
 			}
 
@@ -307,11 +307,11 @@ if ( !class_exists(GitLabApi::class, false) ):
 			$url = substr($url, 1);
 			$url = sprintf('%1$s://%2$s/api/v4/projects/%3$s', $this->repositoryProtocol, $this->repositoryHost, $url);
 
-			if ( !empty($this->accessToken) ) {
+			if (!empty($this->accessToken)) {
 				$queryParams['private_token'] = $this->accessToken;
 			}
 
-			if ( !empty($queryParams) ) {
+			if (!empty($queryParams)) {
 				$url = add_query_arg($queryParams, $url);
 			}
 
@@ -327,7 +327,7 @@ if ( !class_exists(GitLabApi::class, false) ):
 		 */
 		public function getRemoteFile($path, $ref = 'master') {
 			$response = $this->api('/:id/repository/files/' . $path, array('ref' => $ref));
-			if ( is_wp_error($response) || !isset($response->content) || $response->encoding !== 'base64' ) {
+			if (is_wp_error($response) || !isset($response->content) || $response->encoding !== 'base64') {
 				return null;
 			}
 
@@ -349,7 +349,7 @@ if ( !class_exists(GitLabApi::class, false) ):
 			);
 			$url = add_query_arg('sha', urlencode($ref), $url);
 
-			if ( !empty($this->accessToken) ) {
+			if (!empty($this->accessToken)) {
 				$url = add_query_arg('private_token', $this->accessToken, $url);
 			}
 
@@ -369,7 +369,7 @@ if ( !class_exists(GitLabApi::class, false) ):
 		protected function getUpdateDetectionStrategies($configBranch) {
 			$strategies = array();
 
-			if ( ($configBranch === 'main') || ($configBranch === 'master') ) {
+			if (($configBranch === 'main') || ($configBranch === 'master')) {
 				$strategies[self::STRATEGY_LATEST_RELEASE] = array($this, 'getLatestRelease');
 				$strategies[self::STRATEGY_LATEST_TAG] = array($this, 'getLatestTag');
 			}
@@ -404,7 +404,7 @@ if ( !class_exists(GitLabApi::class, false) ):
 		}
 
 		protected function getFilterableAssetName($releaseAsset) {
-			if ( isset($releaseAsset->url) ) {
+			if (isset($releaseAsset->url)) {
 				return $releaseAsset->url;
 			}
 			return null;

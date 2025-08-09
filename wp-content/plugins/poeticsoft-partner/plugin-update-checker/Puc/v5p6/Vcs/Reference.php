@@ -1,7 +1,7 @@
 <?php
 namespace YahnisElsts\PluginUpdateChecker\v5p6\Vcs;
 
-if ( !class_exists(Reference::class, false) ):
+if (!class_exists(Reference::class, false)):
 
 	/**
 	 * This class represents a VCS branch or tag. It's intended as a read only, short-lived container

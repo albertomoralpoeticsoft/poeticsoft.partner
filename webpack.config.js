@@ -2,9 +2,11 @@ const path = require('path')
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-const pluginname = 'poeticsoft-manager'
-const destdir = path.join(__dirname, pluginname)
+const pluginname = 'poeticsoft-partner'
+const destdir = path.join(__dirname, 'wp-content/plugins', pluginname)
 const pluginpublic = '/wp-content/plugin/' + pluginname
+
+console.log(destdir)
 
 module.exports = env => {  
                                                     
@@ -57,6 +59,19 @@ module.exports = env => {
 
         entry.admin = './src/' + type + '/' + name + '/admin.js'
       }
+
+      externals = wpexternals
+
+
+    case 'ui': 
+      
+      paths.output = destdir  + '/' + type
+
+      entry = {
+        main: './src/' + type + '/main.js'
+      }
+      
+      mode = params[1] || 'dev'
 
       externals = wpexternals
 

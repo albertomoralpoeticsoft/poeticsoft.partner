@@ -4,7 +4,7 @@ namespace YahnisElsts\PluginUpdateChecker\v5p6\DebugBar;
 
 use YahnisElsts\PluginUpdateChecker\v5p6\Plugin\UpdateChecker;
 
-if ( !class_exists(PluginExtension::class, false) ):
+if (!class_exists(PluginExtension::class, false)):
 
 	class PluginExtension extends Extension {
 		/** @var UpdateChecker */
@@ -21,12 +21,12 @@ if ( !class_exists(PluginExtension::class, false) ):
 		 */
 		public function ajaxRequestInfo() {
 			//phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce is checked in preAjaxRequest().
-			if ( !isset($_POST['uid']) || ($_POST['uid'] !== $this->updateChecker->getUniqueName('uid')) ) {
+			if (!isset($_POST['uid']) || ($_POST['uid'] !== $this->updateChecker->getUniqueName('uid'))) {
 				return;
 			}
 			$this->preAjaxRequest();
 			$info = $this->updateChecker->requestInfo();
-			if ( $info !== null ) {
+			if ($info !== null) {
 				echo 'Successfully retrieved plugin info from the metadata URL:';
 				//phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r -- For debugging output.
 				echo '<pre>', esc_html(print_r($info, true)), '</pre>';

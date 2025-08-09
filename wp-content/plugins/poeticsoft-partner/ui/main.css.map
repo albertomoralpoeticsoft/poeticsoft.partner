@@ -1,0 +1,1 @@
+{"version":3,"file":"main.css","mappings":";;;AAAA;EAEE;AAAF,C","sources":["webpack://Poeticsoft 2025 Plugin/./src/ui/main.scss"],"sourcesContent":["#PoeticsoftPartnerAdmin {\r\n\r\n  border: solid 1px #cccccc;\r\n}"],"names":[],"sourceRoot":""}

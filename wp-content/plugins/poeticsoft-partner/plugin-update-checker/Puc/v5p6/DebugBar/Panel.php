@@ -3,7 +3,7 @@ namespace YahnisElsts\PluginUpdateChecker\v5p6\DebugBar;
 
 use YahnisElsts\PluginUpdateChecker\v5p6\UpdateChecker;
 
-if ( !class_exists(Panel::class, false) && class_exists('Debug_Bar_Panel', false) ):
+if (!class_exists(Panel::class, false) && class_exists('Debug_Bar_Panel', false)):
 
 	class Panel extends \Debug_Bar_Panel {
 		/** @var UpdateChecker */
@@ -48,14 +48,14 @@ if ( !class_exists(Panel::class, false) && class_exists('Debug_Bar_Panel', false
 			$this->row('Metadata URL', esc_html($this->updateChecker->metadataUrl) . ' ' . $requestInfoButton . $this->responseBox);
 
 			$scheduler = $this->updateChecker->scheduler;
-			if ( $scheduler->checkPeriod > 0 ) {
+			if ($scheduler->checkPeriod > 0) {
 				$this->row('Automatic checks', 'Every ' . $scheduler->checkPeriod . ' hours');
 			} else {
 				$this->row('Automatic checks', 'Disabled');
 			}
 
-			if ( isset($scheduler->throttleRedundantChecks) ) {
-				if ( $scheduler->throttleRedundantChecks && ($scheduler->checkPeriod > 0) ) {
+			if (isset($scheduler->throttleRedundantChecks)) {
+				if ($scheduler->throttleRedundantChecks && ($scheduler->checkPeriod > 0)) {
 					$this->row(
 						'Throttling',
 						sprintf(
@@ -87,7 +87,7 @@ if ( !class_exists(Panel::class, false) && class_exists('Debug_Bar_Panel', false
 			echo '<table class="puc-debug-data">';
 			$state = $this->updateChecker->getUpdateState();
 			$checkButtonId = $this->updateChecker->getUniqueName('check-now-button');
-			if ( function_exists('get_submit_button')  ) {
+			if (function_exists('get_submit_button') ) {
 				$checkNowButton = get_submit_button(
 					'Check Now',
 					'secondary',
@@ -105,7 +105,7 @@ if ( !class_exists(Panel::class, false) && class_exists('Debug_Bar_Panel', false
 				);
 			}
 
-			if ( $state->getLastCheck() > 0 ) {
+			if ($state->getLastCheck() > 0) {
 				$this->row('Last check', $this->formatTimeWithDelta($state->getLastCheck()) . ' ' . $checkNowButton . $this->responseBox);
 			} else {
 				$this->row('Last check', 'Never');
@@ -114,7 +114,7 @@ if ( !class_exists(Panel::class, false) && class_exists('Debug_Bar_Panel', false
 			$nextCheck = wp_next_scheduled($this->updateChecker->scheduler->getCronHookName());
 			$this->row('Next automatic check', $this->formatTimeWithDelta($nextCheck));
 
-			if ( $state->getCheckedVersion() !== '' ) {
+			if ($state->getCheckedVersion() !== '') {
 				$this->row('Checked version', esc_html($state->getCheckedVersion()));
 				$this->row('Cached update', $state->getUpdate());
 			}
@@ -124,12 +124,12 @@ if ( !class_exists(Panel::class, false) && class_exists('Debug_Bar_Panel', false
 
 		private function displayCurrentUpdate() {
 			$update = $this->updateChecker->getUpdate();
-			if ( $update !== null ) {
+			if ($update !== null) {
 				echo '<h3>An Update Is Available</h3>';
 				echo '<table class="puc-debug-data">';
 				$fields = $this->getUpdateFields();
 				foreach($fields as $field) {
-					if ( property_exists($update, $field) ) {
+					if (property_exists($update, $field)) {
 						$this->row(
 							ucwords(str_replace('_', ' ', $field)),
 							isset($update->$field) ? esc_html($update->$field) : null
@@ -147,13 +147,13 @@ if ( !class_exists(Panel::class, false) && class_exists('Debug_Bar_Panel', false
 		}
 
 		private function formatTimeWithDelta($unixTime) {
-			if ( empty($unixTime) ) {
+			if (empty($unixTime)) {
 				return 'Never';
 			}
 
 			$delta = time() - $unixTime;
 			$result = human_time_diff(time(), $unixTime);
-			if ( $delta < 0 ) {
+			if ($delta < 0) {
 				$result = 'after ' . $result;
 			} else {
 				$result = $result . ' ago';
@@ -167,7 +167,7 @@ if ( !class_exists(Panel::class, false) && class_exists('Debug_Bar_Panel', false
 		}
 
 		public function row($name, $value) {
-			if ( is_object($value) || is_array($value) ) {
+			if (is_object($value) || is_array($value)) {
 				//This is specifically for debugging, so print_r() is fine.
 				//phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 				$value = '<pre>' . esc_html(print_r($value, true)) . '</pre>';

@@ -1,7 +1,7 @@
 <?php
 namespace YahnisElsts\PluginUpdateChecker\v5p6;
 
-if ( !class_exists(Utils::class, false) ):
+if (!class_exists(Utils::class, false)):
 
 	class Utils {
 		/**
@@ -14,16 +14,16 @@ if ( !class_exists(Utils::class, false) ):
 		 * @return mixed
 		 */
 		public static function get($collection, $path, $default = null, $separator = '.') {
-			if ( is_string($path) ) {
+			if (is_string($path)) {
 				$path = explode($separator, $path);
 			}
 
 			//Follow the $path into $input as far as possible.
 			$currentValue = $collection;
 			foreach ($path as $node) {
-				if ( is_array($currentValue) && isset($currentValue[$node]) ) {
+				if (is_array($currentValue) && isset($currentValue[$node])) {
 					$currentValue = $currentValue[$node];
-				} else if ( is_object($currentValue) && isset($currentValue->$node) ) {
+				} else if (is_object($currentValue) && isset($currentValue->$node)) {
 					$currentValue = $currentValue->$node;
 				} else {
 					return $default;
@@ -41,12 +41,12 @@ if ( !class_exists(Utils::class, false) ):
 		 * @return mixed|null
 		 */
 		public static function findNotEmpty($values, $default = null) {
-			if ( empty($values) ) {
+			if (empty($values)) {
 				return $default;
 			}
 
 			foreach ($values as $value) {
-				if ( !empty($value) ) {
+				if (!empty($value)) {
 					return $value;
 				}
 			}

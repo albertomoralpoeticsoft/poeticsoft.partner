@@ -34,14 +34,14 @@ class WpCliCheckTrigger {
 	private $wasCheckTriggered = false;
 
 	public function __construct($componentType, Scheduler $scheduler) {
-		if ( !in_array($componentType, ['plugin', 'theme']) ) {
+		if (!in_array($componentType, ['plugin', 'theme'])) {
 			throw new \InvalidArgumentException('Invalid component type. Must be "plugin" or "theme".');
 		}
 
 		$this->componentType = $componentType;
 		$this->scheduler = $scheduler;
 
-		if ( !defined('WP_CLI') || !class_exists(WP_CLI::class, false) ) {
+		if (!defined('WP_CLI') || !class_exists(WP_CLI::class, false)) {
 			return; //Nothing to do if WP-CLI is not available.
 		}
 
@@ -72,7 +72,7 @@ class WpCliCheckTrigger {
 	 *
 	 */
 	public function triggerUpdateCheckOnce($input = null) {
-		if ( $this->wasCheckTriggered ) {
+		if ($this->wasCheckTriggered) {
 			return $input;
 		}
 

@@ -2,7 +2,7 @@
 
 namespace YahnisElsts\PluginUpdateChecker\v5p6;
 
-if ( !class_exists(Autoloader::class, false) ):
+if (!class_exists(Autoloader::class, false)):
 
 	class Autoloader {
 		const DEFAULT_NS_PREFIX = 'YahnisElsts\\PluginUpdateChecker\\';
@@ -20,7 +20,7 @@ if ( !class_exists(Autoloader::class, false) ):
 			$this->prefix = $namespaceWithSlash;
 
 			$this->libraryDir = $this->rootDir . '../..';
-			if ( !self::isPhar() ) {
+			if (!self::isPhar()) {
 				$this->libraryDir = realpath($this->libraryDir);
 			}
 			$this->libraryDir = $this->libraryDir . '/';
@@ -40,10 +40,10 @@ if ( !class_exists(Autoloader::class, false) ):
 
 			//Add the generic, major-version-only factory class to the static map.
 			$versionSeparatorPos = strrpos(__NAMESPACE__, '\\v');
-			if ( $versionSeparatorPos !== false ) {
+			if ($versionSeparatorPos !== false) {
 				$versionSegment = substr(__NAMESPACE__, $versionSeparatorPos + 1);
 				$pointPos = strpos($versionSegment, 'p');
-				if ( ($pointPos !== false) && ($pointPos > 1) ) {
+				if (($pointPos !== false) && ($pointPos > 1)) {
 					$majorVersionSegment = substr($versionSegment, 0, $pointPos);
 					$majorVersionNs = __NAMESPACE__ . '\\' . $majorVersionSegment;
 					$this->staticMap[$majorVersionNs . '\\PucFactory'] =
@@ -66,17 +66,17 @@ if ( !class_exists(Autoloader::class, false) ):
 		}
 
 		public function autoload($className) {
-			if ( isset($this->staticMap[$className]) && file_exists($this->libraryDir . $this->staticMap[$className]) ) {
+			if (isset($this->staticMap[$className]) && file_exists($this->libraryDir . $this->staticMap[$className])) {
 				include($this->libraryDir . $this->staticMap[$className]);
 				return;
 			}
 
-			if ( strpos($className, $this->prefix) === 0 ) {
+			if (strpos($className, $this->prefix) === 0) {
 				$path = substr($className, strlen($this->prefix));
 				$path = str_replace(array('_', '\\'), '/', $path);
 				$path = $this->rootDir . $path . '.php';
 
-				if ( file_exists($path) ) {
+				if (file_exists($path)) {
 					include $path;
 				}
 			}

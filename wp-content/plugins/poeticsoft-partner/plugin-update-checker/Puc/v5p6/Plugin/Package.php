@@ -4,7 +4,7 @@ namespace YahnisElsts\PluginUpdateChecker\v5p6\Plugin;
 use YahnisElsts\PluginUpdateChecker\v5p6\InstalledPackage;
 use YahnisElsts\PluginUpdateChecker\v5p6\PucFactory;
 
-if ( !class_exists(Package::class, false) ):
+if (!class_exists(Package::class, false)):
 
 	class Package extends InstalledPackage {
 		/**
@@ -39,12 +39,12 @@ if ( !class_exists(Package::class, false) ):
 		}
 
 		public function getInstalledVersion() {
-			if ( isset($this->cachedInstalledVersion) ) {
+			if (isset($this->cachedInstalledVersion)) {
 				return $this->cachedInstalledVersion;
 			}
 
 			$pluginHeader = $this->getPluginHeader();
-			if ( isset($pluginHeader['Version']) ) {
+			if (isset($pluginHeader['Version'])) {
 				$this->cachedInstalledVersion = $pluginHeader['Version'];
 				return $pluginHeader['Version'];
 			} else {
@@ -85,7 +85,7 @@ if ( !class_exists(Package::class, false) ):
 		 */
 		public function getHeaderValue($headerName, $defaultValue = '') {
 			$headers = $this->getPluginHeader();
-			if ( isset($headers[$headerName]) && ($headers[$headerName] !== '') ) {
+			if (isset($headers[$headerName]) && ($headers[$headerName] !== '')) {
 				return $headers[$headerName];
 			}
 			return $defaultValue;
@@ -120,7 +120,7 @@ if ( !class_exists(Package::class, false) ):
 		public function getPluginTitle() {
 			$title = '';
 			$header = $this->getPluginHeader();
-			if ( $header && !empty($header['Name']) && isset($header['TextDomain']) ) {
+			if ($header && !empty($header['Name']) && isset($header['TextDomain'])) {
 				$title = translate($header['Name'], $header['TextDomain']);
 			}
 			return $title;
@@ -132,7 +132,7 @@ if ( !class_exists(Package::class, false) ):
 		 * @return array
 		 */
 		public function getPluginHeader() {
-			if ( !is_file($this->pluginAbsolutePath) ) {
+			if (!is_file($this->pluginAbsolutePath)) {
 				//This can happen if the plugin filename is wrong.
 				$this->updateChecker->triggerError(
 					sprintf(
@@ -144,7 +144,7 @@ if ( !class_exists(Package::class, false) ):
 				return array();
 			}
 
-			if ( !function_exists('get_plugin_data') ) {
+			if (!function_exists('get_plugin_data')) {
 				require_once(ABSPATH . '/wp-admin/includes/plugin.php');
 			}
 			return get_plugin_data($this->pluginAbsolutePath, false, false);
@@ -163,8 +163,8 @@ if ( !class_exists(Package::class, false) ):
 		public function isMuPlugin() {
 			static $cachedResult = null;
 
-			if ( $cachedResult === null ) {
-				if ( !defined('WPMU_PLUGIN_DIR') || !is_string(WPMU_PLUGIN_DIR) ) {
+			if ($cachedResult === null) {
+				if (!defined('WPMU_PLUGIN_DIR') || !is_string(WPMU_PLUGIN_DIR)) {
 					$cachedResult = false;
 					return $cachedResult;
 				}

@@ -4,7 +4,7 @@ namespace YahnisElsts\PluginUpdateChecker\v5p6\Theme;
 
 use YahnisElsts\PluginUpdateChecker\v5p6\Update as BaseUpdate;
 
-if ( !class_exists(Update::class, false) ):
+if (!class_exists(Update::class, false)):
 
 	class Update extends BaseUpdate {
 		public $details_url = '';
@@ -24,7 +24,7 @@ if ( !class_exists(Update::class, false) ):
 				'url' => $this->details_url,
 			);
 
-			if ( !empty($this->download_url) ) {
+			if (!empty($this->download_url)) {
 				$update['package'] = $this->download_url;
 			}
 
@@ -39,7 +39,7 @@ if ( !class_exists(Update::class, false) ):
 		 */
 		public static function fromJson($json) {
 			$instance = new self();
-			if ( !parent::createFromJson($json, $instance) ) {
+			if (!parent::createFromJson($json, $instance)) {
 				return null;
 			}
 			return $instance;
@@ -66,7 +66,7 @@ if ( !class_exists(Update::class, false) ):
 		protected function validateMetadata($apiResponse) {
 			$required = array('version', 'details_url');
 			foreach($required as $key) {
-				if ( !isset($apiResponse->$key) || empty($apiResponse->$key) ) {
+				if (!isset($apiResponse->$key) || empty($apiResponse->$key)) {
 					return new \WP_Error(
 						'tuc-invalid-metadata',
 						sprintf('The theme metadata is missing the required "%s" key.', $key)

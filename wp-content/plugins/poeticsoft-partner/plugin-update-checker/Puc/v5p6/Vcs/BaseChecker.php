@@ -1,7 +1,7 @@
 <?php
 namespace YahnisElsts\PluginUpdateChecker\v5p6\Vcs;
 
-if ( !interface_exists(BaseChecker::class, false) ):
+if (!interface_exists(BaseChecker::class, false)):
 
 	interface BaseChecker {
 		/**

@@ -1,7 +1,7 @@
 <?php
 namespace YahnisElsts\PluginUpdateChecker\v5p6;
 
-if ( !class_exists(Scheduler::class, false) ):
+if (!class_exists(Scheduler::class, false)):
 
 	/**
 	 * The scheduler decides when and how often to check for updates.
@@ -34,7 +34,7 @@ if ( !class_exists(Scheduler::class, false) ):
 
 			//Set up the periodic update checks
 			$this->cronHook = $this->updateChecker->getUniqueName('cron_check_updates');
-			if ( $this->checkPeriod > 0 ){
+			if ($this->checkPeriod > 0){
 
 				//Trigger the check via Cron.
 				//Try to use one of the default schedules if possible as it's less likely to conflict
@@ -44,7 +44,7 @@ if ( !class_exists(Scheduler::class, false) ):
 					12 => 'twicedaily',
 					24 => 'daily',
 				);
-				if ( array_key_exists($this->checkPeriod, $defaultSchedules) ) {
+				if (array_key_exists($this->checkPeriod, $defaultSchedules)) {
 					$scheduleName = $defaultSchedules[$this->checkPeriod];
 				} else {
 					//Use a custom cron schedule.
@@ -53,11 +53,11 @@ if ( !class_exists(Scheduler::class, false) ):
 					add_filter('cron_schedules', array($this, '_addCustomSchedule'));
 				}
 
-				if ( !wp_next_scheduled($this->cronHook) && !defined('WP_INSTALLING') ) {
+				if (!wp_next_scheduled($this->cronHook) && !defined('WP_INSTALLING')) {
 					//Randomly offset the schedule to help prevent update server traffic spikes. Without this
 					//most checks may happen during times of day when people are most likely to install new plugins.
 					$upperLimit = max($this->checkPeriod * 3600 - 15 * 60, 1);
-					if ( function_exists('wp_rand') ) {
+					if (function_exists('wp_rand')) {
 						$randomOffset = wp_rand(0, $upperLimit);
 					} else {
 						//This constructor may be called before wp_rand() is available.
@@ -75,7 +75,7 @@ if ( !class_exists(Scheduler::class, false) ):
 
 				//In case Cron is disabled or unreliable, we also manually trigger
 				//the periodic checks while the user is browsing the Dashboard.
-				add_action( 'admin_init', array($this, 'maybeCheckForUpdates') );
+				add_action('admin_init', array($this, 'maybeCheckForUpdates'));
 
 				//Like WordPress itself, we check more often on certain pages.
 				/** @see wp_update_plugins */
@@ -106,7 +106,7 @@ if ( !class_exists(Scheduler::class, false) ):
 			//by a different version during the upgrade. If we try to do anything more in that situation,
 			//we could trigger a fatal error by trying to autoload a deleted class.
 			clearstatcache();
-			if ( !file_exists(__FILE__) ) {
+			if (!file_exists(__FILE__)) {
 				$this->removeHooks();
 				$this->updateChecker->removeHooks();
 			}
@@ -135,30 +135,30 @@ if ( !class_exists(Scheduler::class, false) ):
 
 			//Filter out notifications of upgrades that should have no bearing upon whether or not our
 			//current info is up-to-date.
-			if ( is_a($this->updateChecker, Theme\UpdateChecker::class) ) {
-				if ( 'theme' !== $upgradeInfo['type'] || !isset($upgradeInfo['themes']) ) {
+			if (is_a($this->updateChecker, Theme\UpdateChecker::class)) {
+				if ('theme' !== $upgradeInfo['type'] || !isset($upgradeInfo['themes'])) {
 					return;
 				}
 
 				//Letting too many things going through for checks is not a real problem, so we compare widely.
-				if ( !in_array(
+				if (!in_array(
 					strtolower($this->updateChecker->directoryName),
 					array_map('strtolower', $upgradeInfo['themes'])
-				) ) {
+				)) {
 					return;
 				}
 			}
 
-			if ( is_a($this->updateChecker, Plugin\UpdateChecker::class) ) {
-				if ( 'plugin' !== $upgradeInfo['type'] || !isset($upgradeInfo['plugins']) ) {
+			if (is_a($this->updateChecker, Plugin\UpdateChecker::class)) {
+				if ('plugin' !== $upgradeInfo['type'] || !isset($upgradeInfo['plugins'])) {
 					return;
 				}
 
 				//Themes pass in directory names in the information array, but plugins use the relative plugin path.
-				if ( !in_array(
+				if (!in_array(
 					strtolower($this->updateChecker->directoryName),
 					array_map('dirname', array_map('strtolower', $upgradeInfo['plugins']))
-				) ) {
+				)) {
 					return;
 				}
 			}
@@ -180,24 +180,24 @@ if ( !class_exists(Scheduler::class, false) ):
 		 * This method is declared public because it's a hook callback. Calling it directly is not recommended.
 		 */
 		public function maybeCheckForUpdates() {
-			if ( empty($this->checkPeriod) ){
+			if (empty($this->checkPeriod)){
 				return;
 			}
 
 			$state = $this->updateChecker->getUpdateState();
 			$shouldCheck = ($state->timeSinceLastCheck() >= $this->getEffectiveCheckPeriod());
 
-			if ( $shouldCheck ) {
+			if ($shouldCheck) {
 				//Sanity check: Do not proceed if one of the critical classes is missing.
 				//That can happen - theoretically and extremely rarely - if maybeCheckForUpdates()
 				//is called before the old version of our plugin has been fully deleted, or
 				//called from an independent AJAX request during deletion.
-				if ( !(
+				if (!(
 					class_exists(Utils::class)
 					&& class_exists(Metadata::class)
 					&& class_exists(Plugin\Update::class)
 					&& class_exists(Theme\Update::class)
-				) ) {
+				)) {
 					return;
 				}
 			}
@@ -210,7 +210,7 @@ if ( !class_exists(Scheduler::class, false) ):
 				$this->checkPeriod
 			);
 
-			if ( $shouldCheck ) {
+			if ($shouldCheck) {
 				$this->updateChecker->checkForUpdates();
 			}
 		}
@@ -222,16 +222,16 @@ if ( !class_exists(Scheduler::class, false) ):
 		 */
 		protected function getEffectiveCheckPeriod() {
 			$currentFilter = current_filter();
-			if ( in_array($currentFilter, array('load-update-core.php', 'upgrader_process_complete')) ) {
+			if (in_array($currentFilter, array('load-update-core.php', 'upgrader_process_complete'))) {
 				//Check more often when the user visits "Dashboard -> Updates" or does a bulk update.
 				$period = 60;
-			} else if ( in_array($currentFilter, $this->hourlyCheckHooks) ) {
+			} else if (in_array($currentFilter, $this->hourlyCheckHooks)) {
 				//Also check more often on /wp-admin/update.php and the "Plugins" or "Themes" page.
 				$period = 3600;
-			} else if ( $this->throttleRedundantChecks && ($this->updateChecker->getUpdate() !== null) ) {
+			} else if ($this->throttleRedundantChecks && ($this->updateChecker->getUpdate() !== null)) {
 				//Check less frequently if it's already known that an update is available.
 				$period = $this->throttledCheckPeriod * 3600;
-			} else if ( defined('DOING_CRON') && constant('DOING_CRON') ) {
+			} else if (defined('DOING_CRON') && constant('DOING_CRON')) {
 				//WordPress cron schedules are not exact, so let's do an update check even
 				//if slightly less than $checkPeriod hours have elapsed since the last check.
 				$cronFuzziness = 20 * 60;
@@ -250,7 +250,7 @@ if ( !class_exists(Scheduler::class, false) ):
 		 * @return array
 		 */
 		public function _addCustomSchedule($schedules) {
-			if ( $this->checkPeriod && ($this->checkPeriod > 0) ){
+			if ($this->checkPeriod && ($this->checkPeriod > 0)){
 				$scheduleName = 'every' . $this->checkPeriod . 'hours';
 				$schedules[$scheduleName] = array(
 					'interval' => $this->checkPeriod * 3600,
@@ -286,10 +286,10 @@ if ( !class_exists(Scheduler::class, false) ):
 			remove_action('admin_init', array($this, 'maybeCheckForUpdates'));
 			remove_action('load-update-core.php', array($this, 'maybeCheckForUpdates'));
 
-			if ( $this->cronHook !== null ) {
+			if ($this->cronHook !== null) {
 				remove_action($this->cronHook, array($this, 'maybeCheckForUpdates'));
 			}
-			if ( !empty($this->hourlyCheckHooks) ) {
+			if (!empty($this->hourlyCheckHooks)) {
 				foreach ($this->hourlyCheckHooks as $hook) {
 					remove_action($hook, array($this, 'maybeCheckForUpdates'));
 				}

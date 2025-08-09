@@ -1,7 +1,7 @@
 <?php
 namespace YahnisElsts\PluginUpdateChecker\v5p6;
 
-if ( !class_exists(InstalledPackage::class, false) ):
+if (!class_exists(InstalledPackage::class, false)):
 
 	/**
 	 * This class represents a currently installed plugin or theme.
@@ -72,11 +72,11 @@ if ( !class_exists(InstalledPackage::class, false) ):
 			$headers = $this->getHeaderNames();
 			$results = array();
 			foreach ($headers as $field => $name) {
-				$success = preg_match('/^[ \t\/*#@]*' . preg_quote($name, '/') . ':(.*)$/mi', $content, $matches);
+				$success = preg_match('/^[\t\/*#@]*' . preg_quote($name, '/') . ':(.*)$/mi', $content, $matches);
 
-				if ( ($success === 1) && $matches[1] ) {
+				if (($success === 1) && $matches[1]) {
 					$value = $matches[1];
-					if ( function_exists('_cleanup_header_comment') ) {
+					if (function_exists('_cleanup_header_comment')) {
 						$value = _cleanup_header_comment($value);
 					}
 					$results[$field] = $value;

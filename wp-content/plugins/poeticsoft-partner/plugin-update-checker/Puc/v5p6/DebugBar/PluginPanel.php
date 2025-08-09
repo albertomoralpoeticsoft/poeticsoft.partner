@@ -3,7 +3,7 @@ namespace YahnisElsts\PluginUpdateChecker\v5p6\DebugBar;
 
 use YahnisElsts\PluginUpdateChecker\v5p6\Plugin\UpdateChecker;
 
-if ( !class_exists(PluginPanel::class, false) ):
+if (!class_exists(PluginPanel::class, false)):
 
 	class PluginPanel extends Panel {
 		/**
@@ -18,7 +18,7 @@ if ( !class_exists(PluginPanel::class, false) ):
 
 		protected function getMetadataButton() {
 			$buttonId = $this->updateChecker->getUniqueName('request-info-button');
-			if ( function_exists('get_submit_button') ) {
+			if (function_exists('get_submit_button')) {
 				$requestInfoButton = get_submit_button(
 					'Request Info',
 					'secondary',

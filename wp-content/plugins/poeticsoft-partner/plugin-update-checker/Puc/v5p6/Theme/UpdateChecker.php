@@ -7,7 +7,7 @@ use YahnisElsts\PluginUpdateChecker\v5p6\InstalledPackage;
 use YahnisElsts\PluginUpdateChecker\v5p6\Scheduler;
 use YahnisElsts\PluginUpdateChecker\v5p6\DebugBar;
 
-if ( !class_exists(UpdateChecker::class, false) ):
+if (!class_exists(UpdateChecker::class, false)):
 
 	class UpdateChecker extends BaseUpdateChecker {
 		protected $filterSuffix = 'theme';
@@ -20,7 +20,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 		protected $stylesheet;
 
 		public function __construct($metadataUrl, $stylesheet = null, $customSlug = null, $checkPeriod = 12, $optionName = '') {
-			if ( $stylesheet === null ) {
+			if ($stylesheet === null) {
 				$stylesheet = get_stylesheet();
 			}
 			$this->stylesheet = $stylesheet;
@@ -51,7 +51,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 		public function requestUpdate() {
 			list($themeUpdate, $result) = $this->requestMetadata(Update::class, 'request_update');
 
-			if ( $themeUpdate !== null ) {
+			if ($themeUpdate !== null) {
 				/** @var Update $themeUpdate */
 				$themeUpdate->slug = $this->slug;
 			}

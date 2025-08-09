@@ -1,7 +1,7 @@
 <?php
 namespace YahnisElsts\PluginUpdateChecker\v5p6;
 
-if ( !class_exists(UpgraderStatus::class, false) ):
+if (!class_exists(UpgraderStatus::class, false)):
 
 	/**
 	 * A utility class that helps figure out which plugin or theme WordPress is upgrading.
@@ -56,9 +56,9 @@ if ( !class_exists(UpgraderStatus::class, false) ):
 		 * @return bool
 		 */
 		protected function isBeingUpgraded($type, $id, $upgrader = null) {
-			if ( isset($upgrader) ) {
+			if (isset($upgrader)) {
 				list($currentType, $currentId) = $this->getThingBeingUpgradedBy($upgrader);
-				if ( $currentType !== null ) {
+				if ($currentType !== null) {
 					$this->currentType = $currentType;
 					$this->currentId = $currentId;
 				}
@@ -82,7 +82,7 @@ if ( !class_exists(UpgraderStatus::class, false) ):
 		 * @return array
 		 */
 		private function getThingBeingUpgradedBy($upgrader) {
-			if ( !isset($upgrader, $upgrader->skin) ) {
+			if (!isset($upgrader, $upgrader->skin)) {
 				return array(null, null);
 			}
 
@@ -91,26 +91,26 @@ if ( !class_exists(UpgraderStatus::class, false) ):
 			$themeDirectoryName = null;
 
 			$skin = $upgrader->skin;
-			if ( isset($skin->theme_info) && ($skin->theme_info instanceof \WP_Theme) ) {
+			if (isset($skin->theme_info) && ($skin->theme_info instanceof \WP_Theme)) {
 				$themeDirectoryName = $skin->theme_info->get_stylesheet();
-			} elseif ( $skin instanceof \Plugin_Upgrader_Skin ) {
-				if ( isset($skin->plugin) && is_string($skin->plugin) && ($skin->plugin !== '') ) {
+			} elseif ($skin instanceof \Plugin_Upgrader_Skin) {
+				if (isset($skin->plugin) && is_string($skin->plugin) && ($skin->plugin !== '')) {
 					$pluginFile = $skin->plugin;
 				}
-			} elseif ( $skin instanceof \Theme_Upgrader_Skin ) {
-				if ( isset($skin->theme) && is_string($skin->theme) && ($skin->theme !== '') ) {
+			} elseif ($skin instanceof \Theme_Upgrader_Skin) {
+				if (isset($skin->theme) && is_string($skin->theme) && ($skin->theme !== '')) {
 					$themeDirectoryName = $skin->theme;
 				}
-			} elseif ( isset($skin->plugin_info) && is_array($skin->plugin_info) ) {
+			} elseif (isset($skin->plugin_info) && is_array($skin->plugin_info)) {
 				//This case is tricky because Bulk_Plugin_Upgrader_Skin (etc) doesn't actually store the plugin
 				//filename anywhere. Instead, it has the plugin headers in $plugin_info. So the best we can
 				//do is compare those headers to the headers of installed plugins.
 				$pluginFile = $this->identifyPluginByHeaders($skin->plugin_info);
 			}
 
-			if ( $pluginFile !== null ) {
+			if ($pluginFile !== null) {
 				return array('plugin', $pluginFile);
-			} elseif ( $themeDirectoryName !== null ) {
+			} elseif ($themeDirectoryName !== null) {
 				return array('theme', $themeDirectoryName);
 			}
 			return array(null, null);
@@ -123,8 +123,8 @@ if ( !class_exists(UpgraderStatus::class, false) ):
 		 * @return string|null Plugin basename ("foo/bar.php"), or NULL if we can't identify the plugin.
 		 */
 		private function identifyPluginByHeaders($searchHeaders) {
-			if ( !function_exists('get_plugins') ){
-				require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
+			if (!function_exists('get_plugins')){
+				require_once(ABSPATH . '/wp-admin/includes/plugin.php');
 			}
 
 			$installedPlugins = get_plugins();
@@ -132,14 +132,14 @@ if ( !class_exists(UpgraderStatus::class, false) ):
 			foreach($installedPlugins as $pluginBasename => $headers) {
 				$diff1 = array_diff_assoc($headers, $searchHeaders);
 				$diff2 = array_diff_assoc($searchHeaders, $headers);
-				if ( empty($diff1) && empty($diff2) ) {
+				if (empty($diff1) && empty($diff2)) {
 					$matches[] = $pluginBasename;
 				}
 			}
 
 			//It's possible (though very unlikely) that there could be two plugins with identical
 			//headers. In that case, we can't unambiguously identify the plugin that's being upgraded.
-			if ( count($matches) !== 1 ) {
+			if (count($matches) !== 1) {
 				return null;
 			}
 
@@ -154,10 +154,10 @@ if ( !class_exists(UpgraderStatus::class, false) ):
 		 * @return mixed Returns $input unaltered.
 		 */
 		public function setUpgradedThing($input, $hookExtra) {
-			if ( !empty($hookExtra['plugin']) && is_string($hookExtra['plugin']) ) {
+			if (!empty($hookExtra['plugin']) && is_string($hookExtra['plugin'])) {
 				$this->currentId = $hookExtra['plugin'];
 				$this->currentType = 'plugin';
-			} elseif ( !empty($hookExtra['theme']) && is_string($hookExtra['theme']) ) {
+			} elseif (!empty($hookExtra['theme']) && is_string($hookExtra['theme'])) {
 				$this->currentId = $hookExtra['theme'];
 				$this->currentType = 'theme';
 			} else {
@@ -174,7 +174,7 @@ if ( !class_exists(UpgraderStatus::class, false) ):
 		 * @return array
 		 */
 		public function setUpgradedPluginFromOptions($options) {
-			if ( isset($options['hook_extra']['plugin']) && is_string($options['hook_extra']['plugin']) ) {
+			if (isset($options['hook_extra']['plugin']) && is_string($options['hook_extra']['plugin'])) {
 				$this->currentType = 'plugin';
 				$this->currentId = $options['hook_extra']['plugin'];
 			} else {

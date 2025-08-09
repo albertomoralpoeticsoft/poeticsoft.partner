@@ -5,7 +5,7 @@ namespace YahnisElsts\PluginUpdateChecker\v5p6\Vcs;
 use YahnisElsts\PluginUpdateChecker\v5p6\Theme;
 use YahnisElsts\PluginUpdateChecker\v5p6\Utils;
 
-if ( !class_exists(ThemeUpdateChecker::class, false) ):
+if (!class_exists(ThemeUpdateChecker::class, false)):
 
 	class ThemeUpdateChecker extends Theme\UpdateChecker implements BaseChecker {
 		use VcsCheckerMethods;
@@ -38,7 +38,7 @@ if ( !class_exists(ThemeUpdateChecker::class, false) ):
 
 			//Figure out which reference (tag or branch) we'll use to get the latest version of the theme.
 			$updateSource = $api->chooseReference($this->branch);
-			if ( $updateSource ) {
+			if ($updateSource) {
 				$ref = $updateSource->name;
 				$update->download_url = $updateSource->downloadUrl;
 			} else {
@@ -70,7 +70,7 @@ if ( !class_exists(ThemeUpdateChecker::class, false) ):
 				$this->metadataUrl,
 			));
 
-			if ( empty($update->version) ) {
+			if (empty($update->version)) {
 				//It looks like we didn't find a valid update after all.
 				$update = null;
 			}

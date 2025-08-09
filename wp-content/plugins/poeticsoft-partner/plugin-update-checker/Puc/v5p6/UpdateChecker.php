@@ -4,7 +4,7 @@ namespace YahnisElsts\PluginUpdateChecker\v5p6;
 use stdClass;
 use WP_Error;
 
-if ( !class_exists(UpdateChecker::class, false) ):
+if (!class_exists(UpdateChecker::class, false)):
 
 	abstract class UpdateChecker {
 		protected $filterSuffix = '';
@@ -95,17 +95,17 @@ if ( !class_exists(UpdateChecker::class, false) ):
 			$this->slug = !empty($slug) ? $slug : $this->directoryName;
 
 			$this->optionName = $optionName;
-			if ( empty($this->optionName) ) {
+			if (empty($this->optionName)) {
 				//BC: Initially the library only supported plugin updates and didn't use type prefixes
 				//in the option name. Lets use the same prefix-less name when possible.
-				if ( $this->filterSuffix === '' ) {
+				if ($this->filterSuffix === '') {
 					$this->optionName = 'external_updates-' . $this->slug;
 				} else {
 					$this->optionName = $this->getUniqueName('external_updates');
 				}
 			}
 
-			if ( empty($this->translationType) ) {
+			if (empty($this->translationType)) {
 				$this->translationType = $this->componentType;
 			}
 
@@ -114,7 +114,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 			$this->upgraderStatus = new UpgraderStatus();
 			$this->updateState = new StateStore($this->optionName);
 
-			if ( did_action('init') ) {
+			if (did_action('init')) {
 				$this->loadTextDomain();
 			} else {
 				add_action('init', array($this, 'loadTextDomain'));
@@ -122,7 +122,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 
 			$this->installHooks();
 
-			if ( ($this->wpCliCheckTrigger === null) && defined('WP_CLI') ) {
+			if (($this->wpCliCheckTrigger === null) && defined('WP_CLI')) {
 				$this->wpCliCheckTrigger = new WpCliCheckTrigger($this->componentType, $this->scheduler);
 			}
 		}
@@ -164,7 +164,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 			);
 
 			//Rename the update directory to be the same as the existing directory.
-			if ( $this->directoryName !== '.' ) {
+			if ($this->directoryName !== '.') {
 				add_filter('upgrader_source_selection', array($this, 'fixDirectoryName'), 10, 3);
 			}
 
@@ -176,7 +176,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 			add_filter('http_request_args', array($this, 'excludeEntityFromWordPressAPI'), 10, 2);
 
 			//DebugBar integration.
-			if ( did_action('plugins_loaded') ) {
+			if (did_action('plugins_loaded')) {
 				$this->maybeInitDebugBar();
 			} else {
 				add_action('plugins_loaded', array($this, 'maybeInitDebugBar'));
@@ -201,11 +201,11 @@ if ( !class_exists(UpdateChecker::class, false) ):
 
 			remove_action('init', array($this, 'loadTextDomain'));
 
-			if ( $this->scheduler ) {
+			if ($this->scheduler) {
 				$this->scheduler->removeHooks();
 			}
 
-			if ( $this->debugBarExtension ) {
+			if ($this->debugBarExtension) {
 				$this->debugBarExtension->removeHooks();
 			}
 		}
@@ -236,11 +236,11 @@ if ( !class_exists(UpdateChecker::class, false) ):
 		 * @return bool
 		 */
 		public function allowMetadataHost($allow, $host) {
-			if ( $this->cachedMetadataHost === 0 ) {
+			if ($this->cachedMetadataHost === 0) {
 				$this->cachedMetadataHost = wp_parse_url($this->metadataUrl, PHP_URL_HOST);
 			}
 
-			if ( is_string($this->cachedMetadataHost) && (strtolower($host) === strtolower($this->cachedMetadataHost)) ) {
+			if (is_string($this->cachedMetadataHost) && (strtolower($host) === strtolower($this->cachedMetadataHost))) {
 				return true;
 			}
 			return $allow;
@@ -282,53 +282,53 @@ if ( !class_exists(UpdateChecker::class, false) ):
 		public function excludeEntityFromWordPressAPI($args, $url) {
 			//Is this an api.wordpress.org update check request?
 			$parsedUrl = wp_parse_url($url);
-			if ( !isset($parsedUrl['host']) || (strtolower($parsedUrl['host']) !== 'api.wordpress.org') ) {
+			if (!isset($parsedUrl['host']) || (strtolower($parsedUrl['host']) !== 'api.wordpress.org')) {
 				return $args;
 			}
 
 			$typePluralised = $this->componentType . 's';
 			$expectedPathPrefix = '/' . $typePluralised . '/update-check/1.';  //e.g. "/plugins/update-check/1.1/"
-			if ( !isset($parsedUrl['path']) || !Utils::startsWith($parsedUrl['path'], $expectedPathPrefix) ) {
+			if (!isset($parsedUrl['path']) || !Utils::startsWith($parsedUrl['path'], $expectedPathPrefix)) {
 				return $args;
 			}
 
 			//Plugins and themes can disable this feature by using the filter below.
-			if ( !apply_filters(
+			if (!apply_filters(
 				$this->getUniqueName('remove_from_default_update_checks'),
 				true, $this, $args, $url
-			) ) {
+			)) {
 				return $args;
 			}
 
-			if ( empty($args['body'][$typePluralised]) ) {
+			if (empty($args['body'][$typePluralised])) {
 				return $args;
 			}
 
 			$reportingItems = json_decode($args['body'][$typePluralised], true);
-			if ( $reportingItems === null ) {
+			if ($reportingItems === null) {
 				return $args;
 			}
 
 			//The list of installed items uses different key formats for plugins and themes.
 			//Luckily, we can reuse the getUpdateListKey() method here.
 			$updateListKey = $this->getUpdateListKey();
-			if ( isset($reportingItems[$typePluralised][$updateListKey]) ) {
+			if (isset($reportingItems[$typePluralised][$updateListKey])) {
 				unset($reportingItems[$typePluralised][$updateListKey]);
 			}
 
-			if ( !empty($reportingItems['active']) ) {
-				if ( is_array($reportingItems['active']) ) {
+			if (!empty($reportingItems['active'])) {
+				if (is_array($reportingItems['active'])) {
 					foreach ($reportingItems['active'] as $index => $relativePath) {
-						if ( $relativePath === $updateListKey ) {
+						if ($relativePath === $updateListKey) {
 							unset($reportingItems['active'][$index]);
 						}
 					}
 					//Re-index the array.
 					$reportingItems['active'] = array_values($reportingItems['active']);
-				} else if ( $reportingItems['active'] === $updateListKey ) {
+				} else if ($reportingItems['active'] === $updateListKey) {
 					//For themes, the "active" field is a string that contains the theme's directory name.
 					//Pretend that the default theme is active so that we don't reveal the actual theme.
-					if ( defined('WP_DEFAULT_THEME') ) {
+					if (defined('WP_DEFAULT_THEME')) {
 						$reportingItems['active'] = WP_DEFAULT_THEME;
 					}
 
@@ -349,7 +349,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 		public function checkForUpdates() {
 			$installedVersion = $this->getInstalledVersion();
 			//Fail silently if we can't find the plugin/theme or read its header.
-			if ( $installedVersion === null ) {
+			if ($installedVersion === null) {
 				$this->triggerError(
 					sprintf('Skipping update check for %s - installed version unknown.', $this->slug),
 					E_USER_WARNING
@@ -409,10 +409,10 @@ if ( !class_exists(UpdateChecker::class, false) ):
 			$update = $this->updateState->getUpdate();
 
 			//Is there an update available?
-			if ( isset($update) ) {
+			if (isset($update)) {
 				//Check if the update is actually newer than the currently installed version.
 				$installedVersion = $this->getInstalledVersion();
-				if ( ($installedVersion !== null) && version_compare($update->version, $installedVersion, '>') ){
+				if (($installedVersion !== null) && version_compare($update->version, $installedVersion, '>')){
 					return $update;
 				}
 			}
@@ -442,7 +442,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 
 			$this->fixSupportedWordpressVersion($update);
 
-			if ( isset($update, $update->translations) ) {
+			if (isset($update, $update->translations)) {
 				//Keep only those translation updates that apply to this site.
 				$update->translations = $this->filterApplicableTranslations($update->translations);
 			}
@@ -460,7 +460,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 		 * @param Metadata|null $update
 		 */
 		protected function fixSupportedWordpressVersion($update = null) {
-			if ( !isset($update->tested) || !preg_match('/^\d++\.\d++$/', $update->tested) ) {
+			if (!isset($update->tested) || !preg_match('/^\d++\.\d++$/', $update->tested)) {
 				return;
 			}
 
@@ -468,11 +468,11 @@ if ( !class_exists(UpdateChecker::class, false) ):
 
 			$wpVersion = $GLOBALS['wp_version'];
 
-			if ( function_exists('get_core_updates') ) {
+			if (function_exists('get_core_updates')) {
 				$coreUpdates = get_core_updates();
-				if ( is_array($coreUpdates) ) {
+				if (is_array($coreUpdates)) {
 					foreach ($coreUpdates as $coreUpdate) {
-						if ( isset($coreUpdate->current) ) {
+						if (isset($coreUpdate->current)) {
 							$actualWpVersions[] = $coreUpdate->current;
 						}
 					}
@@ -483,10 +483,10 @@ if ( !class_exists(UpdateChecker::class, false) ):
 
 			$actualWpPatchNumber = null;
 			foreach ($actualWpVersions as $version) {
-				if ( preg_match('/^(?P<majorMinor>\d++\.\d++)(?:\.(?P<patch>\d++))?/', $version, $versionParts) ) {
-					if ( $versionParts['majorMinor'] === $update->tested ) {
+				if (preg_match('/^(?P<majorMinor>\d++\.\d++)(?:\.(?P<patch>\d++))?/', $version, $versionParts)) {
+					if ($versionParts['majorMinor'] === $update->tested) {
 						$patch = isset($versionParts['patch']) ? intval($versionParts['patch']) : 0;
-						if ( $actualWpPatchNumber === null ) {
+						if ($actualWpPatchNumber === null) {
 							$actualWpPatchNumber = $patch;
 						} else {
 							$actualWpPatchNumber = max($actualWpPatchNumber, $patch);
@@ -494,11 +494,11 @@ if ( !class_exists(UpdateChecker::class, false) ):
 					}
 				}
 			}
-			if ( $actualWpPatchNumber === null ) {
+			if ($actualWpPatchNumber === null) {
 				$actualWpPatchNumber = 999;
 			}
 
-			if ( $actualWpPatchNumber > 0 ) {
+			if ($actualWpPatchNumber > 0) {
 				$update->tested .= '.' . $actualWpPatchNumber;
 			}
 		}
@@ -528,7 +528,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 		 * @param int $errorType
 		 */
 		public function triggerError($message, $errorType) {
-			if ( $this->isDebugModeEnabled() ) {
+			if ($this->isDebugModeEnabled()) {
 				//phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error -- Only happens in debug mode.
 				trigger_error(esc_html($message), $errorType);
 			}
@@ -538,7 +538,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 		 * @return bool
 		 */
 		protected function isDebugModeEnabled() {
-			if ( $this->debugMode === null ) {
+			if ($this->debugMode === null) {
 				$this->debugMode = (bool)(constant('WP_DEBUG'));
 			}
 			return $this->debugMode;
@@ -555,7 +555,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 		 */
 		public function getUniqueName($baseTag) {
 			$name = 'puc_' . $baseTag;
-			if ( $this->filterSuffix !== '' ) {
+			if ($this->filterSuffix !== '') {
 				$name .= '_' . $this->filterSuffix;
 			}
 			return $name . '-' . $this->slug;
@@ -571,7 +571,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 		 * @param string|null $slug
 		 */
 		public function collectApiErrors($error, $httpResponse = null, $url = null, $slug = null) {
-			if ( isset($slug) && ($slug !== $this->slug) ) {
+			if (isset($slug) && ($slug !== $this->slug)) {
 				return;
 			}
 
@@ -625,11 +625,11 @@ if ( !class_exists(UpdateChecker::class, false) ):
 			//Is there an update to insert?
 			$update = $this->getUpdate();
 
-			if ( !$this->shouldShowUpdates() ) {
+			if (!$this->shouldShowUpdates()) {
 				$update = null;
 			}
 
-			if ( !empty($update) ) {
+			if (!empty($update)) {
 				//Let plugins filter the update info before it's passed on to WordPress.
 				$update = apply_filters($this->getUniqueName('pre_inject_update'), $update);
 				$updates = $this->addUpdateToList($updates, $update->toWpFormat());
@@ -651,7 +651,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 		 * @return \stdClass
 		 */
 		protected function addUpdateToList($updates, $updateToAdd) {
-			if ( !is_object($updates) ) {
+			if (!is_object($updates)) {
 				$updates = new stdClass();
 				$updates->response = array();
 			}
@@ -665,7 +665,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 		 * @return \stdClass|null
 		 */
 		protected function removeUpdateFromList($updates) {
-			if ( isset($updates, $updates->response) ) {
+			if (isset($updates, $updates->response)) {
 				unset($updates->response[$this->getUpdateListKey()]);
 			}
 			return $updates;
@@ -679,11 +679,11 @@ if ( !class_exists(UpdateChecker::class, false) ):
 		 * @return \stdClass
 		 */
 		protected function addNoUpdateItem($updates) {
-			if ( !is_object($updates) ) {
+			if (!is_object($updates)) {
 				$updates = new stdClass();
 				$updates->response = array();
 				$updates->no_update = array();
-			} else if ( !isset($updates->no_update) ) {
+			} else if (!isset($updates->no_update)) {
 				$updates->no_update = array();
 			}
 
@@ -766,7 +766,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 
 			//The metadata file should be at 'http://your-api.com/url/here/$slug/info.json'
 			$url = $this->metadataUrl;
-			if ( !empty($queryArgs) ){
+			if (!empty($queryArgs)){
 				$url = add_query_arg($queryArgs, $url);
 			}
 
@@ -777,8 +777,8 @@ if ( !class_exists(UpdateChecker::class, false) ):
 			//Try to parse the response
 			$status = $this->validateApiResponse($result);
 			$metadata = null;
-			if ( !is_wp_error($status) ){
-				if ( (strpos($metaClass, '\\') === false) ) {
+			if (!is_wp_error($status)){
+				if ((strpos($metaClass, '\\') === false)) {
 					$metaClass = __NAMESPACE__ . '\\' . $metaClass;
 				}
 				$metadata = call_user_func(array($metaClass, 'fromJson'), $result['body']);
@@ -801,25 +801,25 @@ if ( !class_exists(UpdateChecker::class, false) ):
 		 * @return true|WP_Error
 		 */
 		protected function validateApiResponse($result) {
-			if ( is_wp_error($result) ) { /** @var WP_Error $result */
+			if (is_wp_error($result)) { /** @var WP_Error $result */
 				return new WP_Error($result->get_error_code(), 'WP HTTP Error: ' . $result->get_error_message());
 			}
 
-			if ( !isset($result['response']['code']) ) {
+			if (!isset($result['response']['code'])) {
 				return new WP_Error(
 					'puc_no_response_code',
 					'wp_remote_get() returned an unexpected result.'
 				);
 			}
 
-			if ( $result['response']['code'] !== 200 ) {
+			if ($result['response']['code'] !== 200) {
 				return new WP_Error(
 					'puc_unexpected_response_code',
 					'HTTP response code is ' . $result['response']['code'] . ' (expected: 200)'
 				);
 			}
 
-			if ( empty($result['body']) ) {
+			if (empty($result['body'])) {
 				return new WP_Error('puc_empty_response', 'The metadata file appears to be empty.');
 			}
 
@@ -847,13 +847,13 @@ if ( !class_exists(UpdateChecker::class, false) ):
 				//Does it match one of the available core languages?
 				$isApplicable = array_key_exists($translation->language, $languages);
 				//Is it more recent than an already-installed translation?
-				if ( isset($installedTranslations[$translation->language]) ) {
+				if (isset($installedTranslations[$translation->language])) {
 					$updateTimestamp = strtotime($translation->updated);
 					$installedTimestamp = strtotime($installedTranslations[$translation->language]['PO-Revision-Date']);
 					$isApplicable = $updateTimestamp > $installedTimestamp;
 				}
 
-				if ( $isApplicable ) {
+				if ($isApplicable) {
 					$applicableTranslations[] = $translation;
 				}
 			}
@@ -867,11 +867,11 @@ if ( !class_exists(UpdateChecker::class, false) ):
 		 * @return array
 		 */
 		protected function getInstalledTranslations() {
-			if ( !function_exists('wp_get_installed_translations') ) {
+			if (!function_exists('wp_get_installed_translations')) {
 				return array();
 			}
 			$installedTranslations = wp_get_installed_translations($this->translationType . 's');
-			if ( isset($installedTranslations[$this->directoryName]) ) {
+			if (isset($installedTranslations[$this->directoryName])) {
 				$installedTranslations = $installedTranslations[$this->directoryName];
 			} else {
 				$installedTranslations = array();
@@ -887,15 +887,15 @@ if ( !class_exists(UpdateChecker::class, false) ):
 		 */
 		public function injectTranslationUpdates($updates) {
 			$translationUpdates = $this->getTranslationUpdates();
-			if ( empty($translationUpdates) ) {
+			if (empty($translationUpdates)) {
 				return $updates;
 			}
 
 			//Being defensive.
-			if ( !is_object($updates) ) {
+			if (!is_object($updates)) {
 				$updates = new stdClass();
 			}
-			if ( !isset($updates->translations) ) {
+			if (!isset($updates->translations)) {
 				$updates->translations = array();
 			}
 
@@ -990,12 +990,12 @@ if ( !class_exists(UpdateChecker::class, false) ):
 			/** @var \WP_Filesystem_Base $wp_filesystem */
 
 			//Basic sanity checks.
-			if ( !isset($source, $remoteSource, $upgrader, $upgrader->skin, $wp_filesystem) ) {
+			if (!isset($source, $remoteSource, $upgrader, $upgrader->skin, $wp_filesystem)) {
 				return $source;
 			}
 
 			//If WordPress is upgrading anything other than our plugin/theme, leave the directory name unchanged.
-			if ( !$this->isBeingUpgraded($upgrader) ) {
+			if (!$this->isBeingUpgraded($upgrader)) {
 				return $source;
 			}
 
@@ -1004,34 +1004,34 @@ if ( !class_exists(UpdateChecker::class, false) ):
 			//Otherwise, WordPress will try to copy the entire working directory ($source == $remoteSource).
 			//We can't rename $remoteSource because that would break WordPress code that cleans up temporary files
 			//after update.
-			if ( $this->isBadDirectoryStructure($remoteSource) ) {
+			if ($this->isBadDirectoryStructure($remoteSource)) {
 				//Create a new directory using the plugin slug.
 				$newDirectory = trailingslashit($remoteSource) . $this->slug . '/';
 
-				if ( !$wp_filesystem->is_dir($newDirectory) ) {
+				if (!$wp_filesystem->is_dir($newDirectory)) {
 					$wp_filesystem->mkdir($newDirectory);
 
 					//Move all files to the newly created directory.
 					$sourceFiles = $wp_filesystem->dirlist($remoteSource);
-					if ( is_array($sourceFiles) ) {
+					if (is_array($sourceFiles)) {
 						$sourceFiles = array_keys($sourceFiles);
 						$allMoved = true;
 						foreach ($sourceFiles as $filename) {
 							//Skip our newly created folder.
-							if ( $filename === $this->slug ) {
+							if ($filename === $this->slug) {
 								continue;
 							}
 
 							$previousSource = trailingslashit($remoteSource) . $filename;
 							$newSource = trailingslashit($newDirectory) . $filename;
 
-							if ( !$wp_filesystem->move($previousSource, $newSource, true) ) {
+							if (!$wp_filesystem->move($previousSource, $newSource, true)) {
 								$allMoved = false;
 								break;
 							}
 						}
 
-						if ( $allMoved ) {
+						if ($allMoved) {
 							//Rename source.
 							$source = $newDirectory;
 						} else {
@@ -1054,14 +1054,14 @@ if ( !class_exists(UpdateChecker::class, false) ):
 
 			//Rename the source to match the existing directory.
 			$correctedSource = trailingslashit($remoteSource) . $this->directoryName . '/';
-			if ( $source !== $correctedSource ) {
+			if ($source !== $correctedSource) {
 				$upgrader->skin->feedback(sprintf(
 					'Renaming %s to %s&#8230;',
 					'<span class="code">' . basename($source) . '</span>',
 					'<span class="code">' . $this->directoryName . '</span>'
 				));
 
-				if ( $wp_filesystem->move($source, $correctedSource, true) ) {
+				if ($wp_filesystem->move($source, $correctedSource, true)) {
 					$upgrader->skin->feedback('Directory successfully renamed.');
 					return $correctedSource;
 				} else {
@@ -1095,7 +1095,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 			/** @var \WP_Filesystem_Base $wp_filesystem */
 
 			$sourceFiles = $wp_filesystem->dirlist($remoteSource);
-			if ( is_array($sourceFiles) ) {
+			if (is_array($sourceFiles)) {
 				$sourceFiles = array_keys($sourceFiles);
 				$firstFilePath = trailingslashit($remoteSource) . $sourceFiles[0];
 				return (count($sourceFiles) > 1) || (!$wp_filesystem->is_dir($firstFilePath));

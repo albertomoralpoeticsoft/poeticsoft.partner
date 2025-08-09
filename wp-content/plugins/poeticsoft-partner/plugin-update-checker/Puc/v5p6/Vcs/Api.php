@@ -5,7 +5,7 @@ namespace YahnisElsts\PluginUpdateChecker\v5p6\Vcs;
 use Parsedown;
 use PucReadmeParser;
 
-if ( !class_exists(Api::class, false) ):
+if (!class_exists(Api::class, false)):
 
 	abstract class Api {
 		const STRATEGY_LATEST_RELEASE = 'latest_release';
@@ -95,7 +95,7 @@ if ( !class_exists(Api::class, false) ):
 		public function chooseReference($configBranch) {
 			$strategies = $this->getUpdateDetectionStrategies($configBranch);
 
-			if ( !empty($this->strategyFilterName) ) {
+			if (!empty($this->strategyFilterName)) {
 				$strategies = apply_filters(
 					$this->strategyFilterName,
 					$strategies,
@@ -105,7 +105,7 @@ if ( !class_exists(Api::class, false) ):
 
 			foreach ($strategies as $strategy) {
 				$reference = call_user_func($strategy);
-				if ( !empty($reference) ) {
+				if (!empty($reference)) {
 					return $reference;
 				}
 			}
@@ -132,7 +132,7 @@ if ( !class_exists(Api::class, false) ):
 		 */
 		public function getRemoteReadme($ref = 'master') {
 			$fileContents = $this->getRemoteFile($this->getLocalReadmeName(), $ref);
-			if ( empty($fileContents) ) {
+			if (empty($fileContents)) {
 				return array();
 			}
 
@@ -153,16 +153,16 @@ if ( !class_exists(Api::class, false) ):
 		 */
 		public function getLocalReadmeName() {
 			static $fileName = null;
-			if ( $fileName !== null ) {
+			if ($fileName !== null) {
 				return $fileName;
 			}
 
 			$fileName = 'readme.txt';
-			if ( isset($this->localDirectory) ) {
+			if (isset($this->localDirectory)) {
 				$files = scandir($this->localDirectory);
-				if ( !empty($files) ) {
+				if (!empty($files)) {
 					foreach ($files as $possibleFileName) {
-						if ( strcasecmp($possibleFileName, 'readme.txt') === 0 ) {
+						if (strcasecmp($possibleFileName, 'readme.txt') === 0) {
 							$fileName = $possibleFileName;
 							break;
 						}
@@ -207,7 +207,7 @@ if ( !class_exists(Api::class, false) ):
 			$name = ltrim($name, 'v');
 
 			//The version string must start with a number.
-			if ( !is_numeric(substr($name, 0, 1)) ) {
+			if (!is_numeric(substr($name, 0, 1))) {
 				return false;
 			}
 
@@ -251,10 +251,10 @@ if ( !class_exists(Api::class, false) ):
 		 */
 		protected function compareTagNames($tag1, $tag2) {
 			$property = $this->tagNameProperty;
-			if ( !isset($tag1->$property) ) {
+			if (!isset($tag1->$property)) {
 				return 1;
 			}
-			if ( !isset($tag2->$property) ) {
+			if (!isset($tag2->$property)) {
 				return -1;
 			}
 			return -version_compare(ltrim($tag1->$property, 'v'), ltrim($tag2->$property, 'v'));
@@ -286,12 +286,12 @@ if ( !class_exists(Api::class, false) ):
 		 */
 		public function getRemoteChangelog($ref, $localDirectory) {
 			$filename = $this->findChangelogName($localDirectory);
-			if ( empty($filename) ) {
+			if (empty($filename)) {
 				return null;
 			}
 
 			$changelog = $this->getRemoteFile($filename, $ref);
-			if ( $changelog === null ) {
+			if ($changelog === null) {
 				return null;
 			}
 
@@ -305,10 +305,10 @@ if ( !class_exists(Api::class, false) ):
 		 * @return string|null
 		 */
 		protected function findChangelogName($directory = null) {
-			if ( !isset($directory) ) {
+			if (!isset($directory)) {
 				$directory = $this->localDirectory;
 			}
-			if ( empty($directory) || !is_dir($directory) || ($directory === '.') ) {
+			if (empty($directory) || !is_dir($directory) || ($directory === '.')) {
 				return null;
 			}
 
@@ -316,7 +316,7 @@ if ( !class_exists(Api::class, false) ):
 			$files = scandir($directory);
 			$foundNames = array_intersect($possibleNames, $files);
 
-			if ( !empty($foundNames) ) {
+			if (!empty($foundNames)) {
 				return reset($foundNames);
 			}
 			return null;
@@ -361,7 +361,7 @@ if ( !class_exists(Api::class, false) ):
 		 * @param string $directory
 		 */
 		public function setLocalDirectory($directory) {
-			if ( empty($directory) || !is_dir($directory) || ($directory === '.') ) {
+			if (empty($directory) || !is_dir($directory) || ($directory === '.')) {
 				$this->localDirectory = null;
 			} else {
 				$this->localDirectory = $directory;
