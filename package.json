@@ -4,7 +4,8 @@
   "license": "GPL-2.0-or-later",
   "scripts": {
     "release": "node release.js",
-    "ui-dev": "webpack --env=ui-dev"
+    "ui-dev": "webpack --env=ui-dev",
+    "admin-dev": "webpack --env=admin-dev"
   },
   "dependencies": {
     "@babel/core": "^7.18.10",

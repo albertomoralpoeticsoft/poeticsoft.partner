@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Poetic Soft Partner
  * Description: Herramientas que facilitan la vida digital
- * Version: 0.0.4
+ * Version: 0.0.8
  * Author: Alberto Moral / poeticsoft.com
  * License: GPL2
  * Text Domain: poeticsoft
@@ -13,7 +13,7 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
-require __DIR__ . '/plugin-update-checker/plugin-update-checker.php';
+require __DIR__ . '/tools/plugin-update-checker/plugin-update-checker.php';
 
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 

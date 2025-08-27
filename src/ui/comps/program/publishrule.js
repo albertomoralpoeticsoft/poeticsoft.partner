@@ -1,7 +1,3 @@
-import { 
-  times,
-  padStart
-} from 'lodash'
 const { 
   SelectControl, 
   CheckboxControl,
@@ -18,20 +14,24 @@ export default props => {
 
   const [ dateFromVisible, setDateFromVisible ] = useState(false)
   const [ dateToVisible, setDateToVisible ] = useState(false)
-  const hours = times(24, h => h)
-  .map(
-    h => ({
+
+  let hours = []
+  for(let h=0; h<24; h++) { 
+
+    hours.push({
       value: h,
-      label: padStart(h + '', 2, '0')
-    })
-  )
-  const mins = times(12, m => m * 5)
-  .map(
-    m => ({
+      label: (h + '').padStart(2, '0')
+    }) 
+  }
+  
+  let mins = []
+  for(let m=0; m<12; m++) { 
+
+    mins.push({
       value: m,
-      label: padStart(m + '', 2, '0')
-    })
-  )
+      label: (m + '').padStart(2, '0')
+    }) 
+  }    
 
 	return <div className="Rule">
     <CheckboxControl

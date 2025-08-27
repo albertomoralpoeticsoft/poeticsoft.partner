@@ -9,38 +9,57 @@ trait Poeticsoft_Partner_Trait_UI {
 
   public function enqueue_admin() {
 
-    $mainjs = 'ui/main.js';
+    $mainjs = 'admin/main.js';
     wp_enqueue_script(
       'poeticsoft-partner-admin-script',
       self::$url . $mainjs ,
       [        
-        'wp-i18n',
+        'jquery'
+      ],
+      filemtime(self::$path . $mainjs),
+      true
+    );
+
+    $mainjs = 'ui/main.js';
+    wp_enqueue_script(
+      'poeticsoft-partner-ui-script',
+      self::$url . $mainjs ,
+      [        
         'wp-element',
-        'wp-data',
-        'wp-blocks',
-        'wp-block-editor',
         'wp-components'
       ],
       filemtime(self::$path . $mainjs),
       true
-   );
+    );
 
-    $maincss = 'ui/main.css';
+    $maincss = 'admin/main.css';
     wp_enqueue_style(
       'poeticsoft-partner-admin-style',
       self::$url . $maincss,
       [
+        
+      ],
+      filemtime(self::$path . $maincss),
+    );
+
+    $maincss = 'ui/main.css';
+    wp_enqueue_style(
+      'poeticsoft-partner-ui-style',
+      self::$url . $maincss,
+      [
+        'wp-admin',
+        'wp-editor',
         'wp-components'
       ],
       filemtime(self::$path . $maincss),
-   );
+    );
   }  
 
   public function add_admin_menu() {
 
     add_menu_page(
-      'Poeticsoft Partner',
-      'Poeticsoft Partner',
+      'Poeticsoft',
+      'Poeticsoft',
       'manage_options',
       'poeticsoft-partner',
       [$this, 'render_admin_page'],

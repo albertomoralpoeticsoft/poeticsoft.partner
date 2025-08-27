@@ -204,9 +204,6 @@ export default props => {
   ];
 
 	return <div className="RulesCalendar">
-    <div className="Calendar">
-      <CalendarWithEvents events={ events } />
-    </div>
     <div className="Tools">
       <Button 
         variant="primary" 

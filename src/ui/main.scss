@@ -1,4 +1,5 @@
-#PoeticsoftPartnerAdmin {
-
-  border: solid 1px #cccccc;
-}
+@use './styles/root';
+@use './styles/mixin';
+@use './styles/partneradmin';
+@use './styles/modal';
+@use './styles/popover';

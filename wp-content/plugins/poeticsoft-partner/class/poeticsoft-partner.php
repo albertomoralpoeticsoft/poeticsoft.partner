@@ -1,10 +1,16 @@
 <?php
 
+require_once __DIR__ . '/traits/trait-api.php';
 require_once __DIR__ . '/traits/trait-ui.php';
+require_once __DIR__ . '/traits/trait-postmeta.php';
+require_once __DIR__ . '/traits/trait-postlist.php';
 
 class Poeticsoft_Partner {
 
+  use Poeticsoft_Partner_Trait_API;
   use Poeticsoft_Partner_Trait_UI;
+  use Poeticsoft_Partner_Trait_PostMeta;
+  use Poeticsoft_Partner_Trait_PostList;
 
   private static $instance = null;
   public static $path;
@@ -25,6 +31,9 @@ class Poeticsoft_Partner {
     $this->set_vars();
     
     $this->register_ui();
+    $this->register_postmeta();
+    $this->register_apiroutes();
+    $this->add_postlist_details();
   }
 
   private function set_vars() {
@@ -48,7 +57,7 @@ class Poeticsoft_Partner {
     $message .= $text . PHP_EOL;
 
     file_put_contents(
-      WP_CONTENT_DIR . '/plugin_log.txt',
+      self::$path . '/log.txt',
       $message,
       FILE_APPEND
     );

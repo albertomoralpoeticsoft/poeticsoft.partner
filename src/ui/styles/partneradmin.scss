@@ -1,0 +1,140 @@
+@use './mixin' as *;
+
+#PoeticsoftPartnerAdmin {
+  
+  .PoeticsoftPartnersTools {
+
+    .components-tab-panel__tabs {
+
+      .components-tab-panel__tabs-item {
+
+        border: solid var(--color-borders);
+        border-width: 1px 1px 0 1px;
+        margin-bottom: -1px;
+        height: 32px !important;
+        z-index: 1;
+
+        &.Active {
+
+          background-color: var(--color-light);
+        }
+      }
+
+      .components-tab-panel__tabs-item +
+      .components-tab-panel__tabs-item {
+        
+        border-width: 1px 1px 0 0;
+      }
+    }
+  }
+
+  .components-panel.Contents {
+
+    .components-panel__body {
+
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: var(--s2);
+
+      .components-card {
+
+        width: 134px;
+        border-radius: var(--s025);
+        box-sizing: border-box;
+
+        .components-card__header,
+        .components-card-body{
+
+          padding: var(--s15);
+        }
+
+        .components-card__header {
+
+          @include ellipsis();
+          min-width: 0;
+          font-weight: bold;
+          cursor: pointer;
+        }
+
+        .components-card__media {
+
+
+        }
+
+        .components-card-body {
+
+          .components-button {
+
+            width: 100%;
+            text-align: center;
+          }
+        }
+
+        .components-card__footer {
+
+          padding: 0;
+          border-radius: var(--s025);
+          border: none;
+
+          .components-form-token-field {
+
+            width: 100%;
+
+            .components-form-token-field__label {
+
+              display: none;
+            }
+
+            .Grupos {
+
+              box-sizing: border-box;
+
+              .components-flex {
+
+                padding: 1px;
+                gap: 1px;
+
+                .components-form-token-field__input {
+
+                  font-size: 13px;
+                }
+
+                .components-flex-item {
+
+                  width: 100%;
+
+                  .components-form-token-field__token {
+
+                    width: 100%;
+
+                    .components-form-token-field__token-text {
+
+                      flex: 1;
+                    }
+                  }
+                }
+              }
+
+              .components-spacer {
+
+                display: none;
+              }
+
+              .components-form-token-field__help {
+
+                display: none;
+              }
+            }
+
+            .components-spacer {
+
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}

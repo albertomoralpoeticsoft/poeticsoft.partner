@@ -1,6 +1,6 @@
 const { createRoot } = wp.element
 
-import APP from './app/app'
+import APP from './comps/app'
 import './main.scss'
 
 window.PoeticsoftPartnerAdmin = (id) => {

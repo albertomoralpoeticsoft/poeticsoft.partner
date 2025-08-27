@@ -1,12 +1,12 @@
 {
   "name": "Poeticsoft Partners Plugin",
   "slug": "poeticsoft-partner/poeticsoft-partner.php",
-  "version": "0.0.4",
-  "download_url": "https://poeticsoft.com/plugins/poeticsoft-partner-0.0.4.zip",
+  "version": "0.0.8",
+  "download_url": "https://poeticsoft.com/plugins/poeticsoft-partner-0.0.8.zip",
   "homepage": "https://poeticsoft.com/",
   "requires": "5.0",
   "tested": "6.6",
-  "last_updated": "2025-08-09",
+  "last_updated": "2025-08-10",
   "sections": {
     "description": "Herramientas para facilitar la vida digital."
   }

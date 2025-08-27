@@ -4,9 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const pluginname = 'poeticsoft-partner'
 const destdir = path.join(__dirname, 'wp-content/plugins', pluginname)
-const pluginpublic = '/wp-content/plugin/' + pluginname
-
-console.log(destdir)
+const pluginpublic = '/wp-content/plugins/' + pluginname
 
 module.exports = env => {  
                                                     
@@ -152,9 +150,9 @@ module.exports = env => {
           type: 'asset/resource',
           generator: {
             emit: false,
-            filename: content => { 
+            filename: content => {
 
-              return content.filename.replace(pluginname, '')
+              return ('/' + content.filename).replace(pluginpublic, '')
             }
           }
         }

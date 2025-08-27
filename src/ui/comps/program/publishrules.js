@@ -3,6 +3,7 @@ const {
   Button,
   CheckboxControl
 } = wp.components
+
 import Rule from './publishrule'
 
 export default props => {

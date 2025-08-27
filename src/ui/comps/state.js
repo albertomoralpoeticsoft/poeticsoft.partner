@@ -1,10 +1,6 @@
 
 import immutableUpdate from 'immutable-update'
-import moment, { weekdays } from 'moment'
-import { 
-  times
-} from 'lodash'
-moment.locale('es')
+
 const { 
   useReducer
 } = wp.element
@@ -22,9 +18,25 @@ export default () => {
       value: 'imageexcerpt'
     }
   ]
-  const whatdefault = what.find(w => w.default)
+  const whatdefault = what.find(w => w.default)  
+
+  const groups = [
+    {
+      label: 'Grupo 1',
+      value: 'group1'
+    },
+    {
+      label: 'Grupo 2',
+      value: 'group2'
+    },
+    {
+      label: 'Grupo 3',
+      value: 'group3'
+    }
+  ]
 
   const weekday = [
+    'todos', 
     'lunes', 
     'martes', 
     'miércoles', 
@@ -33,11 +45,15 @@ export default () => {
     'sábado', 
     'domingo'
   ]
-  const weekdays = times(7, wd => ({
-    value: wd,
-    label: weekday[wd],
-    default: wd == 0
-  }))
+  const weekdays = []
+  for(let w=0; w<7; w++) {
+
+    weekdays.push({
+      value: w,
+      label: weekday[w],
+      default: w == 0
+    })
+  }
 
   const initialsetate = { 
     partnerid: '',
@@ -51,7 +67,9 @@ export default () => {
     message: '',
     publishRules: [],
     selectedRuleIndex: -1,
-    checkRulesModalVisible: false
+    checkRulesModalVisible: false,
+    posts: {},
+    groups: groups
   }
 
   const updateRules = rules => {
@@ -66,6 +84,32 @@ export default () => {
       actualRules = state.publishRules
 
       switch(action.type) {
+
+        case 'POST_LIST_CLASSIFY':
+
+          const postlist = action.payload
+          .reduce((list, post) => {
+
+            if(!list[post.post_type]) {
+
+              list[post.post_type] = {}
+            }
+              
+            list[post.post_type][post.ID] = post
+
+            return list
+          
+          }, {})
+
+          newState = immutableUpdate(
+            state,
+            {
+              posts: postlist
+            },
+            ['posts']
+          )
+
+          return newState 
 
         case 'PUBLISH_RULES_LOAD':
 
@@ -99,7 +143,7 @@ export default () => {
             active: true,
             title: 'Título de la regla',
             what: what.value,
-            where: [where.value],
+            where: [where && where.value],
             whenfrom: from,
             whento: to,
             whenweekday: [whenweekday.value],
@@ -165,9 +209,7 @@ export default () => {
           
           field = action.type.replace('PUBLISH_RULES_UPDATE_', '').toLowerCase()
           
-          actualRules[state.selectedRuleIndex][field] = action.payload 
-
-          console.log(actualRules)
+          actualRules[state.selectedRuleIndex][field] = action.payload
 
           updateRules(actualRules)
 
