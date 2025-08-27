@@ -7178,7 +7178,7 @@ var TabPanel = wp.components.TabPanel;
         dispatch(partnerdata);
       });
     });
-    fetch('https://poeticsoft.com/wp-json/poeticsoft/partner/post/list').then(function (result) {
+    fetch('/wp-json/poeticsoft/partner/post/list').then(function (result) {
       return result.json().then(function (postlist) {
         dispatch({
           type: 'POST_LIST_CLASSIFY',

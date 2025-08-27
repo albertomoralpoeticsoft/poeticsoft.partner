@@ -29,7 +29,7 @@ export default props => {
       )
     )
 
-    fetch('https://poeticsoft.com/wp-json/poeticsoft/partner/post/list')
+    fetch('/wp-json/poeticsoft/partner/post/list')
     .then(
       result => result
       .json()
