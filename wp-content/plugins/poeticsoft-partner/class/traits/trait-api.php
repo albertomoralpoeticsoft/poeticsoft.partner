@@ -1,6 +1,27 @@
 <?php
-trait Poeticsoft_Partner_Trait_API {
+trait Poeticsoft_Partner_Trait_API {  
 
+  public function register_api() {
+  
+    add_action(
+      'rest_api_init',
+      function () {
+
+        register_rest_route(
+          'poeticsoft/partner',
+          'post/list',
+          array(
+            array(
+              'methods'  => 'GET',
+              'callback' => [$this, 'api_post_list'],
+              'permission_callback' => '__return_true'
+            )
+          )
+        );
+      }
+    );
+  }
+  
   public function api_post_list(WP_REST_Request $req) {
 
     global $wpdb;
@@ -59,8 +80,6 @@ trait Poeticsoft_Partner_Trait_API {
             }
           }
 
-          $this->log($post);
-
           return $post;
         },
         $results
@@ -75,27 +94,5 @@ trait Poeticsoft_Partner_Trait_API {
     }
 
     return $res;
-  }
-
-  public function register_apiroutes() {
-
-  
-    add_action(
-      'rest_api_init',
-      function () {
-
-        register_rest_route(
-          'poeticsoft/partner',
-          'post/list',
-          array(
-            array(
-              'methods'  => 'GET',
-              'callback' => [$this, 'api_post_list'],
-              'permission_callback' => '__return_true'
-            )
-          )
-        );
-      }
-    );
   }
 }

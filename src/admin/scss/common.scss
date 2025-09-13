@@ -1,0 +1,55 @@
+table.media #the-list {
+
+  $margin: 120px;
+
+  tr {
+
+    .column-title {
+      
+      .media-icon {
+
+        width: $margin;
+
+        img {
+
+          width: 100% !important;
+          height: 100% !important;
+          max-width: none;
+        }
+      }
+
+      .row-actions {
+
+        margin-left: $margin + 8px;
+      }
+    }
+  }
+}
+
+#poeticsoft_partner_postmeta_publishable_metabox {
+
+  .postbox-header {
+
+    .ui-sortable-handle {
+
+      padding: 0 0 0 16px !important;
+    }
+  }
+}
+
+.editor-visual-editor__post-title-wrapper { 
+
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.wp-block-post-content.block-editor-block-list__layout{
+  
+  max-width: 90%;  
+  margin: 0 auto;
+}
+
+.css-13b06dz.e19lxcc00:last-child {
+
+  // display: none;
+}

@@ -32,6 +32,17 @@ module.exports = env => {
 
   switch (type) {
 
+    case 'admin':
+    case 'jitsi':
+      
+      paths.output = destdir  + '/ui/' + type
+
+      entry = {
+        main: './src/' + type + '/main.js'
+      }
+
+      break
+
     case 'block':
       
       paths.output = destdir  + '/' + type + '/' + name + '/build'
@@ -43,7 +54,7 @@ module.exports = env => {
 
       externals = wpexternals
 
-      break;
+      break
 
     case 'settingspanel':
       
@@ -60,6 +71,7 @@ module.exports = env => {
 
       externals = wpexternals
 
+      break
 
     case 'ui': 
       
@@ -167,11 +179,10 @@ module.exports = env => {
       extensions: ['.js'],
       alias: {
         assets: path.resolve(destdir + '/assets'),       
-        blocks: path.join(__dirname, pluginname, 'block'),       
+        block: path.join(__dirname, 'wp-content', 'plugins', 'poeticsoft-partner', 'block'),       
         styles: path.join(__dirname, 'src', 'styles')
       }
     }
   }
-
   return config
 }

@@ -9,9 +9,7 @@
  * Text Domain: poeticsoft
  */
 
-if (! defined('ABSPATH')) {
-    exit;
-}
+if (! defined('ABSPATH')) { exit; }
 
 require __DIR__ . '/tools/plugin-update-checker/plugin-update-checker.php';
 

@@ -1,0 +1,153 @@
+/*!**************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/jitsi/main.scss ***!
+  \**************************************************************************************************************/
+:root {
+  /* SIZES */
+  --space: 8px;
+  --s025: calc(var(--space) * 0.25);
+  --s05: calc(var(--space) * 0.5);
+  --s075: calc(var(--space) * 0.75);
+  --s: var(--space);
+  --s15: calc(var(--space) * 1.5);
+  --s2: calc(var(--space) * 2);
+  --s3: calc(var(--space) * 3);
+  --s4: calc(var(--space) * 4);
+  --s45: calc(var(--space) * 4.5);
+  --s5: calc(var(--space) * 5);
+  --s6: calc(var(--space) * 6);
+  --s7: calc(var(--space) * 7);
+  --s8: calc(var(--space) * 8);
+  --s9: calc(var(--space) * 9);
+  --s10: calc(var(--space) * 10);
+  --s12: calc(var(--space) * 12);
+  --s14: calc(var(--space) * 14);
+  --s16: calc(var(--space) * 16);
+  --s18: calc(var(--space) * 18);
+  --color-light: #ffffff;
+  --color-light-transparent-a: #ffffffab;
+  --color-dark: #000000;
+  --color-dark-transparent-a: #0000008e;
+  --color-bg: #f2faff;
+  --color-borders: #e0e0e0;
+  --color-selected: #ff682c;
+  --color-error: #f13800;
+  --color-success: #00f100;
+  --color-warning: #f1b100;
+}
+
+.shortcode.jitsi {
+  max-width: 240px;
+  margin: 0 auto;
+}
+.shortcode.jitsi form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  gap: var(--s);
+}
+.shortcode.jitsi form .field {
+  flex: 1;
+  width: 100%;
+}
+.shortcode.jitsi form .field input {
+  padding: var(--s);
+  border-radius: var(--s05);
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  display: block;
+}
+.shortcode.jitsi form .field input:valid {
+  border: solid 2px var(--color-success);
+}
+.shortcode.jitsi form .field input:invalid:required {
+  border: solid 2px var(--color-error);
+}
+.shortcode.jitsi form .field label {
+  display: block;
+  margin: var(--s) 0 0 0;
+  padding: var(--s) var(--s2);
+  border-radius: var(--s05);
+  background-color: var(--color-light);
+  box-shadow: 0 0 4px var(--color-dark-transparent-a);
+}
+.shortcode.jitsi form .field label.error {
+  color: var(--color-error);
+}
+.shortcode.jitsi form .wp-block-button a.wp-block-button__link.wp-element-button {
+  cursor: pointer;
+  display: block;
+}
+.shortcode.jitsi form .wp-block-button a.wp-block-button__link.wp-element-button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.shortcode.jitsi .message {
+  display: none;
+  padding: var(--s) var(--s2);
+  text-align: center;
+  background-color: var(--color-light);
+}
+.shortcode.jitsi .message.success {
+  color: var(--color-success);
+}
+.shortcode.jitsi .message.error {
+  color: var(--color-error);
+}
+.shortcode.jitsi .message.warning {
+  color: var(--color-warning);
+}
+
+#conferencewrapper {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: var(--color-dark-transparent-a);
+  z-index: 99;
+}
+#conferencewrapper #jitsiwrapper {
+  position: absolute !important;
+  top: 10px;
+  right: 10px;
+  bottom: 10px;
+  left: 10px;
+  background-color: var(--color-dark);
+  z-index: 0;
+}
+#conferencewrapper #jitsiwrapper [id^=jitsiMeeting] {
+  position: absolute !important;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+#conferencewrapper #jitsiclose {
+  position: absolute;
+  top: var(--s3);
+  width: var(--s4);
+  height: var(--s4);
+  left: var(--s3);
+  background-color: var(--color-light);
+  border-radius: var(--s05);
+  cursor: pointer;
+  z-index: 1;
+}
+#conferencewrapper #jitsiclose .bar {
+  width: var(--s2);
+  height: var(--s05);
+  background-color: var(--color-dark);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+#conferencewrapper #jitsiclose .bar.a {
+  transform: translateX(-50%) translateY(-50%) rotate(45deg);
+}
+#conferencewrapper #jitsiclose .bar.b {
+  transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+}
+
+/*# sourceMappingURL=main.css.map*/

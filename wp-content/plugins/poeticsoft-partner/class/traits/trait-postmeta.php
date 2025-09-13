@@ -194,7 +194,7 @@ trait Poeticsoft_Partner_Trait_PostMeta {
       [        
         'jquery'
       ],
-      filemtime(self::$path . $mainjs),
+      filemtime(self::$dir . $mainjs),
       true
    );
 

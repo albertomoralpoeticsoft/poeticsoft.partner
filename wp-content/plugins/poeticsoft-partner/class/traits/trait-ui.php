@@ -16,19 +16,7 @@ trait Poeticsoft_Partner_Trait_UI {
       [        
         'jquery'
       ],
-      filemtime(self::$path . $mainjs),
-      true
-    );
-
-    $mainjs = 'ui/main.js';
-    wp_enqueue_script(
-      'poeticsoft-partner-ui-script',
-      self::$url . $mainjs ,
-      [        
-        'wp-element',
-        'wp-components'
-      ],
-      filemtime(self::$path . $mainjs),
+      filemtime(self::$dir . $mainjs),
       true
     );
 
@@ -39,48 +27,44 @@ trait Poeticsoft_Partner_Trait_UI {
       [
         
       ],
-      filemtime(self::$path . $maincss),
+      filemtime(self::$dir . $maincss),
     );
 
-    $maincss = 'ui/main.css';
-    wp_enqueue_style(
-      'poeticsoft-partner-ui-style',
-      self::$url . $maincss,
-      [
-        'wp-admin',
-        'wp-editor',
-        'wp-components'
-      ],
-      filemtime(self::$path . $maincss),
-    );
+    // $mainjs = 'ui/main.js';
+    // wp_enqueue_script(
+    //   'poeticsoft-partner-ui-script',
+    //   self::$url . $mainjs ,
+    //   [        
+    //     'wp-element',
+    //     'wp-components'
+    //   ],
+    //   filemtime(self::$dir . $mainjs),
+    //   true
+    // );
+
+    // $maincss = 'ui/main.css';
+    // wp_enqueue_style(
+    //   'poeticsoft-partner-ui-style',
+    //   self::$url . $maincss,
+    //   [
+    //     'wp-admin',
+    //     'wp-editor',
+    //     'wp-components'
+    //   ],
+    //   filemtime(self::$dir . $maincss),
+    // );
   }  
 
   public function add_admin_menu() {
 
     add_menu_page(
-      'Poeticsoft',
+      'Poeticsoft Partner',
       'Poeticsoft',
       'manage_options',
       'poeticsoft-partner',
-      [$this, 'render_admin_page'],
-      'dashicons-admin-generic',
+      '',
+      'dashicons-images-alt2',
       25
-   );
-  }
-  
-  public function render_admin_page() {
-    ?>
-    <div 
-      id="PoeticsoftPartnerAdmin" 
-      class="wrap"
-    ></div>
-    <script>
-
-      document.addEventListener('DOMContentLoaded', () => {
-        window.PoeticsoftPartnerAdmin &&
-        window.PoeticsoftPartnerAdmin('PoeticsoftPartnerAdmin')
-      })
-    </script>
-    <?php
+    );
   }
 }

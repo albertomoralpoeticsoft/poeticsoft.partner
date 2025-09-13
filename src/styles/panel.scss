@@ -1,0 +1,94 @@
+ @use './root';
+
+.wp-block-poeticsoft-piecemedia,
+.wp-block-poeticsoft-piececompose,
+.wp-block-poeticsoft-piecetext,
+.wp-block-poeticsoft-pieceprogram {
+
+  .components-panel {
+
+    .components-panel__body  {
+
+      padding: 0;
+
+      &.is-opened {
+
+        padding: 0;
+      }
+
+      h2.components-panel__body-title {
+
+        margin: 0;
+
+        .components-panel__body-toggle {
+
+          padding-top: var(--s15);
+          padding-bottom: var(--s15);
+          padding-right: 0;
+
+          &:focus {
+
+            box-shadow: none;
+          }
+
+          span {
+
+            svg {
+
+              right: var(--s05);
+            }
+          }
+        }
+      }
+
+      .components-panel__row {
+
+        margin: -1px;
+
+        .Tabs {
+
+          width: calc(100% + 2px);
+
+          .components-tab-panel__tabs {
+
+            .components-tab-panel__tabs-item {
+
+              border: solid var(--color-borders);
+              border-width: 1px 1px 0 1px;
+              margin-bottom: -1px;
+              height: 32px !important;
+              z-index: 1;
+
+              &.Active {
+
+                background-color: var(--color-light);
+              }
+            }
+
+            .components-tab-panel__tabs-item +
+            .components-tab-panel__tabs-item {
+              
+              border-width: 1px 1px 0 0;
+            }
+          }
+        }
+
+        .components-tab-panel__tab-content {
+
+          .components-panel {
+
+            .components-panel__body {
+
+              padding: var(--s2);
+
+              &.is-opened  {
+
+
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

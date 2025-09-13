@@ -1,0 +1,143 @@
+/*!**************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/admin/main.scss ***!
+  \**************************************************************************************************************/
+:root {
+  /* SIZES */
+  --space: 8px;
+  --s025: calc(var(--space) * 0.25);
+  --s05: calc(var(--space) * 0.5);
+  --s075: calc(var(--space) * 0.75);
+  --s: var(--space);
+  --s15: calc(var(--space) * 1.5);
+  --s2: calc(var(--space) * 2);
+  --s3: calc(var(--space) * 3);
+  --s4: calc(var(--space) * 4);
+  --s45: calc(var(--space) * 4.5);
+  --s5: calc(var(--space) * 5);
+  --s6: calc(var(--space) * 6);
+  --s7: calc(var(--space) * 7);
+  --s8: calc(var(--space) * 8);
+  --s9: calc(var(--space) * 9);
+  --s10: calc(var(--space) * 10);
+  --s12: calc(var(--space) * 12);
+  --s14: calc(var(--space) * 14);
+  --s16: calc(var(--space) * 16);
+  --s18: calc(var(--space) * 18);
+  --color-light: #ffffff;
+  --color-light-transparent-a: #ffffffab;
+  --color-dark: #000000;
+  --color-dark-transparent-a: #0000008e;
+  --color-bg: #f2faff;
+  --color-borders: #e0e0e0;
+  --color-selected: #ff682c;
+  --color-error: #f13800;
+  --color-success: #00f100;
+  --color-warning: #f1b100;
+}
+
+table.media #the-list tr .column-title .media-icon {
+  width: 120px;
+}
+table.media #the-list tr .column-title .media-icon img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none;
+}
+table.media #the-list tr .column-title .row-actions {
+  margin-left: 128px;
+}
+
+#poeticsoft_partner_postmeta_publishable_metabox .postbox-header .ui-sortable-handle {
+  padding: 0 0 0 16px !important;
+}
+
+.editor-visual-editor__post-title-wrapper {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.wp-block-post-content.block-editor-block-list__layout {
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.wp-block-poeticsoft-piecemedia .components-panel .components-panel__body,
+.wp-block-poeticsoft-piececompose .components-panel .components-panel__body,
+.wp-block-poeticsoft-piecetext .components-panel .components-panel__body,
+.wp-block-poeticsoft-pieceprogram .components-panel .components-panel__body {
+  padding: 0;
+}
+.wp-block-poeticsoft-piecemedia .components-panel .components-panel__body.is-opened,
+.wp-block-poeticsoft-piececompose .components-panel .components-panel__body.is-opened,
+.wp-block-poeticsoft-piecetext .components-panel .components-panel__body.is-opened,
+.wp-block-poeticsoft-pieceprogram .components-panel .components-panel__body.is-opened {
+  padding: 0;
+}
+.wp-block-poeticsoft-piecemedia .components-panel .components-panel__body h2.components-panel__body-title,
+.wp-block-poeticsoft-piececompose .components-panel .components-panel__body h2.components-panel__body-title,
+.wp-block-poeticsoft-piecetext .components-panel .components-panel__body h2.components-panel__body-title,
+.wp-block-poeticsoft-pieceprogram .components-panel .components-panel__body h2.components-panel__body-title {
+  margin: 0;
+}
+.wp-block-poeticsoft-piecemedia .components-panel .components-panel__body h2.components-panel__body-title .components-panel__body-toggle,
+.wp-block-poeticsoft-piececompose .components-panel .components-panel__body h2.components-panel__body-title .components-panel__body-toggle,
+.wp-block-poeticsoft-piecetext .components-panel .components-panel__body h2.components-panel__body-title .components-panel__body-toggle,
+.wp-block-poeticsoft-pieceprogram .components-panel .components-panel__body h2.components-panel__body-title .components-panel__body-toggle {
+  padding-top: var(--s15);
+  padding-bottom: var(--s15);
+  padding-right: 0;
+}
+.wp-block-poeticsoft-piecemedia .components-panel .components-panel__body h2.components-panel__body-title .components-panel__body-toggle:focus,
+.wp-block-poeticsoft-piececompose .components-panel .components-panel__body h2.components-panel__body-title .components-panel__body-toggle:focus,
+.wp-block-poeticsoft-piecetext .components-panel .components-panel__body h2.components-panel__body-title .components-panel__body-toggle:focus,
+.wp-block-poeticsoft-pieceprogram .components-panel .components-panel__body h2.components-panel__body-title .components-panel__body-toggle:focus {
+  box-shadow: none;
+}
+.wp-block-poeticsoft-piecemedia .components-panel .components-panel__body h2.components-panel__body-title .components-panel__body-toggle span svg,
+.wp-block-poeticsoft-piececompose .components-panel .components-panel__body h2.components-panel__body-title .components-panel__body-toggle span svg,
+.wp-block-poeticsoft-piecetext .components-panel .components-panel__body h2.components-panel__body-title .components-panel__body-toggle span svg,
+.wp-block-poeticsoft-pieceprogram .components-panel .components-panel__body h2.components-panel__body-title .components-panel__body-toggle span svg {
+  right: var(--s05);
+}
+.wp-block-poeticsoft-piecemedia .components-panel .components-panel__body .components-panel__row,
+.wp-block-poeticsoft-piececompose .components-panel .components-panel__body .components-panel__row,
+.wp-block-poeticsoft-piecetext .components-panel .components-panel__body .components-panel__row,
+.wp-block-poeticsoft-pieceprogram .components-panel .components-panel__body .components-panel__row {
+  margin: -1px;
+}
+.wp-block-poeticsoft-piecemedia .components-panel .components-panel__body .components-panel__row .Tabs,
+.wp-block-poeticsoft-piececompose .components-panel .components-panel__body .components-panel__row .Tabs,
+.wp-block-poeticsoft-piecetext .components-panel .components-panel__body .components-panel__row .Tabs,
+.wp-block-poeticsoft-pieceprogram .components-panel .components-panel__body .components-panel__row .Tabs {
+  width: calc(100% + 2px);
+}
+.wp-block-poeticsoft-piecemedia .components-panel .components-panel__body .components-panel__row .Tabs .components-tab-panel__tabs .components-tab-panel__tabs-item,
+.wp-block-poeticsoft-piececompose .components-panel .components-panel__body .components-panel__row .Tabs .components-tab-panel__tabs .components-tab-panel__tabs-item,
+.wp-block-poeticsoft-piecetext .components-panel .components-panel__body .components-panel__row .Tabs .components-tab-panel__tabs .components-tab-panel__tabs-item,
+.wp-block-poeticsoft-pieceprogram .components-panel .components-panel__body .components-panel__row .Tabs .components-tab-panel__tabs .components-tab-panel__tabs-item {
+  border: solid var(--color-borders);
+  border-width: 1px 1px 0 1px;
+  margin-bottom: -1px;
+  height: 32px !important;
+  z-index: 1;
+}
+.wp-block-poeticsoft-piecemedia .components-panel .components-panel__body .components-panel__row .Tabs .components-tab-panel__tabs .components-tab-panel__tabs-item.Active,
+.wp-block-poeticsoft-piececompose .components-panel .components-panel__body .components-panel__row .Tabs .components-tab-panel__tabs .components-tab-panel__tabs-item.Active,
+.wp-block-poeticsoft-piecetext .components-panel .components-panel__body .components-panel__row .Tabs .components-tab-panel__tabs .components-tab-panel__tabs-item.Active,
+.wp-block-poeticsoft-pieceprogram .components-panel .components-panel__body .components-panel__row .Tabs .components-tab-panel__tabs .components-tab-panel__tabs-item.Active {
+  background-color: var(--color-light);
+}
+.wp-block-poeticsoft-piecemedia .components-panel .components-panel__body .components-panel__row .Tabs .components-tab-panel__tabs .components-tab-panel__tabs-item + .components-tab-panel__tabs-item,
+.wp-block-poeticsoft-piececompose .components-panel .components-panel__body .components-panel__row .Tabs .components-tab-panel__tabs .components-tab-panel__tabs-item + .components-tab-panel__tabs-item,
+.wp-block-poeticsoft-piecetext .components-panel .components-panel__body .components-panel__row .Tabs .components-tab-panel__tabs .components-tab-panel__tabs-item + .components-tab-panel__tabs-item,
+.wp-block-poeticsoft-pieceprogram .components-panel .components-panel__body .components-panel__row .Tabs .components-tab-panel__tabs .components-tab-panel__tabs-item + .components-tab-panel__tabs-item {
+  border-width: 1px 1px 0 0;
+}
+.wp-block-poeticsoft-piecemedia .components-panel .components-panel__body .components-panel__row .components-tab-panel__tab-content .components-panel .components-panel__body,
+.wp-block-poeticsoft-piececompose .components-panel .components-panel__body .components-panel__row .components-tab-panel__tab-content .components-panel .components-panel__body,
+.wp-block-poeticsoft-piecetext .components-panel .components-panel__body .components-panel__row .components-tab-panel__tab-content .components-panel .components-panel__body,
+.wp-block-poeticsoft-pieceprogram .components-panel .components-panel__body .components-panel__row .components-tab-panel__tab-content .components-panel .components-panel__body {
+  padding: var(--s2);
+}
+
+/*# sourceMappingURL=main.css.map*/

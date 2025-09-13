@@ -1,0 +1,19 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "poeticsoft/piecemedia",
+  "title": "Piece Media",
+  "category": "poeticsoft",
+  "icon": "media-archive",
+  "description": "Este bloque incluye scripts y estilos para frontend y editor.",
+  "keywords": [],
+  "textdomain": "poeticsoft",
+  "version": "1.0.0",
+  "supports": {
+    "align": ["wide", "full", "left", "center", "right"]
+  },  
+  "editorScript": "file:./build/editor.js",
+  "editorStyle": "file:./build/editor.css",
+  "viewScript": "file:./build/view.js",
+  "viewStyle": "file:./build/view.css"
+}

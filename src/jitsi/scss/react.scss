@@ -1,0 +1,58 @@
+@use '~styles/mixin' as *;
+
+#conferencewrapper {
+
+  @include fixedbox();
+  background-color: var(--color-dark-transparent-a);
+  z-index: 99;
+
+  #jitsiwrapper {
+
+    @include absolutebox(
+      10px,
+      10px,
+      10px,
+      10px
+    );
+    background-color: var(--color-dark);
+    z-index: 0;
+
+    [id^="jitsiMeeting"] {
+
+      @include absolutebox();
+    }
+  }
+
+  #jitsiclose {
+
+    position: absolute;
+    top: var(--s3);
+    width: var(--s4);
+    height: var(--s4);
+    left: var(--s3);
+    background-color: var(--color-light);
+    border-radius: var(--s05);
+    cursor: pointer;
+    z-index: 1;
+
+    .bar {
+
+      width: var(--s2);
+      height: var(--s05);
+      background-color: var(--color-dark);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+
+      &.a {
+        
+        transform: translateX(-50%) translateY(-50%) rotate(45deg);
+      }
+
+      &.b {
+        
+        transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+      }
+    }
+  }
+}

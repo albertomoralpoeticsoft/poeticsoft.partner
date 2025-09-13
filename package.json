@@ -4,14 +4,34 @@
   "license": "GPL-2.0-or-later",
   "scripts": {
     "release": "node release.js",
+
+    "admindev": "webpack --env=admin-dev",
+    "adminprod": "webpack --env=admin-prod",
+
+    "piecemediadev": "webpack --env=block-piecemedia-dev",
+    "piecemediaprod": "webpack --env=block-piecemedia-prod",
+
+    "piececomposedev": "webpack --env=block-piececompose-dev",
+    "piececomposeprod": "webpack --env=block-piececompose-prod",
+
+    "piecetextdev": "webpack --env=block-piecetext-dev",
+    "piecetextprod": "webpack --env=block-piecetext-prod",
+
+    "pieceprogramdev": "webpack --env=block-pieceprogram-dev",
+    "pieceprogramprod": "webpack --env=block-pieceprogram-prod",
+
+    "jitsidev": "webpack --env=jitsi-dev",
+    "jitsiprod": "webpack --env=jitsi-prod",
+
     "ui-dev": "webpack --env=ui-dev",
-    "admin-dev": "webpack --env=admin-dev"
+    "sp-publish-dev": "webpack --env=settingspanel-publish-dev"
   },
   "dependencies": {
     "@babel/core": "^7.18.10",
     "@babel/preset-env": "^7.18.10",
     "@babel/preset-react": "^7.18.6",
     "@babel/runtime": "^7.18.9",
+    "@jitsi/react-sdk": "^1.4.4",
     "@reduxjs/toolkit": "^2.8.2",
     "archiver": "^7.0.1",
     "babel-core": "^6.26.3",

@@ -4,22 +4,18 @@ trait Poeticsoft_Partner_Trait_PostList {
   public function add_postlist_details() { 
 
     add_filter(
-      'manage_page_posts_columns',       
-      [$this, 'postlist_addcolumn_image']
-    );
-    add_filter(
-      'manage_post_posts_columns',       
+      'manage_template_posts_columns',       
       [$this, 'postlist_addcolumn_image']
     );
     add_action(
-      'manage_page_posts_custom_column', 
+      'manage_template_posts_custom_column', 
       [$this, 'postlist_rendercolumn_image'], 
       10, 
       2
-    );
+    );    
     add_action(
-      'manage_post_posts_custom_column', 
-      [$this, 'postlist_rendercolumn_image'], 
+      'admin_head', 
+      [$this, 'postlist_column_width'], 
       10, 
       2
     );
@@ -49,6 +45,21 @@ trait Poeticsoft_Partner_Trait_PostList {
 
         echo '<p>Sin imagen</p>';
       }
+    }
+  } 
+  
+  public function postlist_column_width() {
+
+    $screen = get_current_screen();
+    if ($screen->post_type === 'template') {
+
+      echo '<style>
+        .column-post_image { 
+          width: 120px;
+          max-width: 120px;
+          text-align: left;
+        }
+      </style>';
     }
   } 
 }
