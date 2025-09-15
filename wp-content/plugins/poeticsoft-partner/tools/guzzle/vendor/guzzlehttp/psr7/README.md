@@ -174,7 +174,7 @@ echo $stream->read(10);
 `GuzzleHttp\Psr7\LimitStream`
 
 LimitStream can be used to read a subset or slice of an existing stream object.
-This can be useful for breaking a large file into smaller pieces to be sent in
+This can be useful for breaking a large file into smaller campaigns to be sent in
 chunks (e.g. Amazon S3's multipart upload API).
 
 ```php

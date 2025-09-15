@@ -1,7 +1,7 @@
 const { __ } = wp.i18n
 const { registerBlockType } = wp.blocks
 const { useBlockProps } = wp.blockEditor
-import metadata from 'block/piecemedia/block.json'
+import metadata from 'block/campaignmedia/block.json'
 import './editor.scss';
 
 const { 

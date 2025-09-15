@@ -9,7 +9,7 @@ trait Poeticsoft_Partner_Trait_UI {
 
   public function enqueue_admin() {
 
-    $mainjs = 'admin/main.js';
+    $mainjs = 'ui/admin/main.js';
     wp_enqueue_script(
       'poeticsoft-partner-admin-script',
       self::$url . $mainjs ,
@@ -20,7 +20,7 @@ trait Poeticsoft_Partner_Trait_UI {
       true
     );
 
-    $maincss = 'admin/main.css';
+    $maincss = 'ui/admin/main.css';
     wp_enqueue_style(
       'poeticsoft-partner-admin-style',
       self::$url . $maincss,
@@ -29,30 +29,6 @@ trait Poeticsoft_Partner_Trait_UI {
       ],
       filemtime(self::$dir . $maincss),
     );
-
-    // $mainjs = 'ui/main.js';
-    // wp_enqueue_script(
-    //   'poeticsoft-partner-ui-script',
-    //   self::$url . $mainjs ,
-    //   [        
-    //     'wp-element',
-    //     'wp-components'
-    //   ],
-    //   filemtime(self::$dir . $mainjs),
-    //   true
-    // );
-
-    // $maincss = 'ui/main.css';
-    // wp_enqueue_style(
-    //   'poeticsoft-partner-ui-style',
-    //   self::$url . $maincss,
-    //   [
-    //     'wp-admin',
-    //     'wp-editor',
-    //     'wp-components'
-    //   ],
-    //   filemtime(self::$dir . $maincss),
-    // );
   }  
 
   public function add_admin_menu() {

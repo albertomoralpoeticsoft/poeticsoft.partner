@@ -2,8 +2,9 @@
 
 require_once __DIR__ . '/traits/trait-api.php';
 require_once __DIR__ . '/traits/trait-ui.php';
-require_once __DIR__ . '/traits/trait-postlist.php';
-require_once __DIR__ . '/traits/trait-piece.php';
+require_once __DIR__ . '/traits/trait-campaign.php';
+require_once __DIR__ . '/traits/trait-campaign-postlist.php';
+require_once __DIR__ . '/traits/trait-campaign-meta.php';
 require_once __DIR__ . '/traits/trait-block.php';
 require_once __DIR__ . '/traits/trait-jitsi.php';
 require_once __DIR__ . '/traits/trait-jitsi-api.php';
@@ -17,8 +18,9 @@ class Poeticsoft_Partner {
 
   use Poeticsoft_Partner_Trait_API;
   use Poeticsoft_Partner_Trait_UI;
-  use Poeticsoft_Partner_Trait_PostList;
-  use Poeticsoft_Partner_Trait_Piece;
+  use Poeticsoft_Partner_Trait_Campaign;
+  use Poeticsoft_Partner_Trait_Campaign_PostList;
+  use Poeticsoft_Partner_Trait_Campaign_Meta;
   use Poeticsoft_Partner_Trait_Block;
   use Poeticsoft_Partner_Trait_Jitsi;
   use Poeticsoft_Partner_Trait_Jitsi_API;
@@ -50,8 +52,9 @@ class Poeticsoft_Partner {
 
     $this->register_ui();
     $this->register_api();
-    $this->add_postlist_details();
-    $this->register_piece();
+    $this->register_campaign();
+    $this->register_campaign_postlist();
+    $this->register_campaign_meta();
     $this->register_block();
     $this->register_jitsi();
     $this->register_jitsi_api();

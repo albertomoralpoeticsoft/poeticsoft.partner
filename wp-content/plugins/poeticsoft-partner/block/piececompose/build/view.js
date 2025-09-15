@@ -2,9 +2,9 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/block/piececompose/view.scss":
+/***/ "./src/block/campaigncompose/view.scss":
 /*!******************************************!*\
-  !*** ./src/block/piececompose/view.scss ***!
+  !*** ./src/block/campaigncompose/view.scss ***!
   \******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -57,10 +57,10 @@ var __webpack_exports__ = {};
 // This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
 (() => {
 /*!****************************************!*\
-  !*** ./src/block/piececompose/view.js ***!
+  !*** ./src/block/campaigncompose/view.js ***!
   \****************************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _view_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./view.scss */ "./src/block/piececompose/view.scss");
+/* harmony import */ var _view_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./view.scss */ "./src/block/campaigncompose/view.scss");
 
 document.addEventListener('DOMContentLoaded', function () {
   console.log('Base View');

@@ -7140,9 +7140,9 @@ module.exports = set;
 
 /***/ }),
 
-/***/ "./src/block/piececompose/comps/images.js":
+/***/ "./src/block/campaigncompose/comps/images.js":
 /*!************************************************!*\
-  !*** ./src/block/piececompose/comps/images.js ***!
+  !*** ./src/block/campaigncompose/comps/images.js ***!
   \************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -7160,9 +7160,9 @@ var _wp$components = wp.components,
 
 /***/ }),
 
-/***/ "./src/block/piececompose/comps/videos.js":
+/***/ "./src/block/campaigncompose/comps/videos.js":
 /*!************************************************!*\
-  !*** ./src/block/piececompose/comps/videos.js ***!
+  !*** ./src/block/campaigncompose/comps/videos.js ***!
   \************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -7180,9 +7180,9 @@ var _wp$components = wp.components,
 
 /***/ }),
 
-/***/ "./src/block/piececompose/editor.scss":
+/***/ "./src/block/campaigncompose/editor.scss":
 /*!********************************************!*\
-  !*** ./src/block/piececompose/editor.scss ***!
+  !*** ./src/block/campaigncompose/editor.scss ***!
   \********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -7193,9 +7193,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./src/block/piececompose/state.js":
+/***/ "./src/block/campaigncompose/state.js":
 /*!*****************************************!*\
-  !*** ./src/block/piececompose/state.js ***!
+  !*** ./src/block/campaigncompose/state.js ***!
   \*****************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -7221,14 +7221,14 @@ var useReducer = wp.element.useReducer;
 
 /***/ }),
 
-/***/ "./wp-content/plugins/poeticsoft-partner/block/piececompose/block.json":
+/***/ "./wp-content/plugins/poeticsoft-partner/block/campaigncompose/block.json":
 /*!*****************************************************************************!*\
-  !*** ./wp-content/plugins/poeticsoft-partner/block/piececompose/block.json ***!
+  !*** ./wp-content/plugins/poeticsoft-partner/block/campaigncompose/block.json ***!
   \*****************************************************************************/
 /***/ ((module) => {
 
 "use strict";
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"poeticsoft/piececompose","title":"Piece Compose","category":"poeticsoft","icon":"media-interactive","description":"Este bloque incluye scripts y estilos para frontend y editor.","keywords":[],"textdomain":"poeticsoft","version":"1.0.0","supports":{"align":["wide","full","left","center","right"]},"editorScript":"file:./build/editor.js","editorStyle":"file:./build/editor.css","viewScript":"file:./build/view.js","viewStyle":"file:./build/view.css"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"poeticsoft/campaigncompose","title":"Campaign Compose","category":"poeticsoft","icon":"media-interactive","description":"Este bloque incluye scripts y estilos para frontend y editor.","keywords":[],"textdomain":"poeticsoft","version":"1.0.0","supports":{"align":["wide","full","left","center","right"]},"editorScript":"file:./build/editor.js","editorStyle":"file:./build/editor.css","viewScript":"file:./build/view.js","viewStyle":"file:./build/view.css"}');
 
 /***/ })
 
@@ -7329,14 +7329,14 @@ var __webpack_exports__ = {};
 (() => {
 "use strict";
 /*!******************************************!*\
-  !*** ./src/block/piececompose/editor.js ***!
+  !*** ./src/block/campaigncompose/editor.js ***!
   \******************************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var block_piececompose_block_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! block/piececompose/block.json */ "./wp-content/plugins/poeticsoft-partner/block/piececompose/block.json");
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./editor.scss */ "./src/block/piececompose/editor.scss");
-/* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./state */ "./src/block/piececompose/state.js");
-/* harmony import */ var _comps_images__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./comps/images */ "./src/block/piececompose/comps/images.js");
-/* harmony import */ var _comps_videos__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./comps/videos */ "./src/block/piececompose/comps/videos.js");
+/* harmony import */ var block_campaigncompose_block_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! block/campaigncompose/block.json */ "./wp-content/plugins/poeticsoft-partner/block/campaigncompose/block.json");
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./editor.scss */ "./src/block/campaigncompose/editor.scss");
+/* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./state */ "./src/block/campaigncompose/state.js");
+/* harmony import */ var _comps_images__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./comps/images */ "./src/block/campaigncompose/comps/images.js");
+/* harmony import */ var _comps_videos__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./comps/videos */ "./src/block/campaigncompose/comps/videos.js");
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -7395,7 +7395,7 @@ var Save = function Save(props) {
   var blockProps = useBlockProps.save();
   return /*#__PURE__*/React.createElement("div", blockProps, "SAVE");
 };
-registerBlockType(block_piececompose_block_json__WEBPACK_IMPORTED_MODULE_0__.name, {
+registerBlockType(block_campaigncompose_block_json__WEBPACK_IMPORTED_MODULE_0__.name, {
   edit: Edit,
   save: Save
 });

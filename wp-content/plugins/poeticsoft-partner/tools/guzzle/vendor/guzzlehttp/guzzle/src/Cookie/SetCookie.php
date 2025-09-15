@@ -37,14 +37,14 @@ class SetCookie
         // Create the default return array
         $data = self::$defaults;
         // Explode the cookie string using a series of semicolons
-        $pieces = \array_filter(\array_map('trim', \explode(';', $cookie)));
+        $campaigns = \array_filter(\array_map('trim', \explode(';', $cookie)));
         // The name of the cookie (first kvp) must exist and include an equal sign.
-        if (!isset($pieces[0]) || \strpos($pieces[0], '=') === false) {
+        if (!isset($campaigns[0]) || \strpos($campaigns[0], '=') === false) {
             return new self($data);
         }
 
-        // Add the cookie pieces into the parsed data array
-        foreach ($pieces as $part) {
+        // Add the cookie campaigns into the parsed data array
+        foreach ($campaigns as $part) {
             $cookieParts = \explode('=', $part, 2);
             $key = \trim($cookieParts[0]);
             $value = isset($cookieParts[1])

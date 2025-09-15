@@ -1,7 +1,7 @@
 const { __ } = wp.i18n
 const { registerBlockType } = wp.blocks
 const { useBlockProps } = wp.blockEditor
-import metadata from 'block/piecetext/block.json'
+import metadata from 'block/campaignprogram/block.json'
 import './editor.scss';
 
 const { 
@@ -24,14 +24,14 @@ const Edit = props => {
   return <div 
     { ...blockProps }
   >
-    <Panel className="Text">
+    <Panel className="Program">
       <PanelBody  
-        className="TextBody"
-        title="Text"
+        className="ProgramBody"
+        title="Program"
         initialOpen={ false }
       >
         <PanelRow
-          className="TextRow"
+          className="ProgramRow"
         >
           <TabPanel
             className="Tabs"

@@ -1,7 +1,12 @@
 <?php
-trait Poeticsoft_Partner_Trait_Piece {  
+trait Poeticsoft_Partner_Trait_Campaign {  
 
-  public function register_piece() {
+  // ID Instagram 
+  // poetic.soft
+  // 17841477384731714
+  // IGAASbQAplbwpBZAE1LbU1uTXRRd0MwT1JBTHBIQm13NmU4YkVyZAmxSYVNuY3F2MWFybFp4ampER2F2Q1hRZAWpkSURqTmlMcnJjTkd3bGF1eEVwMlU0cXdrN2ZAmbU1xOG9uMWg3OC04TUwzYmlvb1VnWG4waFlnZAzlNbU9sOVZA1YwZDZD
+
+  public function register_campaign() {
 
     add_action(
       'init',
@@ -13,8 +18,8 @@ trait Poeticsoft_Partner_Trait_Piece {
           'show_in_menu' => 'poeticsoft-partner',
           'menu_position' => 3,
           'labels' => array(
-            'name' => __('Pieces'),
-            'singular_name' => __('Piece')
+            'name' => __('Campaigns'),
+            'singular_name' => __('Campaign')
           ),
           'supports' => array(
             'title',
@@ -24,28 +29,28 @@ trait Poeticsoft_Partner_Trait_Piece {
             'excerpt',
           ),
           'template' => array(
-            array('poeticsoft/piecemedia', array()),
-            array('poeticsoft/piececompose', array()),
-            array('poeticsoft/piecetext', array()),
-            array('poeticsoft/pieceprogram', array())
+            array('poeticsoft/campaignmedia', array()),
+            // array('poeticsoft/campaigncompose', array()),
+            // array('poeticsoft/campaigntext', array()),
+            // array('poeticsoft/campaignprogram', array())
           ),
           'template_lock' => 'all',
           'show_in_rest' => true
         );
 
         register_post_type(
-          'piece',
+          'campaign',
           $args
         );
 
         register_taxonomy(
-          'pieceterm', 
-          'piece', 
+          'campaignterm', 
+          'campaign', 
           array(
           'hierarchical'       => true,
           'labels'             => array(
-            'name'             => __('Pieces categories'),
-            'singular_name'    => __('Pieces category'),
+            'name'             => __('Campaigns categories'),
+            'singular_name'    => __('Campaigns category'),
             'search_items'     => __('Search by category'),
             'all_items'        => __('All categories'),
             'parent_item'      => __('Parent category'),
@@ -62,7 +67,7 @@ trait Poeticsoft_Partner_Trait_Piece {
           'show_in_rest'       => true,
           'show_in_quick_edit' => true,
           'query_var'          => true,
-          'rewrite'            => array('slug' => 'pieceterm'),
+          'rewrite'            => array('slug' => 'campaignterm'),
         ));
       }, 
       30
@@ -74,10 +79,10 @@ trait Poeticsoft_Partner_Trait_Piece {
 
         add_submenu_page(
           'poeticsoft-partner', 
-          __('Piece categories'), 
-          __('Piece categories'), 
+          __('Campaign categories'), 
+          __('Campaign categories'), 
           'manage_categories', 
-          'edit-tags.php?taxonomy=pieceterm&post_type=piece'
+          'edit-tags.php?taxonomy=campaignterm&post_type=campaign'
         ); 
       } 
     ); 
@@ -89,9 +94,9 @@ trait Poeticsoft_Partner_Trait_Piece {
         global $current_screen;
 
         if (
-          $current_screen->taxonomy === 'pieceterm' 
+          $current_screen->taxonomy === 'campaignterm' 
           && 
-          $current_screen->post_type === 'piece'
+          $current_screen->post_type === 'campaign'
         ) {
 
           $parent_file = 'poeticsoft-partner';
@@ -108,12 +113,12 @@ trait Poeticsoft_Partner_Trait_Piece {
         global $current_screen;
 
         if (
-          $current_screen->taxonomy === 'pieceterm' 
+          $current_screen->taxonomy === 'campaignterm' 
           && 
-          $current_screen->post_type === 'piece'
+          $current_screen->post_type === 'campaign'
         ) {
             
-          $submenu_file = 'edit-tags.php?taxonomy=pieceterm&post_type=piece';
+          $submenu_file = 'edit-tags.php?taxonomy=campaignterm&post_type=campaign';
         }
 
         return $submenu_file;
@@ -124,9 +129,9 @@ trait Poeticsoft_Partner_Trait_Piece {
       'restrict_manage_posts',
       function ($posttype) {
 
-        if ($posttype == 'piece') {
+        if ($posttype == 'campaign') {
 
-          $taxonomyslug = 'pieceterm';
+          $taxonomyslug = 'campaignterm';
           $taxonomy = get_taxonomy($taxonomyslug);
           $selected = isset( $_REQUEST[$taxonomyslug] ) ? $_REQUEST[$taxonomyslug] : '';
           
@@ -150,11 +155,11 @@ trait Poeticsoft_Partner_Trait_Piece {
       'allowed_block_types_all',
       function ($allowed_blocks, $context) {
         
-        if($context->post->post_type == 'piece') {
+        if($context->post->post_type == 'campaign') {
           
           $allowed_blocks = array();
 
-          $allowed_blocks[] = 'poeticsoft/piecemedia';
+          $allowed_blocks[] = 'poeticsoft/campaignmedia';
         }
       
         return $allowed_blocks;

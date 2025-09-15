@@ -1,8 +1,8 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 2,
-  "name": "poeticsoft/piecemedia",
-  "title": "Piece Media",
+  "name": "poeticsoft/campaignmedia",
+  "title": "Campaign Media",
   "category": "poeticsoft",
   "icon": "media-archive",
   "description": "Este bloque incluye scripts y estilos para frontend y editor.",

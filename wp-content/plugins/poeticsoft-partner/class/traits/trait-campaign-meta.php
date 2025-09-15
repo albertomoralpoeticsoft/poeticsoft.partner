@@ -1,11 +1,11 @@
 <?php
-trait Poeticsoft_Partner_Trait_PostMeta {
+trait Poeticsoft_Partner_Trait_Campaign_Meta {
 
-  public function register_postmeta() {      
+  public function register_campaign_meta() {      
 
     register_post_meta(
-      'post', 
-      'poeticsoft_partner_postmeta_publishable', 
+      'campaign', 
+      'poeticsoft_partner_campaign_meta_publishable', 
       [
         'show_in_rest' => true,
         'single'       => true,
@@ -16,120 +16,101 @@ trait Poeticsoft_Partner_Trait_PostMeta {
 
     add_action(
       'add_meta_boxes',                  
-      [$this, 'poeticsoft_partner_postmeta_publishable_addmetaboxes']
+      [$this, 'poeticsoft_partner_campaign_meta_publishable_addmetaboxes']
     );
     add_action(
       'save_post',                       
-      [$this, 'poeticsoft_partner_postmeta_publishable_savemetabox']
+      [$this, 'poeticsoft_partner_campaign_meta_publishable_savemetabox']
     );
     add_action(
       'edit_attachment',                 
-      [$this, 'poeticsoft_partner_postmeta_publishable_savemetabox']
+      [$this, 'poeticsoft_partner_campaign_meta_publishable_savemetabox']
     );
     add_filter(
-      'manage_page_posts_columns',       
-      [$this, 'poeticsoft_partner_postmeta_publishable_addcolumn']
-    );
-    add_filter(
-      'manage_post_posts_columns',       
-      [$this, 'poeticsoft_partner_postmeta_publishable_addcolumn']
-    );
-    add_filter(
-      'manage_media_columns',            
-      [$this, 'poeticsoft_partner_postmeta_publishable_addcolumn']
+      'manage_campaign_posts_columns',       
+      [$this, 'poeticsoft_partner_campaign_meta_publishable_addcolumn']
     );
     add_action(
-      'manage_page_posts_custom_column', 
-      [$this, 'poeticsoft_partner_postmeta_publishable_rendercolumn'], 
-      10, 
-      2
-    );
-    add_action(
-      'manage_post_posts_custom_column', 
-      [$this, 'poeticsoft_partner_postmeta_publishable_rendercolumn'], 
-      10, 
-      2
-    );
-    add_action(
-      'manage_media_custom_column',      
-      [$this, 'poeticsoft_partner_postmeta_publishable_rendercolumn'], 
+      'manage_campaign_posts_custom_column', 
+      [$this, 'poeticsoft_partner_campaign_meta_publishable_rendercolumn'], 
       10, 
       2
     );
     add_action(
       'admin_enqueue_scripts',           
-      [$this, 'poeticsoft_partner_postmeta_publishable_enqueuescript']
+      [$this, 'poeticsoft_partner_campaign_meta_publishable_enqueuescript']
     );
     add_action(
-      'wp_ajax_update_poeticsoft_partner_postmeta_publishable',  
-      [$this, 'poeticsoft_partner_postmeta_publishable_ajaxupdate']
+      'wp_ajax_update_poeticsoft_partner_campaign_meta_publishable',  
+      [$this, 'poeticsoft_partner_campaign_meta_publishable_ajaxupdate']
     );
     add_action(
       'quick_edit_custom_box', 
-      [$this, 'poeticsoft_partner_postmeta_publishable_quick_edit'],
+      [$this, 'poeticsoft_partner_campaign_meta_publishable_quick_edit'],
       10, 
       2
     );
+
+
+
     add_action(
       'admin_footer-edit.php', 
-      [$this, 'poeticsoft_partner_postmeta_publishable_quickeditscript']
+      [$this, 'poeticsoft_partner_campaign_meta_publishable_quickeditscript']
     );
     add_action(
       'save_post', 
-      [$this, 'poeticsoft_partner_postmeta_publishable_quickeditsave']
+      [$this, 'poeticsoft_partner_campaign_meta_publishable_quickeditsave']
     );
     add_action(
       'bulk_edit_custom_box', 
-      [$this, 'poeticsoft_partner_postmeta_publishable_bulkedit'], 
+      [$this, 'poeticsoft_partner_campaign_meta_publishable_bulkedit'], 
       10, 
       2
     );
     add_action(
       'save_post', 
-      [$this, 'poeticsoft_partner_postmeta_publishable_savebulkedit'], 
+      [$this, 'poeticsoft_partner_campaign_meta_publishable_savebulkedit'], 
       10, 
       2
     );
   }
 
-  public function poeticsoft_partner_postmeta_publishable_addmetaboxes() {
+  public function poeticsoft_partner_campaign_meta_publishable_addmetaboxes() {
 
     add_meta_box(
-      'poeticsoft_partner_postmeta_publishable_metabox', // ID de la meta box
-      'Poeticsoft Partner',
+      'poeticsoft_partner_campaign_meta_publishable_metabox', // ID de la meta box
+      'Campaña',
       function ($post) {
 
         $value = get_post_meta(
           $post->ID, 
-          'poeticsoft_partner_postmeta_publishable', 
+          'poeticsoft_partner_campaign_meta_publishable', 
           true
-       );
+        );
 
         echo '<label 
-          for="poeticsoft_partner_postmeta_publishable"
+          for="poeticsoft_partner_campaign_meta_publishable"
         >
           <input 
             type="checkbox" 
-            id="poeticsoft_partner_postmeta_publishable" 
-            name="poeticsoft_partner_postmeta_publishable" 
+            id="poeticsoft_partner_campaign_meta_publishable" 
+            name="poeticsoft_partner_campaign_meta_publishable" 
             value="1" ' . 
             checked(1, $value, false) . 
             ' 
           />
-          Publicable en redes
+          Activa
         </label>';
       },
       [
-        'page', 
-        'post', 
-        'attachment'
+        'campaign'
       ],
       'side', // side, normal, advanced
       'high'
    );
   }
 
-  public function poeticsoft_partner_postmeta_publishable_savemetabox($post_id) {
+  public function poeticsoft_partner_campaign_meta_publishable_savemetabox($post_id) {
 
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
         
@@ -139,38 +120,38 @@ trait Poeticsoft_Partner_Trait_PostMeta {
     if (
       isset($_POST['post_type'])
       &&
-      'post' == $_POST['post_type'] 
+      'campaign' == $_POST['post_type'] 
       && 
       !current_user_can('edit_post', $post_id)
-   ) {
+    ) {
         
       return $post_id;
     }
 
-    $value = isset($_POST['poeticsoft_partner_postmeta_publishable']) ? '1' : '0';
+    $value = isset($_POST['poeticsoft_partner_campaign_meta_publishable']) ? '1' : '0';
     update_post_meta(
       $post_id, 
-      'poeticsoft_partner_postmeta_publishable', 
+      'poeticsoft_partner_campaign_meta_publishable', 
       $value
-   );
+    );
   }
 
-  public function poeticsoft_partner_postmeta_publishable_addcolumn($columns) {
+  public function poeticsoft_partner_campaign_meta_publishable_addcolumn($columns) {
     
-    $columns['poeticsoft_partner_postmeta_publishable'] = 'Publicable en redes';
+    $columns['poeticsoft_partner_campaign_meta_publishable'] = 'Activa';
     return $columns;
   }
 
-  public function poeticsoft_partner_postmeta_publishable_rendercolumn(
+  public function poeticsoft_partner_campaign_meta_publishable_rendercolumn(
     $column_name, 
     $post_id
   ) {
 
-    if ($column_name == 'poeticsoft_partner_postmeta_publishable') {
+    if ($column_name == 'poeticsoft_partner_campaign_meta_publishable') {
 
       $value = get_post_meta(
         $post_id, 
-        'poeticsoft_partner_postmeta_publishable', 
+        'poeticsoft_partner_campaign_meta_publishable', 
         true
       );
 
@@ -178,40 +159,40 @@ trait Poeticsoft_Partner_Trait_PostMeta {
 
       echo '<input 
         type="checkbox" 
-        class="poeticsoft_partner_postmeta_publishable_toggle" 
-        data-postid="' . $post_id . '" 
+        class="poeticsoft_partner_campaign_meta_publishable_toggle" 
+        data-campaignid="' . $post_id . '" 
         ' . $checked . ' 
       />';
     }
   } 
 
-  public function poeticsoft_partner_postmeta_publishable_enqueuescript() {
+  public function poeticsoft_partner_campaign_meta_publishable_enqueuescript() {
     
-    $mainjs = 'postmeta/main.js';
+    $mainjs = 'ui/postmeta/main.js';
     wp_enqueue_script(
-      'poeticsoft_partner_postmeta_publishable_script',
+      'poeticsoft_partner_campaign_meta_publishable_script',
       self::$url . $mainjs ,
       [        
         'jquery'
       ],
       filemtime(self::$dir . $mainjs),
       true
-   );
+    );
 
     wp_localize_script(
-      'poeticsoft_partner_postmeta_publishable_script', 
-      'PoeticsoftPartnerPostmetaPublishableAjax', 
+      'poeticsoft_partner_campaign_meta_publishable_script', 
+      'PoeticsoftPartnerCampaignMetaPublishableAjax', 
       [
         'ajaxurl' => admin_url('admin-ajax.php'),
-        'nonce'   => wp_create_nonce('poeticsoft_partner_postmeta_publishable')
+        'nonce'   => wp_create_nonce('poeticsoft_partner_campaign_meta_publishable')
       ]
-   );
+    );
   }
 
-  public function poeticsoft_partner_postmeta_publishable_ajaxupdate() {
+  public function poeticsoft_partner_campaign_meta_publishable_ajaxupdate() {
 
     check_ajax_referer(
-      'poeticsoft_partner_postmeta_publishable', 
+      'poeticsoft_partner_campaign_meta_publishable', 
       'nonce'
    );
 
@@ -225,30 +206,30 @@ trait Poeticsoft_Partner_Trait_PostMeta {
 
     update_post_meta(
       $post_id, 
-      'poeticsoft_partner_postmeta_publishable', 
+      'poeticsoft_partner_campaign_meta_publishable', 
       $value
    );
 
     wp_send_json_success();
   }
 
-  public function poeticsoft_partner_postmeta_publishable_quick_edit(
+  public function poeticsoft_partner_campaign_meta_publishable_quick_edit(
     $column_name, 
     $post_type
   ) {
 
-    if ($column_name == 'poeticsoft_partner_postmeta_publishable') {
+    if ($column_name == 'poeticsoft_partner_campaign_meta_publishable') {
 
       echo '<fieldset class="inline-edit-col-right">
         <div class="inline-edit-col">
-          <label class="poeticsoft_partner_postmeta_publishable_inline-edit">
+          <label class="poeticsoft_partner_campaign_meta_publishable_inline-edit">
             <input 
               type="checkbox" 
-              name="poeticsoft_partner_postmeta_publishable" 
+              name="poeticsoft_partner_campaign_meta_publishable" 
               value="1" 
             />
             <span class="checkbox-title">
-              Publicable en redes
+              Campaña activa
             </span>
           </label>
         </div>
@@ -256,7 +237,7 @@ trait Poeticsoft_Partner_Trait_PostMeta {
     }
   }
 
-  public function poeticsoft_partner_postmeta_publishable_quickeditscript() {
+  public function poeticsoft_partner_campaign_meta_publishable_quickeditscript() {
 
     ?>
     <script type="text/javascript">
@@ -275,11 +256,11 @@ trait Poeticsoft_Partner_Trait_PostMeta {
             .replace('post-', '');
 
             var flag = $('#post-' + post_id)
-            .find('.poeticsoft_partner_postmeta_publishable_toggle')
+            .find('.poeticsoft_partner_campaign_meta_publishable_toggle')
             .is(':checked') ? '1' : '0';
 
             $('.inline-edit-row')
-            .find('input[name="poeticsoft_partner_postmeta_publishable"]')
+            .find('input[name="poeticsoft_partner_campaign_meta_publishable"]')
             .prop('checked', (flag === '1'));
         });
 
@@ -297,7 +278,7 @@ trait Poeticsoft_Partner_Trait_PostMeta {
               post_ids.push($(this).val());
             });
 
-            var flag_value = $('.inline-edit-row input[name="poeticsoft_partner_postmeta_publishable"]')
+            var flag_value = $('.inline-edit-row input[name="poeticsoft_partner_campaign_meta_publishable"]')
             .is(':checked') ? '1' : '0';
 
             $.ajax({
@@ -316,18 +297,18 @@ trait Poeticsoft_Partner_Trait_PostMeta {
     <?php
   }
 
-  public function poeticsoft_partner_postmeta_publishable_quickeditsave($post_id) {
+  public function poeticsoft_partner_campaign_meta_publishable_quickeditsave($post_id) {
 
     if (!current_user_can('edit_post', $post_id)) {
 
       return;
     }
 
-    if (isset($_POST['poeticsoft_partner_postmeta_publishable'])) {
+    if (isset($_POST['poeticsoft_partner_campaign_meta_publishable'])) {
 
       update_post_meta(
         $post_id, 
-        'poeticsoft_partner_postmeta_publishable', 
+        'poeticsoft_partner_campaign_meta_publishable', 
         '1'
       );
 
@@ -335,27 +316,27 @@ trait Poeticsoft_Partner_Trait_PostMeta {
 
       update_post_meta(
         $post_id, 
-        'poeticsoft_partner_postmeta_publishable', 
+        'poeticsoft_partner_campaign_meta_publishable', 
         '0'
       );
     }
   }
 
-  public function poeticsoft_partner_postmeta_publishable_bulkedit(
+  public function poeticsoft_partner_campaign_meta_publishable_bulkedit(
     $column_name, 
     $post_type
   ) {
 
-    if ($column_name == 'poeticsoft_partner_postmeta_publishable') {
+    if ($column_name == 'poeticsoft_partner_campaign_meta_publishable') {
 
       echo '<fieldset class="inline-edit-col-right">
         <div class="inline-edit-col">
-          <label class="inline-edit-poeticsoft_partner_postmeta_publishable">
+          <label class="inline-edit-poeticsoft_partner_campaign_meta_publishable">
             <span class="checkbox-title">
-              Publicar en redes
+              Campaña activa
             </span>
             <select
-              name="poeticsoft_partner_postmeta_publishable"
+              name="poeticsoft_partner_campaign_meta_publishable"
             >
               <option value="nocambiar">-- Sin cambios --</option>
               <option value="activar">Si</option>
@@ -367,7 +348,7 @@ trait Poeticsoft_Partner_Trait_PostMeta {
     }
   }
 
-  public function poeticsoft_partner_postmeta_publishable_savebulkedit($data) {
+  public function poeticsoft_partner_campaign_meta_publishable_savebulkedit($data) {
 
     if (
       !isset($_REQUEST['bulk_edit']) 
@@ -381,7 +362,7 @@ trait Poeticsoft_Partner_Trait_PostMeta {
     }
 
     if (
-      isset($_REQUEST['poeticsoft_partner_postmeta_publishable'])
+      isset($_REQUEST['poeticsoft_partner_campaign_meta_publishable'])
       &&
       isset($_REQUEST['post'])
       &&
@@ -392,19 +373,19 @@ trait Poeticsoft_Partner_Trait_PostMeta {
 
       foreach($_REQUEST['post'] as $post_id) {
 
-        if('activar' == $_REQUEST['poeticsoft_partner_postmeta_publishable']) {
+        if('activar' == $_REQUEST['poeticsoft_partner_campaign_meta_publishable']) {
 
           update_post_meta(
             $post_id, 
-            'poeticsoft_partner_postmeta_publishable', 
+            'poeticsoft_partner_campaign_meta_publishable', 
             '1'
           );
 
-        } else if ('desactivar' == $_REQUEST['poeticsoft_partner_postmeta_publishable']) {
+        } else if ('desactivar' == $_REQUEST['poeticsoft_partner_campaign_meta_publishable']) {
 
           update_post_meta(
             $post_id, 
-            'poeticsoft_partner_postmeta_publishable', 
+            'poeticsoft_partner_campaign_meta_publishable', 
             '0'
           );
         }
