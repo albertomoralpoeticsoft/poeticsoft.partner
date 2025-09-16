@@ -33,6 +33,17 @@ module.exports = env => {
   switch (type) {
 
     case 'admin':
+      
+      paths.output = destdir  + '/ui/' + type
+
+      entry = {
+        main: './src/' + type + '/main.js'
+      }
+
+      externals = wpexternals
+
+      break
+
     case 'jitsi':
       
       paths.output = destdir  + '/ui/' + type

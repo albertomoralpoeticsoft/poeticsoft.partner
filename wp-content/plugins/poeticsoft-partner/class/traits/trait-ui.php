@@ -13,8 +13,10 @@ trait Poeticsoft_Partner_Trait_UI {
     wp_enqueue_script(
       'poeticsoft-partner-admin-script',
       self::$url . $mainjs ,
-      [        
-        'jquery'
+      [    
+        'jquery',
+        'wp-util',
+        'wp-api-fetch'
       ],
       filemtime(self::$dir . $mainjs),
       true
@@ -28,6 +30,14 @@ trait Poeticsoft_Partner_Trait_UI {
         
       ],
       filemtime(self::$dir . $maincss),
+    );
+
+    wp_localize_script(
+      'poeticsoft-partner-admin-script',
+      'poeticsoft_media_campaigns',
+      [
+        'nonce' => wp_create_nonce('media_campaigns_nonce'),
+      ]
     );
   }  
 

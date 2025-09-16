@@ -20,28 +20,28 @@ trait Poeticsoft_Partner_Trait_Campaign {
           'labels' => array(
             'name' => __('Campaigns'),
             'singular_name' => __('Campaign')
-          ),
+         ),
           'supports' => array(
             'title',
             'editor',
             'thumbnail',
             'revisions',
             'excerpt',
-          ),
+         ),
           'template' => array(
             array('poeticsoft/campaignmedia', array()),
             // array('poeticsoft/campaigncompose', array()),
             // array('poeticsoft/campaigntext', array()),
             // array('poeticsoft/campaignprogram', array())
-          ),
+         ),
           'template_lock' => 'all',
           'show_in_rest' => true
-        );
+       );
 
         register_post_type(
           'campaign',
           $args
-        );
+       );
 
         register_taxonomy(
           'campaignterm', 
@@ -59,7 +59,7 @@ trait Poeticsoft_Partner_Trait_Campaign {
             'update_item'      => __('Update category'),
             'add_new_item'     => __('Add new category'),
             'new_item_name'    => __('New category name')
-          ),
+         ),
           'public'             => true,
           'show_ui'            => true,
           'show_in_menu'       => true,
@@ -68,7 +68,7 @@ trait Poeticsoft_Partner_Trait_Campaign {
           'show_in_quick_edit' => true,
           'query_var'          => true,
           'rewrite'            => array('slug' => 'campaignterm'),
-        ));
+       ));
       }, 
       30
     );
@@ -83,7 +83,7 @@ trait Poeticsoft_Partner_Trait_Campaign {
           __('Campaign categories'), 
           'manage_categories', 
           'edit-tags.php?taxonomy=campaignterm&post_type=campaign'
-        ); 
+       ); 
       } 
     ); 
 
@@ -97,7 +97,7 @@ trait Poeticsoft_Partner_Trait_Campaign {
           $current_screen->taxonomy === 'campaignterm' 
           && 
           $current_screen->post_type === 'campaign'
-        ) {
+       ) {
 
           $parent_file = 'poeticsoft-partner';
         }
@@ -116,7 +116,7 @@ trait Poeticsoft_Partner_Trait_Campaign {
           $current_screen->taxonomy === 'campaignterm' 
           && 
           $current_screen->post_type === 'campaign'
-        ) {
+       ) {
             
           $submenu_file = 'edit-tags.php?taxonomy=campaignterm&post_type=campaign';
         }
@@ -133,7 +133,7 @@ trait Poeticsoft_Partner_Trait_Campaign {
 
           $taxonomyslug = 'campaignterm';
           $taxonomy = get_taxonomy($taxonomyslug);
-          $selected = isset( $_REQUEST[$taxonomyslug] ) ? $_REQUEST[$taxonomyslug] : '';
+          $selected = isset($_REQUEST[$taxonomyslug]) ? $_REQUEST[$taxonomyslug] : '';
           
           wp_dropdown_categories(array(
             'show_option_all' =>  $taxonomy->labels->all_items,
@@ -146,7 +146,7 @@ trait Poeticsoft_Partner_Trait_Campaign {
             'depth'           =>  5,
             'show_count'      =>  true,
             'hide_empty'      =>  false
-          ));
+         ));
         }
       }
     );
