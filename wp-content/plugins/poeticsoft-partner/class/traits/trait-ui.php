@@ -34,9 +34,17 @@ trait Poeticsoft_Partner_Trait_UI {
 
     wp_localize_script(
       'poeticsoft-partner-admin-script',
-      'poeticsoft_media_campaigns',
+      'poeticsoft_partner_media_campaigns',
       [
         'nonce' => wp_create_nonce('media_campaigns_nonce'),
+      ]
+    );
+
+    wp_localize_script(
+      'poeticsoft-partner-admin-script',
+      'poeticsoft_partner_admin_data',
+      [
+        'manager_api_url' => get_option('poeticsoft_partner_settings_manager_api_url', ''),
       ]
     );
   }  

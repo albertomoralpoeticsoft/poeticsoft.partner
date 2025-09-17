@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Poetic Soft Partner
  * Description: Herramientas que facilitan la vida digital
- * Version: 0.0.11
+ * Version: 0.0.12
  * Author: Alberto Moral / poeticsoft.com
  * License: GPL2
  * Text Domain: poeticsoft

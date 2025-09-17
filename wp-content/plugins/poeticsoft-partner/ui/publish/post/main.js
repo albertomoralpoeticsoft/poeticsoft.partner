@@ -7140,750 +7140,10 @@ module.exports = set;
 
 /***/ }),
 
-/***/ "./src/ui/comps/app.js":
-/*!*****************************!*\
-  !*** ./src/ui/comps/app.js ***!
-  \*****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./state */ "./src/ui/comps/state.js");
-/* harmony import */ var _contents__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./contents */ "./src/ui/comps/contents.js");
-/* harmony import */ var _groups__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./groups */ "./src/ui/comps/groups.js");
-/* harmony import */ var _program__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./program */ "./src/ui/comps/program.js");
-function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
-function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
-function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
-var useEffect = wp.element.useEffect;
-var TabPanel = wp.components.TabPanel;
-
-
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
-  var _State = (0,_state__WEBPACK_IMPORTED_MODULE_0__["default"])(),
-    _State2 = _slicedToArray(_State, 2),
-    state = _State2[0],
-    dispatch = _State2[1];
-  useEffect(function () {
-    fetch('https://poeticsoft.com/wp-json/poeticsoft/manager/partner/data').then(function (result) {
-      return result.json().then(function (partnerdata) {
-        dispatch(partnerdata);
-      });
-    });
-    fetch('/wp-json/poeticsoft/partner/post/list').then(function (result) {
-      return result.json().then(function (postlist) {
-        dispatch({
-          type: 'POST_LIST_CLASSIFY',
-          payload: postlist
-        });
-      });
-    });
-  }, []);
-  return /*#__PURE__*/React.createElement(TabPanel, {
-    className: "PoeticsoftPartnersTools",
-    activeClass: "Active",
-    initialTabName: "contents",
-    tabs: [{
-      name: 'contents',
-      title: 'Contenido'
-    }, {
-      name: 'groups',
-      title: 'Grupos'
-    }, {
-      name: 'programacion',
-      title: 'Programación'
-    }]
-  }, function (tab) {
-    return /*#__PURE__*/React.createElement(React.Fragment, null, tab.name == 'contents' && /*#__PURE__*/React.createElement(_contents__WEBPACK_IMPORTED_MODULE_1__["default"], {
-      state: state,
-      dispatch: dispatch
-    }), tab.name == 'groups' && /*#__PURE__*/React.createElement(_groups__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      state: state,
-      dispatch: dispatch
-    }), tab.name == 'programacion' && /*#__PURE__*/React.createElement(_program__WEBPACK_IMPORTED_MODULE_3__["default"], {
-      state: state,
-      dispatch: dispatch
-    }));
-  });
-});
-
-/***/ }),
-
-/***/ "./src/ui/comps/contents.js":
-/*!**********************************!*\
-  !*** ./src/ui/comps/contents.js ***!
-  \**********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var assets_images_noimage_png__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! assets/images/noimage.png */ "./wp-content/plugins/poeticsoft-partner/assets/images/noimage.png");
-function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
-function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
-function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
-function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
-var _wp$element = wp.element,
-  useState = _wp$element.useState,
-  useEffect = _wp$element.useEffect;
-var _wp$components = wp.components,
-  Panel = _wp$components.Panel,
-  TabPanel = _wp$components.TabPanel,
-  PanelBody = _wp$components.PanelBody,
-  Card = _wp$components.Card,
-  CardHeader = _wp$components.CardHeader,
-  CardBody = _wp$components.CardBody,
-  CardDivider = _wp$components.CardDivider,
-  CardFooter = _wp$components.CardFooter,
-  CardMedia = _wp$components.CardMedia,
-  Tooltip = _wp$components.Tooltip,
-  SelectControl = _wp$components.SelectControl,
-  FormTokenField = _wp$components.FormTokenField;
-var poststype = {
-  post: 'Posts',
-  attachment: 'Media',
-  page: 'Pages'
-};
-
-var Content = function Content(props) {
-  var _useState = useState([]),
-    _useState2 = _slicedToArray(_useState, 2),
-    groups = _useState2[0],
-    setGroups = _useState2[1];
-  var showContent = function showContent() {
-    console.log(props);
-  };
-  var addTokens = function addTokens(tokens) {
-    setGroups(tokens);
-  };
-  return /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement(CardHeader, {
-    onClick: showContent
-  }, /*#__PURE__*/React.createElement(Tooltip, {
-    text: props.post_title
-  }, /*#__PURE__*/React.createElement("span", null, props.post_title))), /*#__PURE__*/React.createElement(CardMedia, null, (props.post_type == 'post' || props.post_type == 'page') && props.image ? /*#__PURE__*/React.createElement("img", {
-    src: props.image
-  }) : /*#__PURE__*/React.createElement("img", {
-    src: assets_images_noimage_png__WEBPACK_IMPORTED_MODULE_0__
-  })), /*#__PURE__*/React.createElement(CardFooter, null, /*#__PURE__*/React.createElement(FormTokenField, {
-    className: "Grupos",
-    value: groups,
-    suggestions: props.state.groups.map(function (g) {
-      return g.label;
-    }),
-    onChange: addTokens,
-    placeholder: "A\xF1ade a grupos",
-    __experimentalShowHowTo: false
-  })));
-};
-var Contents = function Contents(props) {
-  return /*#__PURE__*/React.createElement(Panel, {
-    className: "Contents"
-  }, /*#__PURE__*/React.createElement(PanelBody, null, Object.keys(props.state.posts[props.type]).map(function (key) {
-    return /*#__PURE__*/React.createElement(Content, _extends({}, props.state.posts[props.type][key], {
-      state: props.state,
-      dispatch: props.dispatch
-    }));
-  })));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
-  return /*#__PURE__*/React.createElement(Panel, null, /*#__PURE__*/React.createElement(PanelBody, null, /*#__PURE__*/React.createElement(TabPanel, {
-    className: "PoeticsoftPartnersTools",
-    activeClass: "Active",
-    initialTabName: Object.keys(props.state.posts)[0],
-    tabs: Object.keys(props.state.posts).map(function (key) {
-      return {
-        name: key,
-        title: poststype[key]
-      };
-    })
-  }, function (tab) {
-    return /*#__PURE__*/React.createElement(React.Fragment, null, Object.keys(props.state.posts).map(function (key) {
-      return /*#__PURE__*/React.createElement(React.Fragment, null, tab.name == key && /*#__PURE__*/React.createElement(Contents, {
-        type: key,
-        state: props.state,
-        dispatch: props.dispatch
-      }));
-    }));
-  })));
-});
-
-/***/ }),
-
-/***/ "./src/ui/comps/groups.js":
-/*!********************************!*\
-  !*** ./src/ui/comps/groups.js ***!
-  \********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-var _wp$components = wp.components,
-  Panel = _wp$components.Panel,
-  PanelBody = _wp$components.PanelBody;
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
-  return /*#__PURE__*/React.createElement(Panel, null, /*#__PURE__*/React.createElement(PanelBody, null, "Groups"));
-});
-
-/***/ }),
-
-/***/ "./src/ui/comps/program.js":
-/*!*********************************!*\
-  !*** ./src/ui/comps/program.js ***!
-  \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _program_publishnow__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./program/publishnow */ "./src/ui/comps/program/publishnow.js");
-/* harmony import */ var _program_publishrules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./program/publishrules */ "./src/ui/comps/program/publishrules.js");
-var _wp$components = wp.components,
-  Panel = _wp$components.Panel,
-  PanelBody = _wp$components.PanelBody;
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
-  return /*#__PURE__*/React.createElement(Panel, null, /*#__PURE__*/React.createElement(PanelBody, null, /*#__PURE__*/React.createElement(_program_publishnow__WEBPACK_IMPORTED_MODULE_0__["default"], {
-    state: props.state,
-    dispatch: props.dispatch
-  }), /*#__PURE__*/React.createElement(_program_publishrules__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    state: props.state,
-    dispatch: props.dispatch
-  })));
-});
-
-/***/ }),
-
-/***/ "./src/ui/comps/program/publishnow.js":
-/*!********************************************!*\
-  !*** ./src/ui/comps/program/publishnow.js ***!
-  \********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-var _wp$components = wp.components,
-  Button = _wp$components.Button,
-  SelectControl = _wp$components.SelectControl;
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
-  var publish = function publish() {
-    props.dispatch({
-      publishing: true,
-      message: 'publicando...'
-    });
-    var what = props.state.publishnowwhat;
-    var where = props.state.publishnowwhere.join(',');
-    var url = '/wp-json/poeticsoft/telegram/publishwp?' + "what=".concat(what, "&") + "where=".concat(where, "&") + "postid=".concat(postId);
-    fetch(url).then(function (result) {
-      return result.json().then(function (published) {
-        if (published.ok) {
-          props.dispatch({
-            publishing: false,
-            message: ''
-          });
-        } else {
-          props.dispatch({
-            publishing: false,
-            message: 'Error: ' + published.description
-          });
-          setTimeout(function () {
-            props.dispatch({
-              message: ''
-            });
-          }, 2000);
-        }
-      });
-    });
-  };
-  return /*#__PURE__*/React.createElement("div", {
-    className: "PublishNow"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "Title"
-  }, "Publicar ahora"), /*#__PURE__*/React.createElement(SelectControl, {
-    className: "WhatPublish",
-    label: "Que quieres publicar",
-    value: props.state.publishnowwhat,
-    options: props.state.publishwhat,
-    onChange: function onChange(value) {
-      return props.dispatch({
-        type: 'PUBLISH_RULES_UPDATE_PUBLISHNOWWHAT',
-        payload: value
-      });
-    }
-  }), /*#__PURE__*/React.createElement(SelectControl, {
-    className: "WherePublish",
-    label: "D\xF3nde publicarlo",
-    value: props.state.publishnowwhere,
-    options: props.state.userdestinations,
-    multiple: true,
-    onChange: function onChange(values) {
-      return props.dispatch({
-        type: 'PUBLISH_RULES_UPDATE_PUBLISHNOWWHERE',
-        payload: values
-      });
-    }
-  }), /*#__PURE__*/React.createElement(Button, {
-    variant: "primary",
-    disabled: !props.state.publishnowwhat.length || !props.state.publishnowwhere.length || props.state.publishing,
-    onClick: publish
-  }, "Publicar ahora"), /*#__PURE__*/React.createElement("div", {
-    className: "Message"
-  }, props.state.message != '' && props.state.message));
-});
-
-/***/ }),
-
-/***/ "./src/ui/comps/program/publishrule.js":
-/*!*********************************************!*\
-  !*** ./src/ui/comps/program/publishrule.js ***!
-  \*********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
-function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
-function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
-var _wp$components = wp.components,
-  SelectControl = _wp$components.SelectControl,
-  CheckboxControl = _wp$components.CheckboxControl,
-  Button = _wp$components.Button,
-  TextControl = _wp$components.TextControl,
-  DateTimePicker = _wp$components.DateTimePicker,
-  Popover = _wp$components.Popover;
-var useState = wp.element.useState;
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
-  var _useState = useState(false),
-    _useState2 = _slicedToArray(_useState, 2),
-    dateFromVisible = _useState2[0],
-    setDateFromVisible = _useState2[1];
-  var _useState3 = useState(false),
-    _useState4 = _slicedToArray(_useState3, 2),
-    dateToVisible = _useState4[0],
-    setDateToVisible = _useState4[1];
-  var hours = [];
-  for (var h = 0; h < 24; h++) {
-    hours.push({
-      value: h,
-      label: (h + '').padStart(2, '0')
-    });
-  }
-  var mins = [];
-  for (var m = 0; m < 12; m++) {
-    mins.push({
-      value: m,
-      label: (m + '').padStart(2, '0')
-    });
-  }
-  return /*#__PURE__*/React.createElement("div", {
-    className: "Rule"
-  }, /*#__PURE__*/React.createElement(CheckboxControl, {
-    className: "RuleActive",
-    label: "Activa",
-    checked: props.state.publishRules[props.state.selectedRuleIndex].active,
-    onChange: function onChange(value) {
-      return props.dispatch({
-        type: 'PUBLISH_RULES_UPDATE_ACTIVE',
-        payload: value
-      });
-    }
-  }), /*#__PURE__*/React.createElement(TextControl, {
-    label: "T\xEDtulo",
-    placeholder: "T\xEDtulo de la regla",
-    value: props.state.publishRules[props.state.selectedRuleIndex].title,
-    onChange: function onChange(value) {
-      return props.dispatch({
-        type: 'PUBLISH_RULES_UPDATE_TITLE',
-        payload: value
-      });
-    }
-  }), /*#__PURE__*/React.createElement(SelectControl, {
-    label: "Que publicar",
-    value: props.state.publishRules[props.state.selectedRuleIndex].what,
-    options: props.state.publishwhat,
-    onChange: function onChange(value) {
-      return props.dispatch({
-        type: 'PUBLISH_RULES_UPDATE_WHAT',
-        payload: value
-      });
-    }
-  }), /*#__PURE__*/React.createElement(SelectControl, {
-    label: "Publicar en",
-    value: props.state.publishRules[props.state.selectedRuleIndex].where,
-    options: props.state.userdestinations,
-    multiple: true,
-    onChange: function onChange(values) {
-      return props.dispatch({
-        type: 'PUBLISH_RULES_UPDATE_WHERE',
-        payload: values
-      });
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    className: "DateFrom"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "Date"
-  }, /*#__PURE__*/React.createElement("label", {
-    "class": "components-base-control__label"
-  }, "Desde"), /*#__PURE__*/React.createElement(Button, {
-    variant: "secondary",
-    onClick: function onClick() {
-      setDateToVisible(false);
-      setDateFromVisible(!dateFromVisible);
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "DateDate"
-  }, "El ", moment(props.state.publishRules[props.state.selectedRuleIndex].whenfrom).format('DD[ de ]MMMM[ de ]YYYY')), /*#__PURE__*/React.createElement("span", {
-    className: "DateHour"
-  }, "A las ", moment(props.state.publishRules[props.state.selectedRuleIndex].whenfrom).format('HH:mm:ss')))), dateFromVisible && /*#__PURE__*/React.createElement(Popover, {
-    className: "PopOverDateFrom",
-    position: "bottom center"
-  }, /*#__PURE__*/React.createElement(DateTimePicker, {
-    currentDate: props.state.publishRules[props.state.selectedRuleIndex].whenfrom,
-    onChange: function onChange(value) {
-      return props.dispatch({
-        type: 'PUBLISH_RULES_UPDATE_WHENFROM',
-        payload: value
-      });
-    }
-  }))), /*#__PURE__*/React.createElement("div", {
-    className: "DateTo"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "Date"
-  }, /*#__PURE__*/React.createElement("label", {
-    "class": "components-base-control__label"
-  }, "Hasta"), /*#__PURE__*/React.createElement(Button, {
-    variant: "secondary",
-    onClick: function onClick() {
-      setDateFromVisible(false);
-      setDateToVisible(!dateToVisible);
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "DateDate"
-  }, "El ", moment(props.state.publishRules[props.state.selectedRuleIndex].whento).format('DD[ de ]MMMM[ de ]YYYY')), /*#__PURE__*/React.createElement("span", {
-    className: "DateHour"
-  }, "A las ", moment(props.state.publishRules[props.state.selectedRuleIndex].whento).format('HH:mm:ss A')))), dateToVisible && /*#__PURE__*/React.createElement(Popover, {
-    className: "PopOverDateTo",
-    position: "bottom center"
-  }, /*#__PURE__*/React.createElement(DateTimePicker, {
-    currentDate: props.state.publishRules[props.state.selectedRuleIndex].whento,
-    onChange: function onChange(value) {
-      return props.dispatch({
-        type: 'PUBLISH_RULES_UPDATE_WHENTO',
-        payload: value
-      });
-    }
-  }))), /*#__PURE__*/React.createElement(SelectControl, {
-    className: "WeekDay",
-    label: "Qu\xE9 d\xEDas",
-    value: props.state.publishRules[props.state.selectedRuleIndex].whenweekday,
-    options: props.state.publishweekdays,
-    multiple: true,
-    onChange: function onChange(values) {
-      return props.dispatch({
-        type: 'PUBLISH_RULES_UPDATE_WHENWEEKDAY',
-        payload: values
-      });
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    className: "HourMinute"
-  }, /*#__PURE__*/React.createElement(SelectControl, {
-    className: "Hour",
-    label: "Hora",
-    value: props.state.publishRules[props.state.selectedRuleIndex].whenhour,
-    options: hours,
-    onChange: function onChange(values) {
-      return props.dispatch({
-        type: 'PUBLISH_RULES_UPDATE_WHENHOUR',
-        payload: values
-      });
-    }
-  }), /*#__PURE__*/React.createElement(SelectControl, {
-    className: "Minute",
-    label: "Min",
-    value: props.state.publishRules[props.state.selectedRuleIndex].whenmin,
-    options: mins,
-    onChange: function onChange(values) {
-      return props.dispatch({
-        type: 'PUBLISH_RULES_UPDATE_WHENMIN',
-        payload: values
-      });
-    }
-  })));
-});
-
-/***/ }),
-
-/***/ "./src/ui/comps/program/publishrules.js":
-/*!**********************************************!*\
-  !*** ./src/ui/comps/program/publishrules.js ***!
-  \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _publishrule__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./publishrule */ "./src/ui/comps/program/publishrule.js");
-var _wp$components = wp.components,
-  SelectControl = _wp$components.SelectControl,
-  Button = _wp$components.Button,
-  CheckboxControl = _wp$components.CheckboxControl;
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
-  return /*#__PURE__*/React.createElement("div", {
-    className: "PublishRules"
-  }, /*#__PURE__*/React.createElement(CheckboxControl, {
-    label: "Programar publicaciones",
-    help: "Activar las reglas de publicaci\xF3n",
-    checked: true,
-    onChange: function onChange(value) {
-      return props.dispatch({
-        test: value
-      });
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    className: "Manage"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "Rules"
-  }, /*#__PURE__*/React.createElement(SelectControl, {
-    label: "Reglas de publicaci\xF3n",
-    className: "Selector",
-    placeholder: "titulo de la regla",
-    value: props.state.selectedRuleIndex,
-    options: [{
-      value: -1,
-      label: "\n                    ".concat(props.state.publishRules.length ? 'Selecciona una regla' : 'Crea una regla', "\n                  ")
-    }].concat(props.state.publishRules.map(function (r, index) {
-      return {
-        value: index,
-        label: r.title
-      };
-    })),
-    onChange: function onChange(value) {
-      return props.dispatch({
-        selectedRuleIndex: parseInt(value)
-      });
-    }
-  }), /*#__PURE__*/React.createElement(Button, {
-    variant: "primary",
-    onClick: function onClick() {
-      return props.dispatch({
-        type: 'PUBLISH_RULES_CREATE_RULE'
-      });
-    }
-  }, "+"), /*#__PURE__*/React.createElement(Button, {
-    variant: "primary",
-    disabled: props.state.selectedRuleIndex == -1,
-    onClick: function onClick() {
-      return props.dispatch({
-        type: 'PUBLISH_RULES_DELETE_RULE'
-      });
-    }
-  }, "x")), props.state.selectedRuleIndex >= 0 && /*#__PURE__*/React.createElement(_publishrule__WEBPACK_IMPORTED_MODULE_0__["default"], {
-    state: props.state,
-    dispatch: props.dispatch
-  })));
-});
-
-/***/ }),
-
-/***/ "./src/ui/comps/state.js":
-/*!*******************************!*\
-  !*** ./src/ui/comps/state.js ***!
-  \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var immutable_update__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! immutable-update */ "./node_modules/immutable-update/dist-modules/index.js");
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-
-var useReducer = wp.element.useReducer;
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
-  var what = [{
-    label: 'Contenido de la entrada',
-    value: 'content',
-    "default": true
-  }, {
-    label: 'Imagen destacada con excerpt',
-    value: 'imageexcerpt'
-  }];
-  var whatdefault = what.find(function (w) {
-    return w["default"];
-  });
-  var groups = [{
-    label: 'Grupo 1',
-    value: 'group1'
-  }, {
-    label: 'Grupo 2',
-    value: 'group2'
-  }, {
-    label: 'Grupo 3',
-    value: 'group3'
-  }];
-  var weekday = ['todos', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'];
-  var weekdays = [];
-  for (var w = 0; w < 7; w++) {
-    weekdays.push({
-      value: w,
-      label: weekday[w],
-      "default": w == 0
-    });
-  }
-  var initialsetate = {
-    partnerid: '',
-    partnername: '',
-    userdestinations: [],
-    publishwhat: what,
-    publishweekdays: weekdays,
-    publishnowwhat: whatdefault.value,
-    publishnowwhere: [],
-    publishing: false,
-    message: '',
-    publishRules: [],
-    selectedRuleIndex: -1,
-    checkRulesModalVisible: false,
-    posts: {},
-    groups: groups
-  };
-  var updateRules = function updateRules(rules) {
-    console.log(rules);
-  };
-  return useReducer(function (state, action) {
-    var newState,
-      field,
-      actualRules = state.publishRules;
-    switch (action.type) {
-      case 'POST_LIST_CLASSIFY':
-        var postlist = action.payload.reduce(function (list, post) {
-          if (!list[post.post_type]) {
-            list[post.post_type] = {};
-          }
-          list[post.post_type][post.ID] = post;
-          return list;
-        }, {});
-        newState = (0,immutable_update__WEBPACK_IMPORTED_MODULE_0__["default"])(state, {
-          posts: postlist
-        }, ['posts']);
-        return newState;
-      case 'PUBLISH_RULES_LOAD':
-        var savedPublishRules = action.payload || '[]';
-        var rules = JSON.parse(savedPublishRules);
-        var selectedRuleIndex = rules.length ? 0 : -1;
-        newState = (0,immutable_update__WEBPACK_IMPORTED_MODULE_0__["default"])(state, {
-          publishRules: rules,
-          selectedRuleIndex: selectedRuleIndex
-        });
-        return newState;
-      case 'PUBLISH_RULES_CREATE_RULE':
-        var _what = state.publishwhat.find(function (w) {
-          return w["default"];
-        });
-        var where = state.userdestinations.find(function (w) {
-          return w["default"];
-        });
-        var from = new Date();
-        from.setSeconds(0);
-        var to = new Date(from);
-        to.setDate(from.getDate() + 1);
-        var whenweekday = state.publishweekdays.find(function (wd) {
-          return wd["default"];
-        });
-        var nowhour = '12';
-        var nowmin = '0';
-        actualRules.push({
-          active: true,
-          title: 'Título de la regla',
-          what: _what.value,
-          where: [where && where.value],
-          whenfrom: from,
-          whento: to,
-          whenweekday: [whenweekday.value],
-          whenhour: nowhour,
-          whenmin: nowmin
-        });
-        updateRules(actualRules);
-        newState = (0,immutable_update__WEBPACK_IMPORTED_MODULE_0__["default"])(state, {
-          publishRules: actualRules,
-          selectedRuleIndex: actualRules.length - 1
-        });
-        return newState;
-      case 'PUBLISH_RULES_UPDATE_PUBLISHNOWWHAT':
-      case 'PUBLISH_RULES_UPDATE_PUBLISHNOWWHERE':
-        field = action.type.replace('PUBLISH_RULES_UPDATE_', '').toLowerCase();
-        newState = (0,immutable_update__WEBPACK_IMPORTED_MODULE_0__["default"])(state, _defineProperty({}, field, action.payload), [field]);
-        return newState;
-      case 'PUBLISH_RULES_DELETE_RULE':
-        actualRules.splice(state.selectedRuleIndex, 1);
-        updateRules(actualRules);
-        newState = (0,immutable_update__WEBPACK_IMPORTED_MODULE_0__["default"])(state, {
-          publishRules: actualRules,
-          selectedRuleIndex: -1
-        });
-        return newState;
-      case 'PUBLISH_RULES_UPDATE_ACTIVE':
-      case 'PUBLISH_RULES_UPDATE_TITLE':
-      case 'PUBLISH_RULES_UPDATE_WHAT':
-      case 'PUBLISH_RULES_UPDATE_WHERE':
-      case 'PUBLISH_RULES_UPDATE_WHENFROM':
-      case 'PUBLISH_RULES_UPDATE_WHENTO':
-      case 'PUBLISH_RULES_UPDATE_WHENWEEKDAY':
-      case 'PUBLISH_RULES_UPDATE_WHENHOUR':
-      case 'PUBLISH_RULES_UPDATE_WHENMIN':
-        field = action.type.replace('PUBLISH_RULES_UPDATE_', '').toLowerCase();
-        actualRules[state.selectedRuleIndex][field] = action.payload;
-        updateRules(actualRules);
-        newState = (0,immutable_update__WEBPACK_IMPORTED_MODULE_0__["default"])(state, {
-          publishRules: actualRules
-        });
-        return newState;
-      default:
-        newState = (0,immutable_update__WEBPACK_IMPORTED_MODULE_0__["default"])(state, action);
-        return newState;
-    }
-  }, initialsetate);
-});
-
-/***/ }),
-
-/***/ "./src/ui/main.scss":
-/*!**************************!*\
-  !*** ./src/ui/main.scss ***!
-  \**************************/
+/***/ "./src/publish/post/main.scss":
+/*!************************************!*\
+  !*** ./src/publish/post/main.scss ***!
+  \************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -7893,14 +7153,165 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./wp-content/plugins/poeticsoft-partner/assets/images/noimage.png":
-/*!*************************************************************************!*\
-  !*** ./wp-content/plugins/poeticsoft-partner/assets/images/noimage.png ***!
-  \*************************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/***/ "./src/publish/post/publishnow.js":
+/*!****************************************!*\
+  !*** ./src/publish/post/publishnow.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-module.exports = __webpack_require__.p + "/assets/images/noimage.png";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+var _wp$components = wp.components,
+  Button = _wp$components.Button,
+  SelectControl = _wp$components.SelectControl,
+  CheckboxControl = _wp$components.CheckboxControl;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
+  var publish = function publish() {
+    props.dispatch({
+      publishing: true,
+      message: 'publicando...'
+    });
+    var url = "".concat(state.admindata.manager_api_url, "/partner/publish/post");
+    var body = {
+      userid: props.state.user.id,
+      what: props.state.publishnowwhat,
+      where: props.state.publishnowwhere,
+      excerpt: props.state.post.excerpt,
+      content: props.state.post.content,
+      image: props.state.postimage,
+      tags: props.state.posttags,
+      publishtags: props.state.publishtags
+    };
+    var config = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    };
+    fetch(url, config).then(function (result) {
+      return result // TODO manage error codes
+      .json().then(function (published) {
+        console.log(published);
+        if (published.ok) {
+          props.dispatch({
+            message: 'Publicado'
+          });
+          setTimeout(function () {
+            props.dispatch({
+              publishing: false,
+              message: ''
+            });
+          }, 2000);
+        } else {
+          props.dispatch({
+            message: 'Error: ' + published.description
+          });
+          setTimeout(function () {
+            props.dispatch({
+              publishing: false,
+              message: ''
+            });
+          }, 2000);
+        }
+      });
+    });
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    className: "PublishNow"
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    className: "WhatPublish",
+    label: "Que quieres publicar",
+    value: props.state.publishnowwhat,
+    options: props.state.publishwhat,
+    onChange: function onChange(value) {
+      return props.dispatch({
+        publishnowwhat: value
+      });
+    }
+  }), /*#__PURE__*/React.createElement(CheckboxControl, {
+    className: "PublishTags",
+    label: "Publicar con tags",
+    checked: props.state.publishtags,
+    onChange: function onChange(checked) {
+      return props.dispatch({
+        publishtags: checked
+      });
+    }
+  }), /*#__PURE__*/React.createElement(SelectControl, {
+    className: "WherePublish",
+    label: "D\xF3nde publicarlo",
+    value: props.state.publishnowwhere,
+    options: props.state.publishwhere,
+    multiple: true,
+    onChange: function onChange(values) {
+      return props.dispatch({
+        publishnowwhere: values
+      });
+    }
+  }), /*#__PURE__*/React.createElement(Button, {
+    variant: "primary",
+    disabled: props.state.postchanged || !props.state.publishnowwhere.length || props.state.publishing,
+    onClick: publish
+  }, props.state.postchanged ? 'Guardar antes de publicar' : 'Publicar ahora'), /*#__PURE__*/React.createElement("div", {
+    className: "Message"
+  }, props.state.message != '' && props.state.message));
+});
+
+/***/ }),
+
+/***/ "./src/publish/post/state.js":
+/*!***********************************!*\
+  !*** ./src/publish/post/state.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var immutable_update__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! immutable-update */ "./node_modules/immutable-update/dist-modules/index.js");
+
+var useReducer = wp.element.useReducer;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
+  var initialsetate = {
+    admindata: poeticsoft_partner_admin_data,
+    user: null,
+    post: null,
+    postchanged: false,
+    publishwhat: [],
+    publishnowwhat: null,
+    publishtags: false,
+    publishwhere: [],
+    publishnowwhere: [],
+    publishing: false,
+    message: ''
+  };
+  return useReducer(function (state, action) {
+    var newState;
+    switch (action.type) {
+      case 'PUBLISH_DATA_SET':
+        newState = (0,immutable_update__WEBPACK_IMPORTED_MODULE_0__["default"])(state, {
+          publishwhat: action.payload.postpublishwhat,
+          publishnowwhat: action.payload.postpublishwhat[0].value,
+          publishwhere: action.payload.destinations.map(function (d) {
+            return {
+              label: d,
+              value: d
+            };
+          })
+        });
+        return newState;
+      default:
+        newState = (0,immutable_update__WEBPACK_IMPORTED_MODULE_0__["default"])(state, action);
+        return newState;
+    }
+  }, initialsetate);
+});
 
 /***/ })
 
@@ -7995,30 +7406,101 @@ module.exports = __webpack_require__.p + "/assets/images/noimage.png";
 /******/ 		};
 /******/ 	})();
 /******/ 	
-/******/ 	/* webpack/runtime/publicPath */
-/******/ 	(() => {
-/******/ 		__webpack_require__.p = "/wp-content/plugins/poeticsoft-partner";
-/******/ 	})();
-/******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
 (() => {
 "use strict";
-/*!************************!*\
-  !*** ./src/ui/main.js ***!
-  \************************/
+/*!**********************************!*\
+  !*** ./src/publish/post/main.js ***!
+  \**********************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _comps_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./comps/app */ "./src/ui/comps/app.js");
-/* harmony import */ var _main_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./main.scss */ "./src/ui/main.scss");
-var createRoot = wp.element.createRoot;
+/* harmony import */ var _main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./main.scss */ "./src/publish/post/main.scss");
+/* harmony import */ var _publishnow__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./publishnow */ "./src/publish/post/publishnow.js");
+/* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./state */ "./src/publish/post/state.js");
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+var registerPlugin = wp.plugins.registerPlugin;
+var PluginDocumentSettingPanel = wp.editPost.PluginDocumentSettingPanel;
+var useRef = wp.element.useRef;
+var useSelect = wp.data.useSelect;
 
 
-window.PoeticsoftPartnerAdmin = function (id) {
-  var element = document.getElementById(id);
-  var root = createRoot(element);
-  root.render(/*#__PURE__*/React.createElement(_comps_app__WEBPACK_IMPORTED_MODULE_0__["default"], null));
+
+var PoeticsoftPartnerPublishPost = function PoeticsoftPartnerPublishPost() {
+  var post = wp.data.select('core/editor').getCurrentPost();
+  if (post.type !== 'post') {
+    return null;
+  }
+  var userRef = useRef(null);
+  var _State = (0,_state__WEBPACK_IMPORTED_MODULE_2__["default"])(),
+    _State2 = _slicedToArray(_State, 2),
+    state = _State2[0],
+    dispatch = _State2[1];
+  window.state = state;
+  var init = function init(user) {
+    fetch("".concat(state.admindata.manager_api_url, "/partner/data/").concat(user.id)).then(function (result) {
+      return result.json().then(function (data) {
+        dispatch({
+          type: 'PUBLISH_DATA_SET',
+          payload: data
+        });
+      });
+    });
+  };
+  useSelect(function (select) {
+    var _select = select('core/editor'),
+      getEditedPostAttribute = _select.getEditedPostAttribute,
+      getCurrentPost = _select.getCurrentPost,
+      isEditedPostDirty = _select.isEditedPostDirty;
+    var _select2 = select('core'),
+      getCurrentUser = _select2.getCurrentUser,
+      getMedia = _select2.getMedia,
+      getEntityRecord = _select2.getEntityRecord;
+    var user = getCurrentUser();
+    var mediaId = getEditedPostAttribute('featured_media');
+    if (user.id && userRef.current == null) {
+      userRef.current = user;
+      dispatch({
+        user: user
+      });
+      init(user);
+    }
+    var featuredMediaUrl = null;
+    if (mediaId) {
+      var media = getMedia(mediaId);
+      featuredMediaUrl = (media === null || media === void 0 ? void 0 : media.source_url) || null;
+    }
+    var tagIds = getEditedPostAttribute('tags') || [];
+    var tagNames = tagIds.map(function (id) {
+      return getEntityRecord('taxonomy', 'post_tag', id);
+    }).filter(Boolean).map(function (tag) {
+      return tag.name;
+    });
+    dispatch({
+      post: getCurrentPost(),
+      postchanged: isEditedPostDirty(),
+      postimage: featuredMediaUrl,
+      posttags: tagNames
+    });
+  }, []);
+  return /*#__PURE__*/React.createElement(PluginDocumentSettingPanel, {
+    name: "poeticsoft-partner-publish-post",
+    title: "Publicar Post",
+    className: "PoeticsoftPartnerPublishPost"
+  }, /*#__PURE__*/React.createElement(_publishnow__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    state: state,
+    dispatch: dispatch
+  }));
 };
+registerPlugin('poeticsoft-partner-publish-post', {
+  render: PoeticsoftPartnerPublishPost,
+  icon: null
+});
 })();
 
 /******/ })()

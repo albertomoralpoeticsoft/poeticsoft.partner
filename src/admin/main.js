@@ -1,8 +1,6 @@
 import './main.scss'
 
 (function($) {
-
-  console.log('poeticsoft_partner_campaign_media_campaigns')
   
   $(document)
   .on(

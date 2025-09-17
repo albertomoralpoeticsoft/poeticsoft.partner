@@ -1,11 +1,20 @@
 <?php
-trait Poeticsoft_Partner_Trait_Jitsi_Setup {  
+trait Poeticsoft_Partner_Trait_Jitsi_Generalfields {  
 
-  public function register_jitsi_setup() {
+  public function register_jitsi_generalfields() {
 
     add_filter(
       'admin_init', 
       function () {
+
+        add_settings_section(
+          'poeticsoft_partner_settings_jitsi', 
+          '👩‍💻 Ajustes de conexión a Jitsi (Partner)',
+          function() {
+              echo '<p>Configura la conexión con el servicio de videoconferencias.</p>';
+          },
+          'general'
+        );
 
         $fields = [     
 
@@ -74,46 +83,11 @@ trait Poeticsoft_Partner_Trait_Jitsi_Setup {
                             value="' . $value . '" />';
               }
             },
-            'general'
+            'general',
+            'poeticsoft_partner_settings_jitsi'
           );  
         }  
       }
-    );
-
-    add_action( 
-      'wp_enqueue_scripts', 
-      function () {
-
-        wp_enqueue_script(
-          'poeticsoft-partner-jitsi-validate', 
-          self::$url . '/ui/jquery.validate.min.js',
-          [
-            'jquery',
-            'jquery-form'
-          ], 
-          filemtime(self::$dir . '/ui/jquery.validate.min.js'),
-          true
-        );
-
-        wp_enqueue_script(
-          'poeticsoft-partner-jitsi', 
-          self::$url . '/ui/jitsi/main.js',
-          [
-            'poeticsoft-partner-jitsi-validate'
-          ], 
-          filemtime(self::$dir . '/ui/jitsi/main.js'),
-          true
-        );
-
-        wp_enqueue_style( 
-          'poeticsoft-partner-jitsi',
-          self::$url . '/ui/jitsi/main.css', 
-          [], 
-          filemtime(self::$dir . '/ui/jitsi/main.css'),
-          'all' 
-        );
-      }, 
-      999 
     );
   }
 }

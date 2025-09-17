@@ -1,23 +1,17 @@
 {
-  "name": "Poeticsoft 2025 Plugin",
+  "name": "Poeticsoft Partner",
   "version": "0.0.0",
   "license": "GPL-2.0-or-later",
   "scripts": {
     "release": "node release.js",
     "admindev": "webpack --env=admin-dev",
     "adminprod": "webpack --env=admin-prod",
+    "publishpostdev": "webpack --env=publish-post-dev",
     "piecemediadev": "webpack --env=block-piecemedia-dev",
     "piecemediaprod": "webpack --env=block-piecemedia-prod",
-    "piececomposedev": "webpack --env=block-piececompose-dev",
-    "piececomposeprod": "webpack --env=block-piececompose-prod",
-    "piecetextdev": "webpack --env=block-piecetext-dev",
-    "piecetextprod": "webpack --env=block-piecetext-prod",
-    "pieceprogramdev": "webpack --env=block-pieceprogram-dev",
-    "pieceprogramprod": "webpack --env=block-pieceprogram-prod",
     "jitsidev": "webpack --env=jitsi-dev",
     "jitsiprod": "webpack --env=jitsi-prod",
-    "ui-dev": "webpack --env=ui-dev",
-    "sp-publish-dev": "webpack --env=settingspanel-publish-dev"
+    "ui-dev": "webpack --env=ui-dev"
   },
   "dependencies": {
     "@babel/core": "^7.18.10",
@@ -37,7 +31,6 @@
     "express": "^5.1.0",
     "file-loader": "^6.2.0",
     "immutable-update": "^1.0.0",
-    "lodash": "^4.17.21",
     "lucide-react": "^0.525.0",
     "mini-css-extract-plugin": "^2.6.1",
     "moment": "^2.30.1",

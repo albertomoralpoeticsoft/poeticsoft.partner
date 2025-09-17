@@ -63,7 +63,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./main.scss */ "./src/admin/main.scss");
 
 (function ($) {
-  console.log('poeticsoft_partner_campaign_media_campaigns');
   $(document).on('change', '.poeticsoft_partner_campaign_media_campaigns input.media_campaign_checkbox', function () {
     var $container = $(this).closest('.poeticsoft_partner_campaign_media_campaigns');
     var attachment_id = $container.data('attachment');
@@ -74,7 +73,7 @@ __webpack_require__.r(__webpack_exports__);
     console.log(attachment_id);
     console.log(campaigns);
     wp.ajax.post('update_media_campaigns', {
-      nonce: poeticsoft_media_campaigns.nonce,
+      nonce: poeticsoft_partner_media_campaigns.nonce,
       attachment_id: attachment_id,
       campaigns: campaigns
     });

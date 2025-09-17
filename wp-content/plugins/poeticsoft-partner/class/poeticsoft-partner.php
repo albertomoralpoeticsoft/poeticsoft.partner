@@ -1,34 +1,34 @@
 <?php
 
+require_once __DIR__ . '/traits/trait-generalfields.php';
 require_once __DIR__ . '/traits/trait-api.php';
 require_once __DIR__ . '/traits/trait-ui.php';
 require_once __DIR__ . '/traits/trait-campaign.php';
 require_once __DIR__ . '/traits/trait-campaign-list.php';
 require_once __DIR__ . '/traits/trait-campaign-media.php';
+require_once __DIR__ . '/traits/trait-publish.php';
 require_once __DIR__ . '/traits/trait-block.php';
 require_once __DIR__ . '/traits/trait-jitsi.php';
+require_once __DIR__ . '/traits/trait-jitsi-ui.php';
+require_once __DIR__ . '/traits/trait-jitsi-generalfields.php';
 require_once __DIR__ . '/traits/trait-jitsi-api.php';
-require_once __DIR__ . '/traits/trait-jitsi-setup.php';
 require_once __DIR__ . '/traits/trait-jitsi-shortcode.php';
-
-// require_once __DIR__ . '/traits/trait-settingspannel.php';
-// require_once __DIR__ . '/traits/trait-postmeta.php';
 
 class Poeticsoft_Partner {
 
+  use Poeticsoft_Partner_Trait_Generalfields;
   use Poeticsoft_Partner_Trait_API;
   use Poeticsoft_Partner_Trait_UI;
   use Poeticsoft_Partner_Trait_Campaign;
   use Poeticsoft_Partner_Trait_Campaign_List;
   use Poeticsoft_Partner_Trait_Campaign_Media;
+  use Poeticsoft_Partner_Trait_Publish;
   use Poeticsoft_Partner_Trait_Block;
   use Poeticsoft_Partner_Trait_Jitsi;
   use Poeticsoft_Partner_Trait_Jitsi_API;
-  use Poeticsoft_Partner_Trait_Jitsi_Setup;
+  use Poeticsoft_Partner_Trait_Jitsi_UI;
+  use Poeticsoft_Partner_Trait_Jitsi_Generalfields;
   use Poeticsoft_Partner_Trait_Jitsi_Shortcode;
-
-  // use Poeticsoft_Partner_Trait_SettingsPanel;
-  // use Poeticsoft_Partner_Trait_PostMeta;
 
   private static $instance = null;
   public static $dir;
@@ -50,25 +50,25 @@ class Poeticsoft_Partner {
 
     /* Conditional load of tools */
 
+    $this->register_generalfields();
     $this->register_ui();
     $this->register_api();
     $this->register_campaign();
     $this->register_campaign_list();
     $this->register_campaign_media();
+    $this->register_publish();
     $this->register_block();
     $this->register_jitsi();
     $this->register_jitsi_api();
-    $this->register_jitsi_setup();
+    $this->register_jitsi_ui();
+    $this->register_jitsi_generalfields();
     $this->register_jitsi_shortcode();
-    
-    // $this->register_settingspanel();
-    // $this->register_postmeta();
   }
 
   private function set_vars() {
 
     self::$dir = plugin_dir_path(dirname(__FILE__));
-    self::$url  = plugin_dir_url(dirname(__FILE__));
+    self::$url = plugin_dir_url(dirname(__FILE__));
   }
 
   public function log($display, $withdate = false) { 

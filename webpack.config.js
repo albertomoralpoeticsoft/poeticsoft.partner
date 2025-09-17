@@ -67,17 +67,12 @@ module.exports = env => {
 
       break
 
-    case 'settingspanel':
+    case 'publish':
       
-      paths.output = destdir  + '/' + type + '/' + name
+      paths.output = destdir  + '/ui/' + type + '/' + name
 
       entry = {
         main: './src/' + type + '/' + name + '/main.js'
-      }
-
-      if(name == 'telegram') {
-
-        entry.admin = './src/' + type + '/' + name + '/admin.js'
       }
 
       externals = wpexternals
